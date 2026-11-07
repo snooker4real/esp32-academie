@@ -1,0 +1,2185 @@
+[
+  {
+    "id": "veilleuse-auto",
+    "title": "Veilleuse qui s'adapte à la pièce",
+    "level": 1,
+    "hours": 2,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/veilleuse-auto.webp",
+    "requires": [
+      6,
+      11,
+      12
+    ],
+    "summary": "La veilleuse s'allume quand la pièce s'assombrit. Le potentiomètre règle la couleur, et la luminosité suit la lumière ambiante.",
+    "parts": [
+      "Module 8 LED RGB",
+      "Photorésistance",
+      "Potentiomètre",
+      "Résistance 10 kΩ"
+    ],
+    "steps": [
+      "Câbler la photorésistance avec sa résistance 10 kΩ en diviseur de tension sur une entrée ADC",
+      "Relever les valeurs en plein jour et dans le noir dans le moniteur série",
+      "Câbler le potentiomètre sur une seconde entrée ADC",
+      "Convertir la valeur du potentiomètre en teinte pour le module 8 LED RGB",
+      "Faire varier la luminosité en sens inverse de la lumière mesurée",
+      "Ajouter un seuil avec marge pour éviter le scintillement entre allumé et éteint"
+    ],
+    "stretch": "Faire un lever de soleil progressif de 10 minutes à une heure choisie."
+  },
+  {
+    "id": "thermometre-4-digits",
+    "title": "Thermomètre sur afficheur 4 chiffres",
+    "level": 1,
+    "hours": 2,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/thermometre-4-digits.webp",
+    "requires": [
+      13,
+      15,
+      16
+    ],
+    "summary": "L'afficheur 4 chiffres montre la température de la pièce, mise à jour chaque seconde.",
+    "parts": [
+      "Thermistance",
+      "Afficheur 7 segments 4 chiffres",
+      "74HC595",
+      "Résistance 10 kΩ"
+    ],
+    "steps": [
+      "Câbler la thermistance avec sa résistance 10 kΩ en diviseur de tension",
+      "Reprendre la formule de conversion en degrés du chapitre 13",
+      "Câbler l'afficheur 4 chiffres avec le 74HC595 comme au chapitre 16",
+      "Afficher la température avec une décimale",
+      "Lisser la mesure avec la moyenne de dix lectures pour stabiliser l'affichage",
+      "Comparer avec un thermomètre de référence et corriger l'écart"
+    ],
+    "stretch": "Alterner température et heure de l'ordinateur via le moniteur série."
+  },
+  {
+    "id": "de-electronique",
+    "title": "Dé électronique à secouer",
+    "level": 1,
+    "hours": 2,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/de-electronique.webp",
+    "requires": [
+      2,
+      15,
+      16
+    ],
+    "summary": "On secoue la boîte et un chiffre de 1 à 6 s'affiche sur l'afficheur 7 segments. Un bouton relance le tirage si le capteur ne réagit pas.",
+    "parts": [
+      "Capteur de vibration",
+      "Afficheur 7 segments",
+      "74HC595",
+      "Bouton poussoir"
+    ],
+    "steps": [
+      "Câbler le capteur de vibration comme un bouton sur une entrée numérique",
+      "Câbler l'afficheur 7 segments avec le 74HC595",
+      "Détecter une secousse avec un anti-rebond pour ne compter qu'un tirage",
+      "Faire défiler des chiffres pendant une seconde pour l'effet de suspense",
+      "Tirer le résultat final avec un nombre aléatoire de 1 à 6 et l'afficher",
+      "Ajouter le bouton poussoir comme secours pour relancer le tirage"
+    ],
+    "stretch": "Compter les tirages de chaque face pendant 100 lancers et afficher la face la plus fréquente."
+  },
+  {
+    "id": "sonnette-melodies",
+    "title": "Sonnette à mélodies",
+    "level": 1,
+    "hours": 2,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/sonnette-melodies.webp",
+    "requires": [
+      2,
+      3,
+      7
+    ],
+    "summary": "Chaque bouton joue sa propre mélodie sur le buzzer passif, pendant que la barre de LED suit le rythme.",
+    "parts": [
+      "Buzzer passif",
+      "Boutons poussoirs",
+      "Barre de LED",
+      "Résistances 220 Ω"
+    ],
+    "steps": [
+      "Câbler le buzzer passif sur une sortie PWM",
+      "Câbler la barre de LED avec ses résistances 220 Ω",
+      "Câbler deux boutons poussoirs avec anti-rebond",
+      "Écrire une mélodie sous forme de tableau de notes et de durées",
+      "Allumer une LED de la barre à chaque note jouée",
+      "Rendre la lecture non bloquante avec millis pour pouvoir interrompre la mélodie"
+    ],
+    "stretch": "Ajouter un mode silencieux avec l'interrupteur à glissière qui remplace le son par un flash des LED."
+  },
+  {
+    "id": "station-meteo-lcd",
+    "title": "Station météo avec écran et page web",
+    "level": 2,
+    "hours": 5,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/station-meteo-lcd.webp",
+    "requires": [
+      20,
+      24,
+      32,
+      33
+    ],
+    "summary": "L'écran LCD affiche température et humidité en continu. La même page est consultable depuis le téléphone sur le Wi-Fi de la maison.",
+    "parts": [
+      "Capteur DHT11",
+      "Écran LCD1602 I2C",
+      "ESP32-WROVER"
+    ],
+    "steps": [
+      "Câbler le DHT11 et l'écran LCD1602 I2C comme aux chapitres 20 et 24",
+      "Afficher température et humidité sur les deux lignes de l'écran",
+      "Connecter l'ESP32 au Wi-Fi en mode station et afficher son adresse IP sur l'écran",
+      "Démarrer un serveur web qui renvoie une page avec les dernières mesures",
+      "Rafraîchir la page automatiquement toutes les 5 secondes",
+      "Gérer les lectures invalides du DHT11 en gardant la dernière bonne valeur"
+    ],
+    "stretch": "Mémoriser les 60 dernières mesures et dessiner la courbe sur la page web."
+  },
+  {
+    "id": "alarme-a-code",
+    "title": "Alarme à code",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/alarme-a-code.webp",
+    "requires": [
+      7,
+      20,
+      22
+    ],
+    "summary": "Un code à quatre chiffres arme et désarme l'alarme. Trois mauvais essais déclenchent le buzzer.",
+    "parts": [
+      "Clavier matriciel",
+      "Buzzer actif",
+      "Écran LCD1602 I2C",
+      "LED rouge et verte"
+    ],
+    "steps": [
+      "Câbler le clavier matriciel et lire les touches comme au chapitre 22",
+      "Afficher les chiffres saisis sous forme d'étoiles sur l'écran LCD",
+      "Comparer la saisie au code et allumer la LED verte ou rouge",
+      "Compter les erreurs et déclencher le buzzer actif au troisième essai",
+      "Verrouiller le clavier 30 secondes après une alarme, sans bloquer le programme",
+      "Prévoir un changement de code protégé par l'ancien code"
+    ],
+    "stretch": "Brancher le relais pour commander un petit moteur qui simule un verrou de porte."
+  },
+  {
+    "id": "radar-ultrason",
+    "title": "Radar à ultrason sur servo",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/radar-ultrason.webp",
+    "requires": [
+      18,
+      20,
+      21
+    ],
+    "summary": "Le capteur ultrason balaye la pièce monté sur le servo. L'écran donne la distance et l'angle de l'objet le plus proche.",
+    "parts": [
+      "Module ultrason",
+      "Servomoteur",
+      "Écran LCD1602 I2C",
+      "Support de capteur en carton ou fil"
+    ],
+    "steps": [
+      "Fixer le capteur ultrason sur le palonnier du servo",
+      "Faire balayer le servo de 0 à 180 degrés par pas de 5",
+      "Mesurer la distance à chaque pas, en moyennant trois mesures",
+      "Mémoriser la plus courte distance et son angle pendant un balayage",
+      "Afficher distance et angle sur l'écran à la fin de chaque balayage",
+      "Alimenter le servo séparément si l'ESP32 redémarre sous la charge"
+    ],
+    "stretch": "Envoyer les mesures par le port série et tracer le radar en temps réel sur le Mac avec un script Python."
+  },
+  {
+    "id": "niveau-a-bulle",
+    "title": "Niveau à bulle sur matrice LED",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/niveau-a-bulle.webp",
+    "requires": [
+      15,
+      16,
+      26
+    ],
+    "summary": "Un point lumineux se déplace sur la matrice 8 par 8 selon l'inclinaison de la planche, comme une bulle de niveau.",
+    "parts": [
+      "Accéléromètre MPU6050",
+      "Matrice LED 8x8",
+      "74HC595 (x2)",
+      "Résistances 220 Ω"
+    ],
+    "steps": [
+      "Câbler le MPU6050 en I2C et lire l'accélération sur les axes X et Y",
+      "Câbler la matrice LED avec les deux 74HC595 comme au chapitre 16",
+      "Calculer l'angle d'inclinaison à partir de l'accélération",
+      "Convertir l'angle en position du point sur la grille",
+      "Rafraîchir la matrice en continu pour que le point ne clignote pas",
+      "Calibrer le zéro sur une surface plane et le mémoriser au démarrage"
+    ],
+    "stretch": "Faire clignoter tout le cadre central quand la planche est parfaitement horizontale."
+  },
+  {
+    "id": "ventilateur-thermostat",
+    "title": "Ventilateur thermostat",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/ventilateur-thermostat.webp",
+    "requires": [
+      11,
+      17,
+      24
+    ],
+    "summary": "Le moteur tourne seulement quand il fait trop chaud, et plus vite à mesure que la température monte. Le potentiomètre règle la température de déclenchement.",
+    "parts": [
+      "Moteur DC",
+      "Circuit L293D",
+      "Capteur DHT11",
+      "Potentiomètre",
+      "Support de piles 2x AA"
+    ],
+    "steps": [
+      "Câbler le moteur sur le L293D avec une alimentation séparée de l'ESP32",
+      "Piloter la vitesse du moteur avec un signal PWM",
+      "Lire la température avec le DHT11",
+      "Régler le seuil de déclenchement avec le potentiomètre entre 20 et 35 degrés",
+      "Augmenter la vitesse en fonction de l'écart entre température et seuil",
+      "Ajouter la diode de roue libre pour protéger le montage des pics du moteur"
+    ],
+    "stretch": "Remplacer le moteur par le moteur pas à pas pour orienter le ventilateur vers la source de chaleur."
+  },
+  {
+    "id": "camera-pir",
+    "title": "Caméra Wi-Fi déclenchée par détecteur de mouvement",
+    "level": 3,
+    "hours": 8,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/camera-pir.webp",
+    "requires": [
+      25,
+      30,
+      33,
+      34
+    ],
+    "summary": "Quand le détecteur de mouvement s'active, la caméra de l'ESP32-WROVER prend une photo, la range sur la carte SD et la rend visible sur une page web.",
+    "parts": [
+      "Caméra",
+      "Détecteur de mouvement PIR",
+      "Carte SD et lecteur",
+      "Buzzer actif"
+    ],
+    "steps": [
+      "Câbler le détecteur PIR et régler la sensibilité et le délai avec ses potentiomètres",
+      "Faire fonctionner la caméra avec l'exemple CameraWebServer du chapitre 34",
+      "Monter la carte SD avec SD_MMC comme au chapitre 30",
+      "Prendre une photo à chaque détection et l'enregistrer avec la date dans son nom",
+      "Servir la liste des photos et l'image la plus récente sur une page web",
+      "Limiter le déclenchement à une photo toutes les 10 secondes pour ne pas saturer la carte"
+    ],
+    "stretch": "Prévenir par une notification sur le téléphone à chaque photo, via le service web de ton choix."
+  },
+  {
+    "id": "capteurs-vers-jarvis",
+    "title": "Capteurs qui envoient leurs mesures à Jarvis OS",
+    "level": 3,
+    "hours": 6,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/capteurs-vers-jarvis.webp",
+    "requires": [
+      12,
+      24,
+      32,
+      33
+    ],
+    "summary": "L'ESP32 mesure température, humidité et luminosité, puis envoie ces données au Mac sur le réseau local pour que Jarvis OS les exploite.",
+    "parts": [
+      "Capteur DHT11",
+      "Photorésistance",
+      "Résistance 10 kΩ",
+      "ESP32-WROVER"
+    ],
+    "steps": [
+      "Lire le DHT11 et la photorésistance toutes les 30 secondes",
+      "Connecter l'ESP32 au Wi-Fi et reconnecter automatiquement après une coupure",
+      "Lancer sur le Mac un petit serveur de test qui affiche ce qu'il reçoit",
+      "Construire un message JSON avec le nom de la carte, l'heure, la température, l'humidité et la lumière",
+      "Envoyer en HTTP POST JSON vers l'adresse du Mac",
+      "Vérifier la réponse et réessayer plus tard si l'envoi échoue, sans bloquer les mesures"
+    ],
+    "stretch": "Brancher le détecteur de mouvement pour envoyer un évènement dès qu'une présence est détectée, en plus des mesures régulières."
+  },
+  {
+    "id": "enceinte-bluetooth",
+    "title": "Enceinte Bluetooth avec vumètre",
+    "level": 3,
+    "hours": 6,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/enceinte-bluetooth.webp",
+    "requires": [
+      15,
+      27,
+      29
+    ],
+    "summary": "Le téléphone se connecte à l'ESP32 en Bluetooth et la musique sort sur le haut-parleur. La barre de LED affiche le volume en direct.",
+    "parts": [
+      "Convertisseur audio et amplificateur",
+      "Haut-parleur",
+      "Barre de LED",
+      "74HC595"
+    ],
+    "steps": [
+      "Câbler le convertisseur audio et le haut-parleur comme au chapitre 29",
+      "Faire apparaître l'ESP32 comme enceinte Bluetooth sur le téléphone",
+      "Vérifier que le son sort correctement et régler le volume dans le code",
+      "Câbler la barre de LED avec le 74HC595",
+      "Calculer le niveau sonore sur de courts blocs d'échantillons",
+      "Allumer de 1 à 10 LED selon le niveau, avec une retombée lente pour l'effet visuel"
+    ],
+    "stretch": "Afficher le nom du morceau en cours sur l'écran LCD grâce aux métadonnées Bluetooth."
+  },
+  {
+    "id": "matrice-led-wled",
+    "title": "Matrice LED 7×7 connectée (WLED)",
+    "level": 2,
+    "hours": 5,
+    "solder": "oui",
+    "print3d": "oui",
+    "image": "projets/matrice-led-wled.webp",
+    "real": "projets/matrice-led-wled-reel.webp",
+    "video": {
+      "id": "1WH6gWHcarE",
+      "title": "DIY : Fabriquer une MATRICE LED pour 5€",
+      "channel": "Ypsol",
+      "date": "28 août 2025",
+      "duration": "10:01",
+      "views": "46 k vues"
+    },
+    "requires": [
+      6,
+      32,
+      36
+    ],
+    "summary": "Une matrice de 49 LED en Wi-Fi, pilotée depuis le téléphone avec le firmware WLED, qui affiche effets et pixel art. Montage de la vidéo d'Ypsol : une carte Wemos D1 Mini, un ruban WS2812B et un boîtier imprimé en 3D, pour environ 5 € de composants.",
+    "parts": [
+      "Câble USB",
+      "Câbles dupont"
+    ],
+    "board": "Wemos D1 Mini (ESP8266), la carte de la vidéo. Ta carte ESP32 du kit reste libre pour les autres projets.",
+    "software": [
+      {
+        "name": "WLED, installé depuis le navigateur",
+        "url": "https://install.wled.me/",
+        "note": "Chrome ou Edge, Safari ne gère pas l'USB série. Il faut un câble USB qui transmet les données."
+      },
+      {
+        "name": "WLED Matrix Tool (pixel art)",
+        "url": "https://github.com/kudp02/wled-matrix-tool",
+        "note": "Se télécharge depuis GitHub, puis s'ouvre dans un onglet. Il parle à l'adresse IP de la matrice suivie de /json."
+      },
+      {
+        "name": "Application WLED pour téléphone",
+        "url": "https://apps.apple.com/app/wled/id1475695033",
+        "note": "Version Android sur Google Play, même nom."
+      },
+      {
+        "name": "Bambu Studio (découpe 3D)",
+        "url": "https://bambulab.com/fr/download/studio",
+        "note": "Facultatif : n'importe quel logiciel de découpe fait l'affaire. Vidéo : couche de 0,1 mm, supports arborescents hybrides."
+      }
+    ],
+    "wiring": {
+      "board": "Wemos D1 Mini",
+      "rows": [
+        [
+          "5V",
+          "Ruban LED · 5V",
+          "pwr"
+        ],
+        [
+          "G (GND)",
+          "Ruban LED · GND",
+          "gnd"
+        ],
+        [
+          "D2 (GPIO 4)",
+          "Ruban LED · DIN",
+          "data"
+        ]
+      ],
+      "note": "Dans WLED, il faut entrer le GPIO 4, pas « 2 » : D2 sur la carte correspond au GPIO 4. Les 7 bandes de 7 LED se relient en serpentin, en suivant les flèches du ruban : 5V avec 5V, GND avec GND, sortie de données vers entrée de la suivante."
+    },
+    "buy": [
+      {
+        "asin": "B0754N794H",
+        "qty": 1,
+        "note": "La carte de la vidéo (1,50 € pièce sur AliExpress). Le lot de 3 te laisse deux cartes pour d'autres idées, comme les lampes WLED plus bas."
+      },
+      {
+        "asin": "B07BTTY4FL",
+        "qty": 1,
+        "note": "Il faut 49 LED, donc la moitié du mètre. Amazon.fr n'a pas de 96 LED/m comme la vidéo : le 100 LED/m est le plus proche, avec 10 mm d'écartement au lieu de 10,4 mm. Vérifie la place sur la page du modèle 3D avant d'imprimer."
+      },
+      {
+        "asin": "B0BYS9Y2B6",
+        "qty": 1,
+        "note": "Pour brancher la matrice sur secteur, comme dans la vidéo (un bloc de 2 ou 3 A). 49 LED blanches à fond tirent près de 3 A : WLED permet de limiter le courant."
+      },
+      {
+        "asin": "B0DKJ5HKPM",
+        "qty": 1,
+        "optional": true,
+        "note": "La prise femelle à vis reçoit la fiche de l'alimentation, sans soudure."
+      },
+      {
+        "asin": "B09B3GRVTM",
+        "qty": 1,
+        "optional": true,
+        "note": "Inutile si tu en as déjà un. La vidéo en montre un à 5 € sur AliExpress. Règle-le vers 300 à 350 °C."
+      },
+      {
+        "asin": "B0DQXVS4FW",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0CD7B7ZKK",
+        "qty": 1,
+        "optional": true,
+        "note": "Seulement si tu as une imprimante 3D. Le diffuseur doit être blanc. Sinon, un service comme JLC3DP l'imprime pour environ 5 à 10 € de plus d'après la vidéo."
+      },
+      {
+        "asin": "B0CNYWW81R",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0D17TMWFB",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "links": [
+      {
+        "label": "La vidéo d'Ypsol",
+        "url": "https://youtu.be/1WH6gWHcarE"
+      },
+      {
+        "label": "Modèle 3D du boîtier (Printables)",
+        "url": "https://www.printables.com/model/1398042-matrice-led-7x7-by-ypsol"
+      },
+      {
+        "label": "Service d'impression JLC3DP",
+        "url": "https://jlc3dp.com"
+      }
+    ],
+    "steps": [
+      "Télécharger le modèle du boîtier et l'imprimer en 4 pièces : grille, diffuseur blanc, plaque des LED et fond. Compter plusieurs heures, ou commander l'impression",
+      "Pendant l'impression, t'entraîner à la soudure comme au chapitre 36 : étamer un fil, puis étamer un pad",
+      "Couper le ruban en 7 bandes de 7 LED et étamer les 3 pads de chaque bout : 5 V, DIN (données) et GND",
+      "Souder les bandes en serpentin en suivant le sens des flèches : 5 V avec 5 V, GND avec GND, sortie de données vers l'entrée de la suivante",
+      "Souder la première bande à la D1 Mini : 5 V sur 5V, GND sur G, DIN sur D2",
+      "Coller les bandes en serpentin sur la plaque, la D1 Mini à son emplacement, puis la plaque dans le fond du boîtier",
+      "Brancher la D1 Mini au Mac avec un câble USB qui transmet les données, ouvrir install.wled.me dans Chrome ou Edge, choisir le port, installer WLED, puis entrer le Wi-Fi. Noter l'adresse IP",
+      "Dans Config puis LED Preferences : GPIO 4 (c'est D2), longueur 49, courant limité à 400 ou 500 mA tant que la carte est sur l'USB. Les LED s'allument",
+      "Dans Config puis 2D Configuration : choisir matrice 2D, 7 × 7, cocher serpentin et régler la première LED selon le coin où arrive le câble. Vérifier avec l'effet Matrix",
+      "Dessiner du pixel art avec WLED Matrix Tool (dimension 7 × 7), l'enregistrer comme preset, puis noter son numéro dans « Apply preset at boot »",
+      "Brancher sur secteur, monter la limite de courant au-dessus de 1 A, puis fermer le boîtier avec des inserts M2 chauffés à 220 °C pour le PLA"
+    ],
+    "stretch": "Afficher un texte défilant avec l'effet Scrolling Text de WLED, puis changer de preset selon l'heure."
+  },
+  {
+    "id": "station-air-cloudy",
+    "title": "Cloudy, la station qualité de l'air",
+    "level": 3,
+    "hours": 8,
+    "solder": "oui",
+    "print3d": "oui",
+    "image": "projets/station-air-cloudy.webp",
+    "real": "projets/station-air-cloudy-reel.webp",
+    "video": {
+      "id": "0nx5feHpOGQ",
+      "title": "TUTO Domotique : fabriquez un capteur qui mesure TOUT",
+      "channel": "Abrège Academy (avec Ypsol)",
+      "date": "27 sept. 2026",
+      "duration": "15:21",
+      "views": "82 k vues"
+    },
+    "requires": [
+      6,
+      17,
+      20,
+      33,
+      36
+    ],
+    "summary": "Une tour imprimée en 3D qui mesure CO₂, composés organiques volatils, température et humidité. Un ventilateur renouvelle l'air autour du capteur, deux LED changent de couleur selon la qualité de l'air, et une page web montre les courbes. 15 € de composants d'après la vidéo.",
+    "parts": [
+      "Breadboard",
+      "Câbles dupont",
+      "Résistance 1 kΩ",
+      "Câble USB"
+    ],
+    "board": "Lolin / Wemos C3 Mini (ESP32-C3, 4 Mo de flash), la carte de la vidéo.",
+    "software": [
+      {
+        "name": "VS Code + extension PlatformIO",
+        "url": "https://platformio.org/install/ide?install=vscode",
+        "note": "Le projet est écrit pour PlatformIO (carte lolin_c3_mini, framework Arduino)."
+      },
+      {
+        "name": "Code source de Cloudy (GitHub, Ypsol)",
+        "url": "https://github.com/Ypsol/cloudy-weather-station-public",
+        "note": "Licence MIT. Copie include/credentials.h puis mets ton Wi-Fi. Bibliothèques : Adafruit AHTX0, ENS160 (fork Adafruit), FastLED, AsyncTCP, ESPAsyncWebServer."
+      },
+      {
+        "name": "ThingSpeak (courbes en ligne, facultatif)",
+        "url": "https://thingspeak.com/",
+        "note": "Un compte gratuit suffit. Sans les clés, la station marche quand même en local."
+      },
+      {
+        "name": "Modèle 3D (Printables)",
+        "url": "https://www.printables.com/model/1855837-cloudy",
+        "note": "Tube, modules empilables, base et diffuseur. PLA noir pour le boîtier, PLA blanc pour le diffuseur."
+      }
+    ],
+    "wiring": {
+      "board": "C3 Mini (ESP32-C3)",
+      "rows": [
+        [
+          "3V3",
+          "Module ENS160 + AHT21 · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "Module ENS160 + AHT21 · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 3",
+          "Module ENS160 + AHT21 · SDA",
+          "i2c"
+        ],
+        [
+          "GPIO 4",
+          "Module ENS160 + AHT21 · SCL",
+          "clk"
+        ],
+        [
+          "5V",
+          "Ruban WS2812B (2 × 4 LED) · 5V",
+          "pwr"
+        ],
+        [
+          "GND",
+          "Ruban WS2812B · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 1",
+          "Ruban WS2812B · DIN",
+          "data"
+        ],
+        [
+          "GPIO 10",
+          "Résistance 1 kΩ vers la base du BC337",
+          "data"
+        ],
+        [
+          "GND",
+          "Émetteur du BC337",
+          "gnd"
+        ],
+        [
+          "5V",
+          "Ventilateur · fil + (et cathode de la diode)",
+          "pwr"
+        ]
+      ],
+      "note": "Les numéros de broches viennent du dépôt GitHub de la vidéo. Le collecteur du BC337 va au fil − du ventilateur, avec la diode en parallèle du ventilateur, bande côté +5 V. La vidéo décrit le transistor à l'oral (5 V au collecteur) : ce schéma est le montage classique côté masse, qui donne 5 V pleins au ventilateur. Le module USB-C PD sans résistance de configuration fournit 5 V."
+    },
+    "buy": [
+      {
+        "asin": "B0G7Z44DLB",
+        "qty": 1,
+        "note": "La vidéo utilise la Lolin C3 Mini, absente d'Amazon.fr. Ces cartes ESP32-C3 Mini ont les mêmes GPIO 1, 3, 4 et 10 ; vérifie la position de l'antenne et du port USB-C avant d'imprimer le boîtier."
+      },
+      {
+        "asin": "B0GGBQ5BG9",
+        "qty": 1
+      },
+      {
+        "asin": "B07FVR3TB8",
+        "qty": 1
+      },
+      {
+        "asin": "B07T2VBBLV",
+        "qty": 1
+      },
+      {
+        "asin": "B09Z2HFH66",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0GXTPDCDB",
+        "qty": 1
+      },
+      {
+        "asin": "B088BRY2SH",
+        "qty": 1,
+        "note": "Il faut 8 LED, coupées en 4 morceaux de 2. Il t'en reste pour d'autres projets."
+      },
+      {
+        "asin": "B08BCRZZS3",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour visser la base dans le tube. À enfoncer avec le fer à souder à 220 °C pour le PLA."
+      },
+      {
+        "asin": "B0F4BZ447N",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour tenir le capot, comme dans la vidéo."
+      },
+      {
+        "asin": "B09B3GRVTM",
+        "qty": 1,
+        "optional": true,
+        "note": "Inutile si tu en as déjà un."
+      },
+      {
+        "asin": "B0D17TMWFB",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "links": [
+      {
+        "label": "La vidéo sur YouTube",
+        "url": "https://youtu.be/0nx5feHpOGQ"
+      },
+      {
+        "label": "Code PlatformIO sur GitHub",
+        "url": "https://github.com/Ypsol/cloudy-weather-station-public"
+      },
+      {
+        "label": "Fichiers STL sur Printables",
+        "url": "https://www.printables.com/model/1855837-cloudy"
+      },
+      {
+        "label": "La chaîne d'Ypsol",
+        "url": "https://www.youtube.com/@Ypsol"
+      }
+    ],
+    "steps": [
+      "Câbler le module ENS160 + AHT21 sur la breadboard : 3V3, GND, SDA sur GPIO 3 et SCL sur GPIO 4. Lancer un scanner I2C : deux adresses doivent apparaître",
+      "Câbler le ventilateur avec le BC337 : GPIO 10 vers la base par la résistance 1 kΩ, émetteur à GND, collecteur au fil −, fil + au 5 V, diode en parallèle du ventilateur. Le tester d'abord à pleine vitesse",
+      "Câbler 2 LED du ruban WS2812B sur GPIO 1 et vérifier les couleurs avec FastLED",
+      "Cloner le dépôt GitHub dans VS Code avec PlatformIO, copier credentials.h avec ton Wi-Fi, puis téléverser par USB",
+      "Ouvrir l'adresse IP affichée dans le moniteur série : la page web montre température, humidité, qualité de l'air, CO₂ et la vitesse du ventilateur en 5 niveaux",
+      "Imprimer le tube, les modules et la base (PLA noir, diffuseur en PLA blanc). Mettre les inserts M3 avec le fer à 220 °C",
+      "Monter la tour de bas en haut : le capteur en bas pour recevoir l'air frais en premier, puis le circuit du ventilateur, les LED, et l'ESP32 tout en haut, loin du capteur pour que sa chaleur ne fausse pas les mesures",
+      "Souder les fils de la breadboard vers les modules, équilibrer leur longueur pour pouvoir sortir la tour du tube, puis coller les modules",
+      "Glisser la tour dans le tube, relier le ventilateur, le caler par friction en haut, visser la base et poser le capot avec les aimants",
+      "Facultatif : créer un canal ThingSpeak, mettre ses clés dans credentials.h pour voir les courbes dans l'interface locale"
+    ],
+    "stretch": "Mettre à jour le code sans fil avec l'OTA du projet (adresse cloudy-station.local), puis ajouter un seuil de CO₂ qui accélère le ventilateur tout seul."
+  },
+  {
+    "id": "robot-reveil",
+    "title": "Robot réveil qui fonce partout",
+    "level": 3,
+    "hours": 6,
+    "solder": "oui",
+    "print3d": "oui",
+    "image": "projets/robot-reveil.webp",
+    "real": "projets/robot-reveil-reel.webp",
+    "video": {
+      "id": "KzW6fmpSCfc",
+      "title": "Fabriquer un mini robot",
+      "channel": "Abrège Academy (avec Le Bricotoleur)",
+      "date": "17 mai 2026",
+      "duration": "12:47",
+      "views": "16 k vues"
+    },
+    "requires": [
+      7,
+      17,
+      21,
+      33,
+      36
+    ],
+    "summary": "Un petit robot sur batterie qui dort jusqu'à l'heure du réveil. Alors il sonne avec un buzzer et roule dans tous les sens en évitant les murs, jusqu'à ce que tu appuies sur son bouton. L'heure se règle sur une page web, et l'horloge DS3231 garde l'heure.",
+    "parts": [
+      "Module ultrason",
+      "Buzzer actif",
+      "Bouton poussoir",
+      "Résistance 10 kΩ",
+      "Câbles dupont"
+    ],
+    "board": "ESP32-S3 Zero (Waveshare), la carte de la vidéo, qui a un mode veille profonde à environ 8 µA.",
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Ajoute le support « esp32 by Espressif Systems » dans le gestionnaire de cartes."
+      },
+      {
+        "name": "Fichiers STL et code Arduino (Thingiverse)",
+        "url": "https://www.thingiverse.com/thing:7354338",
+        "note": "Le code est fourni avec les modèles 3D. Entrer ton Wi-Fi avant de téléverser."
+      },
+      {
+        "name": "Modèles 3D des modules (GrabCAD)",
+        "url": "https://grabcad.com/library",
+        "note": "Facultatif : pour adapter le châssis, l'auteur utilise les modèles 3D des modules."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-S3 Zero",
+      "rows": [
+        [
+          "GPIO 2",
+          "Bouton (relié à GND par 10 kΩ, autre patte au 3V3)",
+          "data"
+        ],
+        [
+          "GPIO 3",
+          "HC-SR04 · Trig",
+          "data"
+        ],
+        [
+          "GPIO 4",
+          "HC-SR04 · Echo",
+          "data"
+        ],
+        [
+          "GPIO 7",
+          "Buzzer actif · +",
+          "data"
+        ],
+        [
+          "GPIO 8",
+          "DS3231 · SDA",
+          "i2c"
+        ],
+        [
+          "GPIO 9",
+          "DS3231 · SCL",
+          "clk"
+        ],
+        [
+          "GPIO 10",
+          "MX1508 · IN1",
+          "data"
+        ],
+        [
+          "GPIO 11",
+          "MX1508 · IN2",
+          "data"
+        ],
+        [
+          "GPIO 12",
+          "MX1508 · IN3",
+          "data"
+        ],
+        [
+          "GPIO 13",
+          "MX1508 · IN4",
+          "data"
+        ],
+        [
+          "3V3",
+          "DS3231 · VCC, HC-SR04 · VCC, bouton",
+          "pwr"
+        ],
+        [
+          "5V",
+          "MX1508 · + (alimentation des moteurs)",
+          "pwr"
+        ],
+        [
+          "GND",
+          "Tous les GND, buzzer −, TP4056 · OUT−",
+          "gnd"
+        ]
+      ],
+      "note": "Broches données dans la vidéo. La batterie LiPo 3,7 V se branche sur le module de charge TP4056 (B+ et B−), dont la sortie OUT+ alimente la broche 5V de la carte et le MX1508. Respecte la polarité de la batterie. Le HC-SR04 est prévu pour 5 V : la vidéo l'alimente en 3,3 V, ce qui marche sur la plupart des modules mais peut réduire la portée."
+    },
+    "buy": [
+      {
+        "asin": "B0CHYHGYRH",
+        "qty": 1
+      },
+      {
+        "asin": "B0CFFH65PC",
+        "qty": 1
+      },
+      {
+        "asin": "B0HDTP4KLM",
+        "qty": 1
+      },
+      {
+        "asin": "B0CJY3MTY2",
+        "qty": 1
+      },
+      {
+        "asin": "B0CNGWHS5N",
+        "qty": 1
+      },
+      {
+        "asin": "B08FD39Y5R",
+        "qty": 1,
+        "note": "Une seule cellule, 3,7 V, comme dans la vidéo (1000 mAh). Vérifie le connecteur et la taille avant d'imprimer le châssis."
+      },
+      {
+        "asin": "B0CNW51GCZ",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B07G4KWV6S",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B09B3GRVTM",
+        "qty": 1,
+        "optional": true,
+        "note": "Inutile si tu en as déjà un. Le montage est serré : prends du fil fin."
+      },
+      {
+        "asin": "B0D17TMWFB",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "links": [
+      {
+        "label": "La vidéo sur YouTube",
+        "url": "https://youtu.be/KzW6fmpSCfc"
+      },
+      {
+        "label": "STL et code sur Thingiverse",
+        "url": "https://www.thingiverse.com/thing:7354338"
+      },
+      {
+        "label": "La chaîne du Bricotoleur",
+        "url": "https://www.youtube.com/@LeBricotoleur"
+      }
+    ],
+    "steps": [
+      "Tester chaque module sur la breadboard avec la carte du kit : bouton, ultrason et buzzer (chapitres 7 et 21), puis le moteur (chapitre 17)",
+      "Télécharger les STL et le code sur Thingiverse, puis imprimer le châssis (emboîtement, sans vis)",
+      "Câbler le DS3231 en I2C (GPIO 8 et 9) et lire l'heure dans le moniteur série",
+      "Câbler le MX1508 sur GPIO 10 à 13 et vérifier que chaque moteur tourne dans les deux sens, en échangeant les fils si besoin",
+      "Souder la batterie, le TP4056 et le MX1508 : sortie OUT+ vers la broche 5V, tous les GND ensemble. Mettre un connecteur JST sur la batterie",
+      "Coller les modules sur les plots du châssis avec du double face, poser le robot sur ses roues (un élastique autour de chaque roue donne de l'adhérence)",
+      "Entrer le Wi-Fi dans le code, téléverser, ouvrir l'adresse IP du moniteur série et régler l'heure et le réveil depuis la page web",
+      "Comprendre le sommeil : après le réglage, l'ESP32 passe en veille profonde (environ 8 µA) et se réveille à l'heure. Maintenir le bouton 3 secondes au démarrage pour revenir en configuration",
+      "À l'heure du réveil : le buzzer sonne, le robot avance, recule et tourne au hasard quand un obstacle est à moins de 20 cm, jusqu'à ce que tu appuies sur le bouton"
+    ],
+    "stretch": "Remplacer la sonnerie unique par une mélodie du chapitre 7 qui s'accélère, ou ajouter un second réveil le week-end."
+  },
+  {
+    "id": "station-meteo-exterieure",
+    "title": "Station météo extérieure",
+    "level": 3,
+    "hours": 8,
+    "solder": "oui",
+    "print3d": "oui",
+    "image": "projets/station-meteo-exterieure.webp",
+    "real": "projets/station-meteo-exterieure-reel.webp",
+    "video": {
+      "id": "x5MdpQb1MA0",
+      "title": "Fabriquer 3 nouveaux gadgets domotiques (projet 1)",
+      "channel": "Abrège (avec GammaTroniques et Les Frères Poulain)",
+      "date": "26 nov. 2024",
+      "duration": "37:01",
+      "views": "162 k vues"
+    },
+    "requires": [
+      20,
+      24,
+      33,
+      36
+    ],
+    "summary": "Un boîtier semi-étanche inspiré de l'abri Stevenson, posé dehors, qui mesure température, humidité, pression et détecte la pluie. Les mesures arrivent dans Home Assistant via ESPHome. Premier des trois gadgets de la vidéo ; les deux autres demandent des cartes et un réseau de neurones.",
+    "parts": [
+      "Capteur DHT11",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "board": "Seeed Studio XIAO ESP32-C6 (Wi-Fi 6, Zigbee, Thread), la carte de la vidéo.",
+    "software": [
+      {
+        "name": "Home Assistant",
+        "url": "https://www.home-assistant.io/installation/",
+        "note": "Sur un Raspberry Pi, un mini PC ou un NAS. Installe ensuite le module complémentaire ESPHome."
+      },
+      {
+        "name": "ESPHome",
+        "url": "https://esphome.io/guides/getting_started_hassio/",
+        "note": "Compile le firmware depuis Home Assistant. La vidéo précise que l'ESP32-C6 n'est pas géré directement : il faut le framework ESP-IDF dans le fichier de configuration."
+      },
+      {
+        "name": "Modèles 3D de la station (Printables)",
+        "url": "https://www.printables.com/model/1085326-station-meteo",
+        "note": "Boîtier à persiennes, couvercle avec rainure pour joint, plaque à trous et réserve de gel de silice."
+      }
+    ],
+    "wiring": {
+      "board": "XIAO ESP32-C6",
+      "rows": [
+        [
+          "3V3",
+          "BMP280, DHT22 et capteur de pluie · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "BMP280, DHT22 et capteur de pluie · GND",
+          "gnd"
+        ],
+        [
+          "D4 (GPIO 22)",
+          "BMP280 · SDA",
+          "i2c"
+        ],
+        [
+          "D5 (GPIO 23)",
+          "BMP280 · SCL",
+          "clk"
+        ],
+        [
+          "D2 (GPIO 2)",
+          "DHT22 · DATA",
+          "data"
+        ],
+        [
+          "D3 (GPIO 21)",
+          "Capteur de pluie · DO (sortie numérique)",
+          "data"
+        ]
+      ],
+      "note": "La vidéo ne donne pas les numéros de broches : ceux-ci sont une proposition à partir du brochage de la XIAO ESP32-C6 (I2C sur D4 et D5). Vérifie sur la fiche de ta carte et reprends les mêmes numéros dans le fichier ESPHome. Le capteur de pluie est lu en numérique, avec un seuil à régler sur sa vis."
+    },
+    "buy": [
+      {
+        "asin": "B0D2NKVB34",
+        "qty": 1
+      },
+      {
+        "asin": "B0G828G6S7",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0BN1NXG4D",
+        "qty": 1
+      },
+      {
+        "asin": "B076CBJ48H",
+        "qty": 1
+      },
+      {
+        "asin": "B08BCRZZS3",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour fermer le couvercle."
+      },
+      {
+        "asin": "B0DZXVDBYW",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0GTVT49XK",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0D17TMWFB",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "links": [
+      {
+        "label": "La vidéo sur YouTube",
+        "url": "https://youtu.be/x5MdpQb1MA0"
+      },
+      {
+        "label": "Modèles 3D sur Printables",
+        "url": "https://www.printables.com/model/1085326-station-meteo"
+      },
+      {
+        "label": "La chaîne GammaTroniques",
+        "url": "https://www.youtube.com/@GammaTroniques"
+      }
+    ],
+    "steps": [
+      "Tester le DHT11 du kit sur ton ESP32 (chapitre 24) et un BMP280 en I2C (chapitre 20 pour le bus)",
+      "Installer Home Assistant, puis l'extension ESPHome",
+      "Imprimer le boîtier : persiennes inclinées vers le bas, couvercle avec rainure de joint, plaque à trous et réserve de silice. Pour l'extérieur, prendre un filament qui supporte la pluie et le soleil, comme le polycarbonate de la vidéo",
+      "Peindre ou imprimer en blanc : un boîtier blanc chauffe moins et fausse moins la mesure",
+      "Souder l'alimentation, le BMP280 sur D4 et D5, puis les données du DHT22 et du capteur de pluie sur deux broches numériques, à travers la plaque à trous",
+      "Créer l'appareil dans ESPHome : bloc i2c, capteur dht, capteur bmp280 et capteur binaire pour la pluie. Régler le seuil de pluie avec la vis",
+      "Mettre des inserts M3 dans le boîtier, un joint dans la rainure, de la silice dans la réserve, puis fermer",
+      "Installer la station dehors à l'ombre, alimentée par un long câble USB-C, et afficher les valeurs sur le tableau de bord Home Assistant"
+    ],
+    "stretch": "Ajouter une alerte Home Assistant qui te prévient quand il commence à pleuvoir, ou un capteur de lumière pour mesurer l'ensoleillement."
+  },
+  {
+    "id": "lampes-wled-nanoleaf",
+    "title": "Lampes connectées WLED (triangles façon Nanoleaf)",
+    "level": 1,
+    "hours": 3,
+    "solder": "non",
+    "print3d": "oui",
+    "image": "projets/lampes-wled-nanoleaf.webp",
+    "real": "projets/lampes-wled-nanoleaf-reel.webp",
+    "video": {
+      "id": "Z2sAVM3pwFM",
+      "title": "Fabriquer des lampes connectées en 10 min !! (Tuto WLED 2023)",
+      "channel": "Abrège",
+      "date": "29 janv. 2023",
+      "duration": "12:21",
+      "views": "193 k vues"
+    },
+    "requires": [
+      6,
+      32
+    ],
+    "summary": "Une lampe d'ambiance pilotée par une application : un ruban LED et une carte D1 Mini avec WLED, sans écrire de code. La vidéo en fait des triangles lumineux aimantés façon Nanoleaf, et montre comment les ajouter à Home Assistant.",
+    "parts": [
+      "Câbles dupont"
+    ],
+    "board": "Wemos D1 Mini (ESP8266), la carte de la vidéo.",
+    "software": [
+      {
+        "name": "WLED, installé depuis le navigateur",
+        "url": "https://install.wled.me/",
+        "note": "Remplace avantageusement ESPHome Flasher de la vidéo. Chrome ou Edge, câble USB avec données."
+      },
+      {
+        "name": "ESPHome Flasher (méthode de la vidéo)",
+        "url": "https://github.com/esphome/esphome-flasher/releases",
+        "note": "Il faut alors télécharger le fichier WLED pour ESP8266 sur la page des versions de WLED."
+      },
+      {
+        "name": "Application WLED (iPhone)",
+        "url": "https://apps.apple.com/app/wled/id1475695033",
+        "note": "Android : WLED sur Google Play. Fait découvrir l'appareil sur le réseau et règle les effets."
+      },
+      {
+        "name": "Triangles Nanoleaf (Cults3D)",
+        "url": "https://cults3d.com/fr/modèle-3d/gadget/triangle-nanoleaf",
+        "note": "Modèle utilisé dans la vidéo. Pas indispensable : le ruban marche seul."
+      }
+    ],
+    "wiring": {
+      "board": "Wemos D1 Mini",
+      "rows": [
+        [
+          "5V",
+          "Ruban LED 5 V · +5V",
+          "pwr"
+        ],
+        [
+          "G (GND)",
+          "Ruban LED · GND",
+          "gnd"
+        ],
+        [
+          "D1 (GPIO 5)",
+          "Ruban LED · DIN (ou DATA pour un APA102)",
+          "data"
+        ],
+        [
+          "D2 (GPIO 4)",
+          "Ruban APA102 seulement · CLOCK",
+          "clk"
+        ]
+      ],
+      "note": "La vidéo utilise un APA102 à 4 fils (D1 et D2). Avec un WS2812B à 3 fils, seule la broche de données est utilisée. Dans WLED, entre les numéros de GPIO (5 et 4), pas D1 et D2. Si ton ruban est en 12 V, un convertisseur DC-DC ramène la tension à 5 V pour la carte."
+    },
+    "buy": [
+      {
+        "asin": "B0754N794H",
+        "qty": 1,
+        "note": "La carte de la vidéo. Si tu as déjà acheté celle de la matrice LED, tu peux reprendre une des cartes du lot."
+      },
+      {
+        "asin": "B07BTTY4FL",
+        "qty": 1,
+        "note": "La vidéo prend un ruban de 100 LED/m. Le WS2812B est reconnu directement par WLED."
+      },
+      {
+        "asin": "B0BYS9Y2B6",
+        "qty": 1,
+        "note": "Alimente le ruban et la carte en même temps. Compte 60 mA par LED à fond."
+      },
+      {
+        "asin": "B0DKJ5HKPM",
+        "qty": 1,
+        "note": "Branche l'alimentation sans souder, comme dans la vidéo."
+      },
+      {
+        "asin": "B0FS1FN2H4",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0F4BZ447N",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour assembler les triangles et les accrocher au mur."
+      },
+      {
+        "asin": "B0CD7B7ZKK",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour la face qui diffuse la lumière."
+      },
+      {
+        "asin": "B0D4ZB6D5D",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0FDGNZRPR",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0D17TMWFB",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "links": [
+      {
+        "label": "La vidéo sur YouTube",
+        "url": "https://youtu.be/Z2sAVM3pwFM"
+      },
+      {
+        "label": "Sources de WLED sur GitHub",
+        "url": "https://github.com/wled/WLED/releases"
+      }
+    ],
+    "steps": [
+      "Brancher la D1 Mini au Mac avec un câble USB qui transmet les données et installer WLED depuis install.wled.me avec Chrome ou Edge",
+      "Entrer le Wi-Fi quand la carte propose son point d'accès « WLED-AP », puis noter l'adresse IP",
+      "Souder ou relier avec des câbles dupont le ruban : 5V, GND et la broche de données sur D1. Avec un connecteur à vis, l'alimentation du ruban et de la carte se partage sans soudure",
+      "Dans Config puis LED Preferences : choisir le type de ruban, 5 V, les GPIO, et la longueur",
+      "Installer l'application WLED sur le téléphone, découvrir la lampe, puis jouer avec les couleurs et les effets",
+      "Enregistrer des presets et régler la luminosité maximale pour limiter la consommation",
+      "Facultatif : imprimer les triangles, coller le ruban, assembler avec des aimants",
+      "Facultatif : ajouter la lampe à Home Assistant avec l'intégration WLED pour la grouper avec le reste de la maison"
+    ],
+    "stretch": "Brancher un bouton sur une entrée de la D1 Mini et lui associer un preset dans WLED, pour changer l'ambiance sans le téléphone."
+  },
+  {
+    "id": "station-charge-magsafe",
+    "title": "Station de charge MagSafe avec jauge LED",
+    "level": 2,
+    "hours": 5,
+    "solder": "oui",
+    "print3d": "oui",
+    "image": "projets/station-charge-magsafe.webp",
+    "real": "projets/station-charge-magsafe-reel.webp",
+    "video": {
+      "id": "md0k-QMuQ_M",
+      "title": "J'ai fabriqué LE SEUL chargeur dont vous avez besoin",
+      "channel": "Abrège Academy",
+      "date": "5 avr. 2026",
+      "duration": "15:21",
+      "views": "88 k vues"
+    },
+    "requires": [
+      6,
+      20,
+      36
+    ],
+    "summary": "Un boîtier imprimé en 3D qui cache ton téléphone et le recharge en MagSafe. Un capteur de courant INA219 mesure ce que consomme le chargeur, et un ruban LED en façade traduit la charge en animation lumineuse. Le seul projet de la liste avec un Arduino Nano, sans Wi-Fi.",
+    "parts": [
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "board": "Arduino Nano (ATmega328P), la carte de la vidéo. La vidéo n'utilise pas d'ESP32 : le Wi-Fi n'apporterait rien ici.",
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Pour téléverser sur le Nano. Les bibliothèques ne sont pas nommées dans la vidéo : installe Adafruit INA219 et Adafruit NeoPixel (ou FastLED) depuis le gestionnaire de bibliothèques, et pars de leurs exemples comme l'auteur."
+      },
+      {
+        "name": "Modèles 3D, code Arduino et fichier Fusion 360 (Printables)",
+        "url": "https://www.printables.com/model/1651190-station-de-charge-magsafe",
+        "note": "Le code complet et le fichier .f3d sont fournis avec les STL. Le boîtier compte 4 pièces, dont le couvercle et le diffuseur des LED."
+      },
+      {
+        "name": "Fusion 360 (licence personnelle)",
+        "url": "https://www.autodesk.com/products/fusion-360/personal",
+        "note": "Facultatif : pour adapter la taille du boîtier à ton téléphone. Le modèle est calé sur un iPhone 15 Pro, coque comprise ; il se déforme sous 100 mm de long."
+      }
+    ],
+    "wiring": {
+      "board": "Arduino Nano",
+      "rows": [
+        [
+          "5V",
+          "Fil rouge du câble MagSafe (côté prise), ruban · 5V, INA219 · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "Fil noir du câble MagSafe, ruban · GND, INA219 · GND",
+          "gnd"
+        ],
+        [
+          "D2",
+          "Ruban WS2812B · DIN",
+          "data"
+        ],
+        [
+          "A4 (SDA)",
+          "INA219 · SDA",
+          "i2c"
+        ],
+        [
+          "A5 (SCL)",
+          "INA219 · SCL",
+          "clk"
+        ]
+      ],
+      "note": "Le capteur se branche en série : le fil rouge du câble MagSafe, coupé, passe par l'INA219 (VIN+ côté prise, VIN− côté chargeur). Les fils vert et blanc du câble ne servent pas : il faut les reconnecter entre eux par soudure. Évite D0 et D1, réservées au port série. Le schéma exact est dans la vidéo à 02:03. Précaution ajoutée par moi : débranche l'alimentation du chargeur avant de brancher l'USB du Nano à ton Mac, car la carte serait alimentée par deux sources."
+    },
+    "buy": [
+      {
+        "asin": "B0D7Q6BGW8",
+        "qty": 1
+      },
+      {
+        "asin": "B0DDPXD45M",
+        "qty": 1,
+        "note": "Mesure le courant, comme un ampèremètre. Un seul sert ; le lot t'en laisse pour d'autres mesures."
+      },
+      {
+        "asin": "B0DRC9F4FS",
+        "qty": 1
+      },
+      {
+        "asin": "B088BRY2SH",
+        "qty": 1,
+        "note": "Une dizaine de LED suffisent : le 5 V du câble les alimente sans calcul. La vidéo prend du 96 LED/m, absent d'Amazon.fr ; en 60 LED/m les LED sont plus espacées."
+      },
+      {
+        "asin": "B08BCRZZS3",
+        "qty": 1,
+        "optional": true,
+        "note": "4 inserts pour fermer le boîtier, à enfoncer au fer à 220 °C pour le PLA."
+      },
+      {
+        "asin": "B0B3MGZ7T2",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B00E3VAO9Y",
+        "qty": 1,
+        "optional": true
+      },
+      {
+        "asin": "B0CD7B7ZKK",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour la pièce qui diffuse la lumière des LED. Un service d'impression peut aussi l'imprimer."
+      },
+      {
+        "asin": "B09B3GRVTM",
+        "qty": 1,
+        "optional": true,
+        "note": "Inutile si tu en as déjà un."
+      },
+      {
+        "asin": "B0D17TMWFB",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "links": [
+      {
+        "label": "La vidéo sur YouTube",
+        "url": "https://youtu.be/md0k-QMuQ_M"
+      },
+      {
+        "label": "STL, code et fichier Fusion 360",
+        "url": "https://www.printables.com/model/1651190-station-de-charge-magsafe"
+      },
+      {
+        "label": "Les cours d'Abrège Academy",
+        "url": "https://www.abregeacademy.com/?source=youtube"
+      }
+    ],
+    "steps": [
+      "Tester le ruban LED sur ta carte du kit avec la breadboard (chapitre 6) : les couleurs s'allument avec les exemples de la bibliothèque",
+      "Tester l'INA219 en I2C (chapitre 20 pour le bus) et lire le courant dans le moniteur série",
+      "Couper le câble MagSafe, dénuder les fils, passer le fil rouge par l'INA219 et souder les autres fils entre eux. Vérifier que le téléphone charge toujours. Le courant doit monter vers 900 mA quand le téléphone est posé",
+      "Donner les deux codes de test à une IA pour les combiner avec une animation, comme l'auteur : les parties qui marchent déjà restent fiables. Ou prendre le code fourni avec les STL",
+      "Si besoin, adapter le boîtier à ton téléphone dans Fusion 360 : longueur, largeur, épaisseur avec la coque, taille et épaisseur des objectifs, en prenant un peu de marge",
+      "Imprimer le boîtier à la verticale. Pour une première version, un filament bas de gamme et des couches épaisses suffisent pour vérifier les dimensions. Diffuseur en blanc",
+      "Couper le ruban à une dizaine de LED, souder le montage : D2, A4, A5, 5 V et GND, puis coller le MagSafe depuis l'intérieur du boîtier",
+      "Brancher le chargeur : le téléphone charge et les LED suivent le courant. Fermer avec 4 inserts M3 et 4 vis, puis fixer au bureau avec du double face"
+    ],
+    "stretch": "Remplacer le Nano par ta carte ESP32 pour envoyer le niveau de charge dans Home Assistant : la vidéo y pense, mais n'en voit pas l'intérêt."
+  },
+  {
+    "id": "balance-precision",
+    "title": "Balance de précision au gramme près",
+    "level": 2,
+    "hours": 3,
+    "solder": "oui",
+    "print3d": "non",
+    "image": "projets/balance-precision.webp",
+    "requires": [
+      8,
+      32,
+      33,
+      36
+    ],
+    "summary": "Une cellule de charge de 5 kg lue par un convertisseur 24 bits HX711. Tu apprends à faire la tare, à étalonner avec une masse connue et à filtrer le bruit, puis la balance envoie le poids sur une page web. Moins de 10 € pour mesurer à environ un gramme près.",
+    "parts": [
+      "ESP32-WROVER",
+      "Câbles dupont",
+      "Breadboard",
+      "Servomoteur (pour aller plus loin)"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque HX711 (bogde)",
+        "url": "https://github.com/bogde/HX711",
+        "note": "Se trouve aussi dans le gestionnaire de bibliothèques d'Arduino IDE. Exemples fournis : lecture brute, tare, étalonnage."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "3V3",
+          "HX711 · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "HX711 · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 32",
+          "HX711 · DT (données)",
+          "data"
+        ],
+        [
+          "GPIO 33",
+          "HX711 · SCK (horloge)",
+          "clk"
+        ]
+      ],
+      "note": "La cellule se branche sur les 4 bornes du HX711 : rouge sur E+, noir sur E−, blanc sur A−, vert sur A+ dans la plupart des kits. Les couleurs varient selon le fournisseur : si le poids baisse quand tu appuies, inverse A+ et A−. Soude les broches du HX711 si elles sont fournies à part. Fixe un bout de la cellule sur une plaque rigide et l'autre bout sur la plaque qui porte la charge, avec deux petites entretoises pour que la barre puisse fléchir."
+    },
+    "buy": [
+      {
+        "asin": "B073GWX6J4",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Câbler le HX711 sur le 3,3 V et deux GPIO, puis lire la valeur brute dans le moniteur série sans rien poser",
+      "Monter la cellule entre deux plaques : un bout fixe, un bout libre qui porte la charge",
+      "Faire la tare au démarrage et mesurer la dérive pendant une minute à vide",
+      "Poser une masse connue (un paquet de sucre de 1 kg) et calculer le facteur d'étalonnage",
+      "Lisser la mesure avec une médiane de 5 relevés pour retirer les pics, et passer le HX711 à 80 mesures par seconde si besoin",
+      "Détecter quand le poids est stable pendant 1 s et ne l'afficher qu'à ce moment-là",
+      "Servir le poids sur une page web mise à jour en direct, avec un bouton Tare"
+    ],
+    "stretch": "Fais un doseur : le servomoteur du kit ouvre une trappe et se referme quand le poids atteint la cible que tu choisis sur la page.",
+    "links": [
+      {
+        "label": "Fiche technique du HX711 (Avia Semiconductor)",
+        "url": "https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/hx711_english.pdf"
+      }
+    ]
+  },
+  {
+    "id": "detecteur-presence-radar",
+    "title": "Détecteur de présence radar mmWave",
+    "level": 2,
+    "hours": 3,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/detecteur-presence-radar.webp",
+    "requires": [
+      8,
+      25,
+      33
+    ],
+    "summary": "Un radar 24 GHz LD2410C qui voit une personne même immobile, là où le détecteur PIR du kit ne voit que les mouvements. L'ESP32 lit la distance et l'énergie par tranche de 75 cm, et une page web trace la présence en direct. Environ 10 € le module.",
+    "parts": [
+      "ESP32-WROVER",
+      "Câbles dupont",
+      "Détecteur PIR HC-SR501 (pour comparer)",
+      "Ruban LEDPixel (pour aller plus loin)"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque ld2410 (ncmreynolds)",
+        "url": "https://github.com/ncmreynolds/ld2410",
+        "note": "Se trouve dans le gestionnaire de bibliothèques. Donne la présence, la distance et l'énergie de la cible en mouvement et de la cible immobile."
+      },
+      {
+        "name": "HLKRadarTool (application de réglage)",
+        "url": "https://www.hlktech.net/",
+        "note": "Facultatif : application du fabricant, en Bluetooth, pour régler les seuils tranche par tranche. Cherche « HLKRadarTool » dans ta boutique d'applications."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "5V (VIN)",
+          "LD2410C · 5V",
+          "pwr"
+        ],
+        [
+          "GND",
+          "LD2410C · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 32",
+          "LD2410C · TX (le radar parle, l'ESP32 écoute)",
+          "data"
+        ],
+        [
+          "GPIO 33",
+          "LD2410C · RX",
+          "data"
+        ],
+        [
+          "GPIO 13",
+          "LD2410C · OUT (niveau haut s'il y a quelqu'un)",
+          "data"
+        ]
+      ],
+      "note": "Le radar se parle en série à 256 000 bauds par défaut. Ouvre un deuxième port série avec Serial2.begin(256000, SERIAL_8N1, 32, 33) : les broches par défaut de Serial2 (16 et 17) sont prises par la mémoire PSRAM du WROVER. Le connecteur du module est au pas de 1,27 mm : un câble vers du 2,54 mm est normalement fourni, vérifie l'annonce avant d'acheter."
+    },
+    "buy": [
+      {
+        "asin": "B0H4434MG9",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Câbler le radar sur le 5 V et sur un second port série de l'ESP32, puis ouvrir le moniteur série à 256 000 bauds",
+      "Lire l'état : cible en mouvement, cible immobile, distance de chaque cible en centimètres",
+      "Poser le PIR du chapitre 25 à côté et rester immobile : le PIR s'éteint, le radar garde la présence",
+      "Lire l'énergie de chacune des 9 tranches de 75 cm et repérer où se trouve la personne",
+      "Régler la distance maximale et la sensibilité de chaque tranche pour ignorer un ventilateur ou une porte",
+      "Servir une page web qui trace la distance et l'énergie en direct",
+      "Ajouter un délai de 30 s avant de déclarer la pièce vide, pour éviter les faux départs"
+    ],
+    "stretch": "Allume le ruban LEDPixel quand quelqu'un est présent et éteins-le 2 minutes après son départ : l'éclairage d'un bureau qui ne se coupe pas quand tu lis sans bouger."
+  },
+  {
+    "id": "compteur-passages-tof",
+    "title": "Compteur de passages bidirectionnel",
+    "level": 3,
+    "hours": 5,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/compteur-passages-tof.webp",
+    "requires": [
+      7,
+      21,
+      26,
+      33
+    ],
+    "summary": "Deux capteurs laser VL53L0X posés côte à côte comptent qui entre et qui sort, selon l'ordre dans lequel ils voient passer quelqu'un. Les deux ont la même adresse I2C au départ : tu les sépares au démarrage avec leur broche XSHUT. Le total s'affiche sur une page web et un bip du buzzer confirme chaque passage.",
+    "parts": [
+      "ESP32-WROVER",
+      "Buzzer actif",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque VL53L0X (Pololu)",
+        "url": "https://github.com/pololu/vl53l0x-arduino",
+        "note": "Dans le gestionnaire de bibliothèques. Le changement d'adresse se fait avec setAddress() après avoir réveillé un capteur à la fois."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "3V3",
+          "Les deux VL53L0X · VIN",
+          "pwr"
+        ],
+        [
+          "GND",
+          "Les deux VL53L0X · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 13",
+          "VL53L0X A et B · SDA",
+          "i2c"
+        ],
+        [
+          "GPIO 14",
+          "VL53L0X A et B · SCL",
+          "clk"
+        ],
+        [
+          "GPIO 32",
+          "VL53L0X A · XSHUT",
+          "data"
+        ],
+        [
+          "GPIO 33",
+          "VL53L0X B · XSHUT",
+          "data"
+        ],
+        [
+          "GPIO 4",
+          "Buzzer actif, par un transistor NPN comme au chapitre 7",
+          "data"
+        ]
+      ],
+      "note": "Même bus I2C que dans les chapitres du kit (SDA sur 13, SCL sur 14, avec Wire.begin(13, 14)). Au démarrage, mets les deux XSHUT à zéro, réveille le capteur A, change son adresse (par exemple 0x30), puis réveille le B qui garde 0x29. Choisis un module qui expose la broche XSHUT : les GY-VL53L0XV2 la sortent."
+    },
+    "buy": [
+      {
+        "asin": "B0D8XL43HZ",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Câbler un seul capteur et lire sa distance en millimètres avec l'exemple de la bibliothèque",
+      "Ajouter le second capteur, voir que le scanner I2C ne trouve qu'une adresse, comprendre pourquoi",
+      "Séparer les deux avec XSHUT : réveil du A, changement d'adresse, réveil du B",
+      "Déclarer un passage quand la distance tombe sous un seuil (par exemple 80 cm) puis remonte",
+      "Compter une entrée si A déclenche avant B, une sortie dans l'ordre inverse, et ignorer les cas incomplets",
+      "Servir entrées, sorties et présents sur une page web, et faire un bip à chaque passage",
+      "Tester avec deux personnes qui se croisent et régler le seuil et le délai entre les deux capteurs"
+    ],
+    "stretch": "Allume une LED verte quand il y a moins de N personnes dans la pièce, et rouge au-delà, comme un compteur de salle. Ajoute un écran LCD1602 sur son propre bus si tu veux un affichage sans téléphone."
+  },
+  {
+    "id": "analyseur-spectre-audio",
+    "title": "Analyseur de spectre audio",
+    "level": 3,
+    "hours": 5,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/analyseur-spectre-audio.webp",
+    "requires": [
+      15,
+      16,
+      33
+    ],
+    "summary": "Un micro numérique INMP441 branché en I2S, une transformée de Fourier sur l'ESP32, et une page web qui dessine les barres de fréquences en direct. Tu vois le « la » d'une guitare, le sifflement d'une bouilloire ou le bruit d'un moteur. Environ 3 € le micro.",
+    "parts": [
+      "ESP32-WROVER",
+      "Câbles dupont",
+      "Breadboard",
+      "Matrice LED 8x8 et 74HC595 (pour aller plus loin)"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque arduinoFFT (kosme)",
+        "url": "https://github.com/kosme/arduinoFFT",
+        "note": "Se trouve dans le gestionnaire de bibliothèques. Calcule la FFT et applique une fenêtre de Hann."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "3V3",
+          "INMP441 · VDD",
+          "pwr"
+        ],
+        [
+          "GND",
+          "INMP441 · GND et L/R (canal gauche)",
+          "gnd"
+        ],
+        [
+          "GPIO 32",
+          "INMP441 · SCK (horloge de bits)",
+          "clk"
+        ],
+        [
+          "GPIO 33",
+          "INMP441 · WS (horloge de mot)",
+          "clk"
+        ],
+        [
+          "GPIO 13",
+          "INMP441 · SD (données)",
+          "data"
+        ]
+      ],
+      "note": "Alimente le micro en 3,3 V, jamais en 5 V. Le micro envoie 24 bits utiles dans une trame de 32 bits : décale les échantillons de 8 bits vers la droite avant de les utiliser. Avec L/R à la masse, le signal sort sur le canal gauche. Ces trois broches sont libres du côté du kit : aucune n'est liée à la flash ni à la PSRAM."
+    },
+    "buy": [
+      {
+        "asin": "B0CH2TYXCZ",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Câbler le micro et ouvrir un canal I2S en réception à 16 kHz, 32 bits par échantillon",
+      "Afficher la valeur brute dans le traceur série et vérifier qu'elle bouge quand tu parles",
+      "Retirer la composante continue et mesurer le niveau sonore en décibels relatifs",
+      "Calculer une FFT de 1024 points avec une fenêtre de Hann : 15,6 Hz par case",
+      "Regrouper les cases par bandes (graves, médiums, aigus) en échelle logarithmique",
+      "Envoyer les bandes en WebSocket et les dessiner en barres sur une page web",
+      "Repérer une fréquence qui domine : siffle ou joue un diapason, puis affiche la note la plus proche"
+    ],
+    "stretch": "Affiche aussi 8 bandes sur la matrice LED 8×8 du chapitre 16, avec une barre qui retombe doucement comme sur une chaîne hi-fi.",
+    "links": [
+      {
+        "label": "Notice de l'INMP441 (TDK InvenSense)",
+        "url": "https://invensense.tdk.com/products/digital/inmp441/"
+      }
+    ]
+  },
+  {
+    "id": "wattmetre-usb-wifi",
+    "title": "Wattmètre USB avec courbes en direct",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/wattmetre-usb-wifi.webp",
+    "requires": [
+      20,
+      32,
+      33
+    ],
+    "summary": "Un capteur INA219 en série sur un câble USB mesure la tension, le courant et la puissance de ce que tu branches : lampe, ventilateur, carte du kit. L'ESP32 calcule l'énergie consommée et trace les courbes sur une page web, avec un export CSV. Tu vois enfin ce que consomme un ESP32 en Wi-Fi ou en veille profonde.",
+    "parts": [
+      "ESP32-WROVER",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque Adafruit INA219",
+        "url": "https://github.com/adafruit/Adafruit_INA219",
+        "note": "Se trouve dans le gestionnaire de bibliothèques. Mesure jusqu'à 26 V et 3,2 A avec le shunt de 0,1 Ω du module."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "3V3",
+          "INA219 · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "INA219 · GND, et GND de la source et de la charge",
+          "gnd"
+        ],
+        [
+          "GPIO 13",
+          "INA219 · SDA",
+          "i2c"
+        ],
+        [
+          "GPIO 14",
+          "INA219 · SCL",
+          "clk"
+        ]
+      ],
+      "note": "Le capteur se place sur le fil + entre la source et la charge : le + de l'alimentation va sur VIN+, et VIN− va vers le + de ce que tu mesures. La masse de l'alimentation, du capteur et de l'ESP32 doit être commune. Même bus I2C que les chapitres du kit (SDA sur 13, SCL sur 14). Reste sur du courant continu faible : jamais le secteur 230 V."
+    },
+    "buy": [
+      {
+        "asin": "B0DDPXD45M",
+        "qty": 1,
+        "note": "Le même article que dans la station de charge MagSafe : il n'apparaît qu'une fois dans ton panier."
+      },
+      {
+        "asin": "B09RDVKPFJ",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Câbler l'INA219 sur le bus I2C et lancer le scanner pour trouver son adresse (0x40 par défaut)",
+      "Mesurer une résistance de 100 Ω sur du 5 V : le courant doit être d'environ 50 mA",
+      "Comparer avec un multimètre et corriger l'écart avec la valeur du shunt",
+      "Lire tension, courant et puissance 10 fois par seconde",
+      "Intégrer la puissance pour obtenir les mAh et les Wh depuis le démarrage",
+      "Servir les courbes en direct sur une page web, avec min, max et un export CSV",
+      "Mesurer ton ESP32 lui-même en Wi-Fi, au repos, puis en veille profonde, et noter les trois valeurs"
+    ],
+    "stretch": "Ajoute une alarme : si le courant dépasse 1 A ou qu'il tombe à zéro pendant 10 s, la page affiche un avertissement et le buzzer du kit sonne."
+  },
+  {
+    "id": "telecommande-ir-universelle",
+    "title": "Télécommande infrarouge universelle",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/telecommande-ir-universelle.webp",
+    "requires": [
+      17,
+      23,
+      33
+    ],
+    "summary": "Le récepteur du chapitre 23 apprend les touches d'une télécommande (télé, barre de son, ventilateur). Une LED infrarouge les rejoue ensuite à la demande, depuis une page web de ton téléphone. Tu comprends comment les protocoles NEC ou Samsung codent chaque bit. Environ 6 € pour la LED d'émission.",
+    "parts": [
+      "ESP32-WROVER",
+      "Récepteur infrarouge et télécommande",
+      "Transistor NPN",
+      "Résistances 1 kΩ et 220 Ω (x2)",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque IRremoteESP8266",
+        "url": "https://github.com/crankyoldgit/IRremoteESP8266",
+        "note": "Dans le gestionnaire de bibliothèques, cherche « IRremoteESP8266 ». L'exemple IRrecvDumpV3 décode la plupart des télécommandes, IRsendDemo les rejoue."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "3V3",
+          "Récepteur IR · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "Récepteur IR · GND, émetteur du transistor",
+          "gnd"
+        ],
+        [
+          "GPIO 15",
+          "Récepteur IR · OUT (comme au chapitre 23)",
+          "data"
+        ],
+        [
+          "GPIO 32",
+          "Résistance 1 kΩ vers la base du transistor NPN",
+          "data"
+        ],
+        [
+          "5V (VIN)",
+          "Deux résistances de 220 Ω en parallèle (environ 110 Ω), puis anode (+) de la LED IR",
+          "pwr"
+        ]
+      ],
+      "note": "La cathode (−) de la LED infrarouge va au collecteur du transistor, et son émetteur à la masse. Le transistor laisse passer environ 30 mA dans la LED, ce qu'un GPIO ne peut pas faire seul : sans lui, la portée tombe à quelques centimètres. Ta caméra de téléphone voit la lumière infrarouge : vise la LED avec elle pour vérifier qu'elle clignote."
+    },
+    "buy": [
+      {
+        "asin": "B07Y2RK1FF",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Câbler le récepteur sur GPIO 15 et lancer l'exemple de décodage : appuyer sur chaque touche et noter protocole, adresse et commande",
+      "Comparer deux télécommandes de marques différentes : le protocole change, pas le principe",
+      "Câbler la LED d'émission avec son transistor et vérifier avec la caméra du téléphone qu'elle clignote",
+      "Rejouer un code appris et allumer ta télé depuis l'ESP32",
+      "Stocker les codes dans la mémoire flash de l'ESP32 pour qu'ils survivent à une coupure de courant",
+      "Servir une page web avec un bouton par code, utilisable depuis le téléphone",
+      "Pour une télécommande inconnue, enregistrer les durées brutes des impulsions et les rejouer telles quelles"
+    ],
+    "stretch": "Crée des scènes : un seul bouton « soirée film » envoie en séquence l'extinction de la lumière, l'allumage de la télé et le volume de la barre de son."
+  },
+  {
+    "id": "reseau-esp-now",
+    "title": "Capteur sans fil sans routeur (ESP-NOW)",
+    "level": 3,
+    "hours": 5,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/reseau-esp-now.webp",
+    "requires": [
+      24,
+      32,
+      33
+    ],
+    "summary": "Deux cartes se parlent directement en radio 2,4 GHz avec ESP-NOW, sans passer par un routeur. Une petite carte ESP32-C3 mesure température et humidité puis s'endort, la carte du kit reçoit et affiche tout sur une page web. Tu comprends adresse MAC, canal radio et accusé de réception.",
+    "parts": [
+      "ESP32-WROVER",
+      "Capteur DHT11",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Documentation ESP-NOW (Espressif)",
+        "url": "https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html",
+        "note": "Fonctionne dans Arduino-ESP32 avec #include <esp_now.h> et <WiFi.h>, sans bibliothèque à ajouter. Messages de 250 octets au plus."
+      }
+    ],
+    "wiring": {
+      "board": "Carte capteur : ESP32-C3 Mini",
+      "rows": [
+        [
+          "3V3",
+          "DHT11 · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "DHT11 · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 4",
+          "DHT11 · DATA (avec une résistance de 10 kΩ vers le 3V3)",
+          "data"
+        ]
+      ],
+      "note": "La carte du kit (WROVER) n'a besoin d'aucun câblage : elle est le récepteur. Les deux cartes doivent être sur le même canal Wi-Fi : si le récepteur est aussi connecté à ta box, l'émetteur doit viser le canal de la box. Relève l'adresse MAC du récepteur avec WiFi.macAddress() et écris-la dans le code de l'émetteur. Les numéros de GPIO de ta carte C3 Mini peuvent différer : vérifie son brochage."
+    },
+    "buy": [
+      {
+        "asin": "B0G7Z44DLB",
+        "qty": 1,
+        "note": "Le même article que dans Cloudy : il n'apparaît qu'une fois dans ton panier. Une carte sert d'émetteur, les trois autres seront utiles pour les prochains projets."
+      },
+      {
+        "asin": "B08FD39Y5R",
+        "qty": 1,
+        "optional": true,
+        "note": "Pour rendre le capteur autonome pendant des semaines grâce à la veille profonde. Le C3 Mini se recharge via son port USB-C."
+      }
+    ],
+    "steps": [
+      "Afficher l'adresse MAC de la carte réceptrice dans le moniteur série",
+      "Envoyer un message de test de l'émetteur au récepteur avec esp_now_send, et recevoir dans la fonction de rappel",
+      "Définir une structure de 8 octets : numéro du capteur, température, humidité, compteur de messages",
+      "Lire le DHT11 chez l'émetteur et envoyer toutes les 10 secondes",
+      "Compter les messages perdus grâce au compteur et à l'accusé de réception, et mesurer la portée en t'éloignant",
+      "Ajouter la veille profonde de l'émetteur entre deux mesures et mesurer la durée d'éveil",
+      "Servir les mesures sur la page web du récepteur, avec l'heure du dernier message reçu"
+    ],
+    "stretch": "Ajoute un deuxième capteur avec une autre carte C3 et affiche les deux sur la même page. Le récepteur distingue chaque émetteur par son numéro."
+  },
+  {
+    "id": "bus-can-deux-noeuds",
+    "title": "Bus CAN entre deux cartes",
+    "level": 3,
+    "hours": 6,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/bus-can-deux-noeuds.webp",
+    "requires": [
+      8,
+      11,
+      18
+    ],
+    "summary": "Le bus CAN relie les calculateurs d'une voiture. Ici deux cartes se parlent à travers deux fils : la carte du kit envoie la valeur du potentiomètre, la seconde commande le servomoteur et répond par un signal de vie. L'ESP32 contient déjà le contrôleur CAN (appelé TWAI), il ne manque que les transceivers.",
+    "parts": [
+      "ESP32-WROVER",
+      "Potentiomètre",
+      "Servomoteur",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Documentation TWAI (Espressif)",
+        "url": "https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/twai.html",
+        "note": "Le pilote est déjà dans Arduino-ESP32 : #include <driver/twai.h>. Les exemples d'Espressif montrent l'émission, la réception et le mode écoute."
+      }
+    ],
+    "wiring": {
+      "board": "Nœud A : ESP32-WROVER, avec le potentiomètre sur GPIO 34",
+      "rows": [
+        [
+          "3V3",
+          "SN65HVD230 · 3V3",
+          "pwr"
+        ],
+        [
+          "GND",
+          "SN65HVD230 · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 32",
+          "SN65HVD230 · TXD (CTX)",
+          "data"
+        ],
+        [
+          "GPIO 33",
+          "SN65HVD230 · RXD (CRX)",
+          "data"
+        ],
+        [
+          "GPIO 34",
+          "Curseur du potentiomètre (extrémités sur 3V3 et GND)",
+          "data"
+        ]
+      ],
+      "note": "Nœud B : carte ESP32-C3 Mini avec son propre transceiver, TXD sur GPIO 4, RXD sur GPIO 5, et le servomoteur du kit sur GPIO 6 (vérifie son brochage). Relie CANH de A à CANH de B, CANL à CANL, et les deux masses. Le bus a besoin d'une résistance de 120 Ω à chacune de ses deux extrémités : beaucoup de modules en ont déjà une, sinon ajoute-la entre CANH et CANL. Les transceivers SN65HVD230 se branchent en 3,3 V."
+    },
+    "buy": [
+      {
+        "asin": "B0CPJ6HW9K",
+        "qty": 1
+      },
+      {
+        "asin": "B0G7Z44DLB",
+        "qty": 1,
+        "note": "Le même article que dans Cloudy et dans le projet ESP-NOW : il n'apparaît qu'une fois dans ton panier. Fait office de second nœud."
+      },
+      {
+        "asin": "B0CL6MMF9V",
+        "qty": 1,
+        "optional": true
+      }
+    ],
+    "steps": [
+      "Câbler le transceiver du nœud A et initialiser le contrôleur TWAI à 500 kbit/s",
+      "Tester en mode « sans acquittement » : le nœud A envoie une trame et se voit lui-même, sans le second nœud",
+      "Câbler le nœud B et relier les deux nœuds par CANH, CANL et la masse",
+      "Envoyer depuis A la valeur du potentiomètre dans une trame d'identifiant 0x100",
+      "Recevoir chez B et déplacer le servomoteur en conséquence",
+      "Répondre depuis B avec une trame 0x200 qui contient un compteur, et l'afficher chez A",
+      "Débrancher un fil et observer les compteurs d'erreurs, puis réparer la panne en relançant le pilote"
+    ],
+    "stretch": "Ajoute un filtre d'acceptation pour que chaque nœud ignore les trames qui ne le concernent pas, et un troisième nœud qui n'écoute que : tu as fait un enregistreur de bus."
+  },
+  {
+    "id": "traceur-gps-sd",
+    "title": "Traceur GPS qui enregistre sur la carte SD",
+    "level": 2,
+    "hours": 4,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/traceur-gps-sd.webp",
+    "requires": [
+      8,
+      30,
+      32
+    ],
+    "summary": "Un module GPS NEO-6M envoie sa position en texte NMEA. L'ESP32 le décode, note position, altitude et vitesse toutes les 2 secondes dans un fichier de la carte microSD du kit, au format GPX. Tu glisses ensuite le fichier dans un site de cartes pour voir ton trajet. Moins de 8 €.",
+    "parts": [
+      "ESP32-WROVER avec lecteur microSD",
+      "Carte microSD",
+      "Câbles dupont",
+      "Batterie externe USB"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Bibliothèque TinyGPSPlus (mikalhart)",
+        "url": "https://github.com/mikalhart/TinyGPSPlus",
+        "note": "Se trouve dans le gestionnaire de bibliothèques. Décode les phrases NMEA : latitude, longitude, altitude, vitesse, nombre de satellites, précision."
+      },
+      {
+        "name": "GPX Studio",
+        "url": "https://gpx.studio/",
+        "note": "Un site pour regarder et corriger un fichier GPX, sans compte."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "3V3",
+          "NEO-6M · VCC",
+          "pwr"
+        ],
+        [
+          "GND",
+          "NEO-6M · GND",
+          "gnd"
+        ],
+        [
+          "GPIO 32",
+          "NEO-6M · TX (le GPS parle, l'ESP32 écoute)",
+          "data"
+        ],
+        [
+          "GPIO 33",
+          "NEO-6M · RX",
+          "data"
+        ]
+      ],
+      "note": "Ouvre un port série dédié avec Serial2.begin(9600, SERIAL_8N1, 32, 33) : les broches par défaut de Serial2 sont prises par la PSRAM du WROVER. La carte microSD est déjà sur la carte : insère-la avant de brancher l'USB et utilise SD_MMC. L'antenne doit voir le ciel : à une fenêtre ou dehors. Le premier signal peut prendre plusieurs minutes, ensuite quelques secondes."
+    },
+    "buy": [
+      {
+        "asin": "B088LR3488",
+        "qty": 1
+      }
+    ],
+    "steps": [
+      "Brancher le GPS et afficher les phrases NMEA brutes dans le moniteur série",
+      "Les décoder avec TinyGPSPlus et afficher position, altitude, vitesse et nombre de satellites",
+      "Attendre un signal valide : ne rien écrire tant que la précision (HDOP) est mauvaise",
+      "Créer un nouveau fichier GPX sur la carte SD à chaque démarrage, avec l'entête et la balise de fin",
+      "Écrire un point toutes les 2 s, et fermer proprement le fichier toutes les 30 s pour ne rien perdre",
+      "Brancher une batterie externe, partir marcher 10 minutes avec la carte dans une poche",
+      "Ouvrir le fichier dans un site de cartes et comparer le tracé avec ton vrai trajet"
+    ],
+    "stretch": "Allume la LED de la carte quand un signal valide est capté, et ajoute un bouton qui pose un repère dans le fichier, pour marquer un endroit."
+  },
+  {
+    "id": "oscillo-generateur",
+    "title": "Mini oscilloscope et générateur de signaux",
+    "level": 3,
+    "hours": 6,
+    "solder": "non",
+    "print3d": "non",
+    "image": "projets/oscillo-generateur.webp",
+    "requires": [
+      9,
+      33,
+      36
+    ],
+    "summary": "Le convertisseur numérique-analogique (DAC) de l'ESP32 génère un signal, le convertisseur analogique-numérique (ADC) le mesure, et une page web trace la courbe avec un déclenchement comme sur un vrai oscilloscope. Aucun achat : tu apprends la fréquence d'échantillonnage, le repliement et la non-linéarité de l'ADC avec le matériel du kit.",
+    "parts": [
+      "ESP32-WROVER",
+      "Résistance 1 kΩ",
+      "Câbles dupont",
+      "Breadboard"
+    ],
+    "software": [
+      {
+        "name": "Arduino IDE",
+        "url": "https://www.arduino.cc/en/software",
+        "note": "Avec le support « esp32 by Espressif Systems » déjà installé pour les chapitres du kit."
+      },
+      {
+        "name": "Documentation ADC en continu (Espressif)",
+        "url": "https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc_continuous.html",
+        "note": "Lecture par DMA à plusieurs dizaines de kHz, bien plus vite que analogRead(). Disponible dans Arduino-ESP32 avec analogContinuous()."
+      },
+      {
+        "name": "Documentation DAC (Espressif)",
+        "url": "https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/dac.html",
+        "note": "Le générateur cosinus matériel produit une sinusoïde propre sans charger le processeur."
+      }
+    ],
+    "wiring": {
+      "board": "ESP32-WROVER",
+      "rows": [
+        [
+          "GPIO 25",
+          "Résistance 1 kΩ vers la sonde (sortie du DAC1)",
+          "data"
+        ],
+        [
+          "GPIO 32",
+          "Sonde : entrée de l'ADC1, signal à mesurer",
+          "data"
+        ],
+        [
+          "GND",
+          "Masse de la sonde et du signal à mesurer",
+          "gnd"
+        ]
+      ],
+      "note": "Pour tester, relie GPIO 25 à GPIO 32 : l'ESP32 se mesure lui-même. L'entrée de l'ADC accepte de 0 à 3,3 V seulement : jamais 5 V ni de tension négative, ou tu abîmes la broche. Utilise l'ADC1 (GPIO 32 à 39) qui marche avec le Wi-Fi allumé. Le DAC sort 0 à 3,3 V en 8 bits."
+    },
+    "steps": [
+      "Générer une sinusoïde de 1 kHz sur GPIO 25 avec le générateur cosinus, et la relier à GPIO 32",
+      "Lire 1024 échantillons avec l'ADC en continu et les envoyer sur le traceur série",
+      "Mesurer la fréquence d'échantillonnage réelle en comptant les échantillons par seconde",
+      "Pousser le signal généré vers 20 kHz et observer le repliement quand la fréquence dépasse la moitié de l'échantillonnage",
+      "Relever une rampe de 0 à 3,3 V avec le DAC et tracer l'erreur de l'ADC : elle n'est pas linéaire aux extrémités",
+      "Déclencher le tracé sur un front montant à un seuil réglable, pour que la courbe reste fixe à l'écran",
+      "Envoyer les trames en WebSocket binaire et les dessiner sur un canvas, avec l'échelle de temps et de tension réglable"
+    ],
+    "stretch": "Mesure l'enveloppe du signal d'un buzzer du kit qu'on fait vibrer, ou la sortie d'un filtre RC que tu construis avec une résistance et un condensateur : trace la réponse en fréquence en balayant le générateur de 100 Hz à 10 kHz."
+  }
+]

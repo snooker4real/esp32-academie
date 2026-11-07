@@ -1,0 +1,617 @@
+{
+ "13": {
+  "parts": [
+   "Thermistance",
+   "Résistance 10 kΩ",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Affiche la température en °C, lisse-la avec une moyenne glissante sur 10 mesures, puis envoie une alerte sur le moniteur série quand elle dépasse 28 °C. Compare le résultat avec et sans lissage.",
+  "quiz": [
+   {
+    "q": "Quand la température d'une thermistance NTC augmente, que devient sa résistance ?",
+    "choices": [
+     "Elle augmente",
+     "Elle diminue",
+     "Elle reste constante"
+    ],
+    "answer": 1,
+    "why": "NTC signifie coefficient de température négatif : plus il fait chaud, moins la résistance est grande."
+   },
+   {
+    "q": "Pourquoi associer la thermistance à une résistance fixe de 10 kΩ ?",
+    "choices": [
+     "Elles forment un diviseur de tension : l'ADC lit une tension, pas une résistance",
+     "La résistance fixe protège la thermistance d'un excès de chaleur",
+     "La résistance fixe ralentit la lecture pour la rendre stable"
+    ],
+    "answer": 0,
+    "why": "L'ADC de l'ESP32 mesure une tension de 0 à 3,3 V ; le diviseur convertit la variation de résistance en variation de tension."
+   },
+   {
+    "q": "Pourquoi la tension d'une thermistance n'est-elle pas proportionnelle à la température ?",
+    "choices": [
+     "Parce que l'ADC est imprécis",
+     "Parce que la résistance d'une NTC varie de façon exponentielle avec la température",
+     "Parce que le capteur chauffe lui-même"
+    ],
+    "answer": 1,
+    "why": "La relation résistance-température d'une NTC est exponentielle : le sketch utilise un calcul logarithmique pour la corriger."
+   },
+   {
+    "q": "Quelle résistance nominale a la thermistance du kit à 25 °C ?",
+    "choices": [
+     "10 kΩ",
+     "220 Ω",
+     "1 MΩ"
+    ],
+    "answer": 0,
+    "why": "C'est une NTC de 10 kΩ à 25 °C, d'où la résistance fixe de 10 kΩ du diviseur."
+   }
+  ]
+ },
+ "14": {
+  "parts": [
+   "Joystick",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Transforme le joystick en direction lisible : affiche haut, bas, gauche, droite ou centre sur le moniteur série, avec une zone morte qui supprime le tremblement au repos.",
+  "quiz": [
+   {
+    "q": "Le sketch lit les axes sur les GPIO 13 et 12, qui dépendent de l'ADC2 de l'ESP32. Quand ces lectures deviennent-elles impossibles ?",
+    "choices": [
+     "Quand le port série est ouvert",
+     "Quand la carte est alimentée en 5 V",
+     "Quand le WiFi est actif"
+    ],
+    "answer": 2,
+    "why": "L'ADC2 est partagé avec le WiFi : dès que le WiFi tourne, analogRead sur ces broches échoue. L'ADC1 (GPIO 32 à 39) n'a pas ce défaut."
+   },
+   {
+    "q": "Le bouton Z du joystick est lu avec INPUT_PULLUP. Que vaut la lecture quand on appuie ?",
+    "choices": [
+     "LOW : le bouton relie la broche à GND, le rappel interne la tient à HIGH au repos",
+     "HIGH : le bouton envoie 3,3 V sur la broche",
+     "Une valeur analogique entre 0 et 4095"
+    ],
+    "answer": 0,
+    "why": "Avec le rappel interne, l'état au repos est HIGH et l'appui tire la broche à GND, donc LOW signifie appuyé."
+   },
+   {
+    "q": "Que lit-on environ sur un axe du joystick au repos (ADC 12 bits) ?",
+    "choices": [
+     "0",
+     "Environ 2048, le milieu",
+     "4095"
+    ],
+    "answer": 1,
+    "why": "Au repos, le curseur de chaque axe est au centre de sa course : environ la moitié de 4095."
+   },
+   {
+    "q": "Combien de potentiomètres contient un joystick analogique à deux axes ?",
+    "choices": [
+     "Deux, un par axe",
+     "Un seul",
+     "Quatre"
+    ],
+    "answer": 0,
+    "why": "Un potentiomètre pour X, un pour Y, plus un petit bouton poussoir pour Z."
+   }
+  ]
+ },
+ "15": {
+  "parts": [
+   "Puce 74HC595 (série-parallèle)",
+   "Barre de LED",
+   "Résistances 220 Ω (x8)",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Fais aller-retour une seule LED sur la barre (effet Knight Rider) sans jamais utiliser delay(), en cadençant avec millis(). Fais ensuite varier la vitesse à chaque aller-retour.",
+  "quiz": [
+   {
+    "q": "Combien de broches de l'ESP32 faut-il pour piloter les 8 sorties d'un 74HC595 ?",
+    "choices": [
+     "8, une par sortie",
+     "3 : données, horloge et verrou",
+     "1 seule, avec un protocole série"
+    ],
+    "answer": 1,
+    "why": "Le sketch utilise dataPin, clockPin et latchPin : les bits sont décalés en série puis recopiés sur les 8 sorties."
+   },
+   {
+    "q": "À quoi sert la broche de verrou (latch, ST_CP) du 74HC595 ?",
+    "choices": [
+     "À choisir le sens du décalage des bits",
+     "À copier d'un coup les bits décalés vers les sorties",
+     "À mettre la puce en veille"
+    ],
+    "answer": 1,
+    "why": "Le sketch met latchPin à LOW, envoie l'octet avec shiftOut, puis met latchPin à HIGH : les sorties ne changent qu'à ce moment-là."
+   },
+   {
+    "q": "Que fait shiftOut() ?",
+    "choices": [
+     "Il envoie un octet bit par bit en cadençant l'horloge",
+     "Il lit un capteur numérique",
+     "Il active le PWM"
+    ],
+    "answer": 0,
+    "why": "shiftOut pose chaque bit sur la ligne de données puis donne un coup d'horloge, du premier au dernier."
+   },
+   {
+    "q": "Peut-on chaîner plusieurs 74HC595 ?",
+    "choices": [
+     "Non, un seul par carte",
+     "Oui, en reliant la sortie de débordement (Q7') à l'entrée de données du suivant",
+     "Oui, mais seulement deux"
+    ],
+    "answer": 1,
+    "why": "Les bits en trop passent au circuit suivant : on gagne 8 sorties par puce, toujours avec 3 broches."
+   }
+  ]
+ },
+ "16": {
+  "parts": [
+   "Afficheur 7 segments",
+   "Afficheur 4 chiffres",
+   "Matrice de LED",
+   "Puce 74HC595",
+   "Résistances 220 Ω",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Fais compter l'afficheur 4 chiffres de 0 à 9999 à raison d'un pas par seconde, sans scintillement visible. Mesure ensuite à partir de quelle durée par chiffre le scintillement apparaît.",
+  "quiz": [
+   {
+    "q": "Dans le sketch du 7 segments, le chiffre 0 s'affiche avec la valeur 0xC0 (11000000). Que cela indique-t-il ?",
+    "choices": [
+     "L'afficheur est à cathode commune : un segment s'allume à l'état haut",
+     "0xC0 est l'adresse I2C de l'afficheur",
+     "L'afficheur est à anode commune : un segment s'allume à l'état bas"
+    ],
+    "answer": 2,
+    "why": "Les deux bits à 1 sont les segments éteints (le point et le segment central), les six autres à 0 sont allumés : les segments s'activent à l'état bas."
+   },
+   {
+    "q": "Comment l'afficheur 4 chiffres montre-t-il quatre chiffres avec un seul jeu de 8 segments piloté par le 74HC595 ?",
+    "choices": [
+     "Un 74HC595 par chiffre",
+     "Il allume les chiffres un par un, très vite : c'est le multiplexage",
+     "Chaque segment de chaque chiffre a sa propre broche GPIO"
+    ],
+    "answer": 1,
+    "why": "Les segments sont partagés ; les broches communes (comPin) sélectionnent un chiffre à la fois et l'œil fusionne les affichages grâce à la persistance rétinienne."
+   },
+   {
+    "q": "Combien de LED (point décimal compris) un afficheur 7 segments contient-il ?",
+    "choices": [
+     "7",
+     "10",
+     "8"
+    ],
+    "answer": 2,
+    "why": "Sept segments plus le point décimal : huit LED, donc un octet complet pour les piloter."
+   },
+   {
+    "q": "Pourquoi l'affichage multiplexé semble-t-il continu alors qu'un seul chiffre est allumé à la fois ?",
+    "choices": [
+     "La persistance rétinienne : l'œil ne voit pas le balayage rapide",
+     "Les LED gardent leur lumière une seconde",
+     "Le 74HC595 mémorise l'image"
+    ],
+    "answer": 0,
+    "why": "On rafraîchit les chiffres si vite que l'œil les perçoit tous allumés en même temps."
+   }
+  ]
+ },
+ "17": {
+  "parts": [
+   "Relais",
+   "Moteur",
+   "Puce L293D (driver moteur)",
+   "Transistor NPN",
+   "Diode de redressement",
+   "Résistance 1 kΩ",
+   "Bouton poussoir",
+   "Potentiomètre",
+   "Support de 2 piles AA",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Ajoute une rampe d'accélération au moteur piloté par le L293D : la vitesse monte et descend progressivement vers la consigne du potentiomètre au lieu d'y sauter d'un coup.",
+  "quiz": [
+   {
+    "q": "Pourquoi ne branche-t-on pas un moteur ou la bobine d'un relais directement sur un GPIO ?",
+    "choices": [
+     "Un GPIO sort du 5 V et abîmerait le moteur",
+     "Un moteur ne tourne qu'avec du courant alternatif",
+     "Un GPIO ne fournit qu'environ 20 mA, trop peu pour une bobine ou un moteur"
+    ],
+    "answer": 2,
+    "why": "Le courant d'un GPIO est limité ; il faut un transistor ou un driver (L293D) alimenté par une source séparée pour la puissance."
+   },
+   {
+    "q": "Dans le sketch 17.2, à quoi sert la broche enable du L293D pilotée par ledcWrite ?",
+    "choices": [
+     "À inverser le sens de rotation",
+     "À régler la vitesse par PWM",
+     "À alimenter le moteur en 5 V"
+    ],
+    "answer": 1,
+    "why": "Le sens vient des broches in1 et in2 ; le rapport cyclique PWM sur enable fait varier la tension moyenne, donc la vitesse."
+   },
+   {
+    "q": "À quoi sert la diode placée en parallèle de la bobine d'un relais ?",
+    "choices": [
+     "À allumer un voyant",
+     "À absorber la surtension créée quand on coupe la bobine",
+     "À doubler la tension"
+    ],
+    "answer": 1,
+    "why": "Une bobine coupée génère un pic de tension inverse : la diode de roue libre le court-circuite et protège le transistor."
+   },
+   {
+    "q": "Un relais isole-t-il le circuit de commande du circuit commandé ?",
+    "choices": [
+     "Non, ils sont reliés",
+     "Oui, mais seulement en courant alternatif",
+     "Oui : la bobine et le contact sont séparés électriquement"
+    ],
+    "answer": 2,
+    "why": "Le contact est commandé par un champ magnétique : les deux circuits restent isolés."
+   }
+  ]
+ },
+ "18": {
+  "parts": [
+   "Servomoteur",
+   "Potentiomètre",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Pilote le servo avec le potentiomètre, mais ignore les variations de moins de 2° pour supprimer le tremblement. Fais ensuite en sorte que le servo rejoigne sa consigne en 1 seconde, quelle que soit la distance à parcourir.",
+  "quiz": [
+   {
+    "q": "À quelle fréquence un servomoteur standard attend-il son signal de commande ?",
+    "choices": [
+     "1 kHz",
+     "50 Hz, soit une période de 20 ms",
+     "5 kHz"
+    ],
+    "answer": 1,
+    "why": "Le servo lit la largeur d'une impulsion répétée toutes les 20 ms ; c'est la largeur, pas la fréquence, qui fixe l'angle."
+   },
+   {
+    "q": "Dans le sketch, que signifie myservo.attach(servoPin, 500, 2500) ?",
+    "choices": [
+     "Les fréquences PWM minimale et maximale en Hz",
+     "Les angles minimal et maximal en degrés",
+     "Les largeurs d'impulsion en µs correspondant à 0° et à 180°"
+    ],
+    "answer": 2,
+    "why": "Une impulsion de 500 µs place le bras à 0° et 2500 µs à 180° ; certains servos demandent des bornes un peu différentes."
+   },
+   {
+    "q": "Quelle largeur d'impulsion place un servo standard au milieu de sa course ?",
+    "choices": [
+     "Environ 1,5 ms",
+     "Environ 0,1 ms",
+     "Environ 20 ms"
+    ],
+    "answer": 0,
+    "why": "Autour de 1,5 ms le servo est à 90°, entre les extrêmes d'environ 0,5 à 2,5 ms avec les réglages du sketch."
+   },
+   {
+    "q": "Pourquoi faut-il parfois alimenter un servo à part de l'ESP32 ?",
+    "choices": [
+     "Il a besoin de 12 V",
+     "Il peut appeler assez de courant pour faire redémarrer la carte",
+     "Il ne fonctionne pas en 3,3 V"
+    ],
+    "answer": 1,
+    "why": "Au démarrage ou sous charge, un servo tire un fort courant : mieux vaut une alimentation externe avec GND commun."
+   }
+  ]
+ },
+ "19": {
+  "parts": [
+   "Moteur pas à pas",
+   "Carte driver du moteur pas à pas",
+   "Câbles dupont"
+  ],
+  "bonus": "Mesure combien de pas il faut pour un tour complet de l'arbre, fais un tour exactement, puis arrête-toi en affichant ce nombre sur le moniteur série.",
+  "quiz": [
+   {
+    "q": "Pourquoi un moteur pas à pas passe-t-il par une carte driver au lieu des GPIO directement ?",
+    "choices": [
+     "Pour convertir le 3,3 V en 5 V",
+     "Les GPIO ne fournissent pas le courant des bobines : la puce de la carte l'amplifie",
+     "Pour mémoriser l'angle du rotor entre deux coupures"
+    ],
+    "answer": 1,
+    "why": "Les quatre GPIO ne donnent que des signaux logiques ; la puce du driver commute le courant des bobines."
+   },
+   {
+    "q": "Comment inverser le sens de rotation du moteur dans le sketch 19.1 ?",
+    "choices": [
+     "En parcourant la séquence des quatre phases dans l'ordre inverse",
+     "En inversant le branchement des piles",
+     "En doublant la vitesse"
+    ],
+    "answer": 0,
+    "why": "Le sketch décale l'octet de phase vers la gauche pour un sens et vers la droite pour l'autre ; l'ordre d'excitation des bobines fixe le sens."
+   },
+   {
+    "q": "Que faut-il réduire pour faire tourner un moteur pas à pas plus vite dans le sketch ?",
+    "choices": [
+     "Le délai entre deux pas",
+     "Le nombre de bobines",
+     "La tension du GPIO"
+    ],
+    "answer": 0,
+    "why": "Chaque pas est une impulsion sur les bobines : en les enchaînant plus vite, le moteur tourne plus vite (jusqu'à décrocher)."
+   },
+   {
+    "q": "Qu'est-ce qu'un « pas » pour un moteur pas à pas ?",
+    "choices": [
+     "Un tour complet",
+     "Une petite rotation fixe obtenue en alimentant les bobines dans un ordre précis",
+     "Une vitesse en tours par minute"
+    ],
+    "answer": 1,
+    "why": "Le moteur avance d'un angle précis à chaque changement de phase : c'est ce qui permet de le positionner sans capteur."
+   }
+  ]
+ },
+ "20": {
+  "parts": [
+   "Écran LCD1602 (I2C)",
+   "Câbles dupont"
+  ],
+  "bonus": "Affiche sur la deuxième ligne une horloge hh:mm:ss alimentée par millis(), et fais défiler sur la première ligne une phrase de plus de 16 caractères.",
+  "quiz": [
+   {
+    "q": "Si l'écran ne répond pas à l'adresse I2C 0x27, quelle autre adresse le sketch essaie-t-il ?",
+    "choices": [
+     "0x68",
+     "0x50",
+     "0x3F"
+    ],
+    "answer": 2,
+    "why": "Le module utilise un PCF8574T à l'adresse 0x27 ou un PCF8574AT à l'adresse 0x3F, d'où le test de repli dans le sketch."
+   },
+   {
+    "q": "Pourquoi le sketch appelle-t-il Wire.begin(13, 14) ?",
+    "choices": [
+     "L'ESP32 permet d'assigner l'I2C à d'autres broches que celles par défaut (21 et 22)",
+     "Les GPIO 13 et 14 sont les seules broches I2C possibles",
+     "Pour activer le rappel à 3,3 V du bus"
+    ],
+    "answer": 0,
+    "why": "Le contrôleur I2C de l'ESP32 passe par une matrice de routage : on choisit SDA et SCL à l'appel de Wire.begin."
+   },
+   {
+    "q": "Combien de caractères un LCD1602 peut-il afficher ?",
+    "choices": [
+     "2 lignes de 16 caractères",
+     "16 lignes de 2 caractères",
+     "1 ligne de 32 caractères"
+    ],
+    "answer": 0,
+    "why": "1602 signifie 16 colonnes sur 2 lignes."
+   },
+   {
+    "q": "Quel est l'intérêt du module I2C collé derrière l'écran ?",
+    "choices": [
+     "Il augmente la luminosité",
+     "Il réduit le câblage à deux fils de données (SDA et SCL)",
+     "Il permet d'afficher des images"
+    ],
+    "answer": 1,
+    "why": "Sans lui, l'écran demande une dizaine de broches ; avec I2C, deux suffisent."
+   }
+  ]
+ },
+ "21": {
+  "parts": [
+   "Module de mesure à ultrason",
+   "Câbles dupont"
+  ],
+  "bonus": "Affiche la distance moyenne de 5 mesures en ignorant les valeurs aberrantes (0 ou hors portée), et envoie un avertissement sur le moniteur série sous 20 cm.",
+  "quiz": [
+   {
+    "q": "Le sketch calcule distance = durée × 340 / 2. Pourquoi diviser par 2 ?",
+    "choices": [
+     "Le son va deux fois plus vite dans l'air chaud",
+     "La durée mesurée correspond à un aller-retour de l'onde",
+     "Le module contient deux capteurs"
+    ],
+    "answer": 1,
+    "why": "L'onde part vers l'obstacle puis revient ; la distance à l'obstacle est la moitié du trajet total."
+   },
+   {
+    "q": "Que fait le sketch sur la broche trig avant chaque mesure ?",
+    "choices": [
+     "Il active le WiFi du module",
+     "Il lit la tension de l'écho",
+     "Il envoie une impulsion haute d'environ 10 µs"
+    ],
+    "answer": 2,
+    "why": "Une impulsion de 10 µs sur trig déclenche l'émission des ultrasons ; la durée de l'écho se mesure ensuite sur la broche echo."
+   },
+   {
+    "q": "Quelle est la vitesse approximative du son dans l'air ?",
+    "choices": [
+     "Environ 3 000 m/s",
+     "Environ 340 m/s",
+     "Environ 30 m/s"
+    ],
+    "answer": 1,
+    "why": "340 m/s environ, d'où le facteur 340 dans le calcul de la distance (en m/s)."
+   },
+   {
+    "q": "Pourquoi un capteur ultrason mesure-t-il mal devant un tissu épais ?",
+    "choices": [
+     "Le tissu chauffe le capteur",
+     "Le capteur ne voit que les objets lumineux",
+     "Le tissu absorbe l'onde : l'écho revient trop faible ou pas du tout"
+    ],
+    "answer": 2,
+    "why": "Les surfaces molles ou inclinées renvoient mal le son vers le capteur."
+   }
+  ]
+ },
+ "22": {
+  "parts": [
+   "Clavier matriciel 4×4",
+   "Câbles dupont"
+  ],
+  "bonus": "Programme un code à 4 chiffres : * efface la saisie, # valide, et après 3 erreurs le moniteur série annonce un verrouillage de 10 secondes pendant lequel les touches sont ignorées.",
+  "quiz": [
+   {
+    "q": "Combien de GPIO faut-il pour lire un clavier 4×4 par balayage lignes et colonnes ?",
+    "choices": [
+     "16, un par touche",
+     "4",
+     "8, soit 4 lignes et 4 colonnes"
+    ],
+    "answer": 2,
+    "why": "Les touches sont disposées en matrice : le sketch déclare rowPins et colPins de 4 broches chacun."
+   },
+   {
+    "q": "Comment la bibliothèque Keypad trouve-t-elle la touche enfoncée ?",
+    "choices": [
+     "Avec un convertisseur ADC par touche",
+     "Elle active tour à tour un côté de la grille et lit l'autre pour repérer le croisement pressé",
+     "Par une liaison I2C avec le clavier"
+    ],
+    "answer": 1,
+    "why": "Appuyer sur une touche relie une ligne à une colonne ; le balayage détecte ce lien et en déduit la touche."
+   },
+   {
+    "q": "Combien de touches compte le clavier matriciel du kit ?",
+    "choices": [
+     "12",
+     "16",
+     "20"
+    ],
+    "answer": 1,
+    "why": "Un clavier 4×4 : 16 touches pour 8 fils."
+   },
+   {
+    "q": "Pourquoi utiliser une matrice plutôt qu'une broche par touche ?",
+    "choices": [
+     "Pour économiser des GPIO : 8 broches au lieu de 16",
+     "Pour que les touches soient plus rapides",
+     "Parce que l'ESP32 n'a pas de pull-up"
+    ],
+    "answer": 0,
+    "why": "Chaque touche relie une ligne à une colonne : 4 + 4 broches suffisent pour 16 touches."
+   }
+  ]
+ },
+ "23": {
+  "parts": [
+   "Récepteur infrarouge",
+   "Télécommande infrarouge (absente de la liste officielle des pièces : à vérifier dans ta boîte)",
+   "Câbles dupont"
+  ],
+  "bonus": "Construis un tableau code vers nom de touche pour toute ta télécommande, puis affiche sur le moniteur série le nom de chaque touche appuyée, et ignore les codes de répétition quand une touche reste enfoncée.",
+  "quiz": [
+   {
+    "q": "Que transmet réellement une télécommande infrarouge ?",
+    "choices": [
+     "Une tension analogique proportionnelle à la touche",
+     "Un code numérique modulé sur une porteuse d'environ 38 kHz",
+     "Un signal Bluetooth à courte portée"
+    ],
+    "answer": 1,
+    "why": "Le code est envoyé en trames de signaux modulés à 38 kHz, ce qui permet au récepteur d'ignorer la lumière ambiante."
+   },
+   {
+    "q": "Dans le sketch 23.2, que représente la valeur 0xff6897 dans un case ?",
+    "choices": [
+     "L'adresse I2C du récepteur",
+     "Un numéro de GPIO",
+     "Le code reçu quand on appuie sur la touche 0 de la télécommande"
+    ],
+    "answer": 2,
+    "why": "Chaque touche envoie un code différent ; le sketch compare le code reçu à ces constantes pour choisir la luminosité de la LED."
+   },
+   {
+    "q": "Pourquoi le récepteur infrarouge filtre-t-il autour de 38 kHz ?",
+    "choices": [
+     "Pour consommer moins",
+     "Pour ne garder que le signal de la télécommande et ignorer la lumière ambiante",
+     "Pour voir à travers les murs"
+    ],
+    "answer": 1,
+    "why": "La télécommande module son signal sur cette porteuse : tout le reste (soleil, lampes) est rejeté."
+   },
+   {
+    "q": "Comment vérifier à l'œil qu'une télécommande IR émet bien ?",
+    "choices": [
+     "En écoutant un bip",
+     "En la plaçant près de la carte SD",
+     "En la filmant avec la caméra d'un téléphone : la LED apparaît comme une lueur"
+    ],
+    "answer": 2,
+    "why": "Les capteurs des caméras voient l'infrarouge, invisible à l'œil nu."
+   }
+  ]
+ },
+ "24": {
+  "parts": [
+   "Capteur DHT11",
+   "Résistance 10 kΩ",
+   "Écran LCD1602 (I2C)",
+   "Plaque d'essai",
+   "Câbles dupont"
+  ],
+  "bonus": "Calcule le point de rosée à partir de la température et de l'humidité mesurées par le DHT11, et affiche les trois valeurs sur le moniteur série toutes les 2 secondes.",
+  "quiz": [
+   {
+    "q": "Environ combien de mesures par seconde le DHT11 peut-il fournir au maximum ?",
+    "choices": [
+     "Une par minute",
+     "100",
+     "Une par seconde environ"
+    ],
+    "answer": 2,
+    "why": "Le DHT11 est lent : un intervalle d'environ une seconde est nécessaire, et le sketch attend 2 secondes entre deux lectures."
+   },
+   {
+    "q": "Comment le DHT11 communique-t-il avec l'ESP32 ?",
+    "choices": [
+     "Par I2C, sur deux fils",
+     "Par un seul fil de données avec un protocole propre au capteur",
+     "Par SPI, sur trois fils"
+    ],
+    "answer": 1,
+    "why": "Le DHT11 envoie ses 40 bits sur une seule broche de données, décodés par la bibliothèque DHTesp ; c'est pourquoi le sketch ne contient pas de Wire."
+   },
+   {
+    "q": "Quelle autre grandeur que la température le DHT11 mesure-t-il ?",
+    "choices": [
+     "La pression",
+     "L'humidité relative",
+     "La luminosité"
+    ],
+    "answer": 1,
+    "why": "Le DHT11 donne la température et l'humidité relative de l'air."
+   },
+   {
+    "q": "Quelle précision en température annonce-t-on pour un DHT11 ?",
+    "choices": [
+     "Environ ±2 °C",
+     "Environ ±0,01 °C",
+     "Environ ±10 °C"
+    ],
+    "answer": 0,
+    "why": "C'est un capteur économique : environ ±2 °C, avec des valeurs entières."
+   }
+  ]
+ }
+}

@@ -1,0 +1,405 @@
+{
+  "B0754N794H": {
+    "name": "Cartes Wemos D1 Mini ESP8266, lot de 3, AZDelivery",
+    "price": "19,92 €",
+    "rating": "4,6 ★ · 4 k avis",
+    "img": "810+G3wUWQL",
+    "alt": {
+      "name": "Lot de 4, moins cher",
+      "url": "https://www.amazon.fr/dp/B0D66LXTTK",
+      "price": "14,55 €",
+      "rating": "4,5 ★ · 155 avis"
+    }
+  },
+  "B07BTTY4FL": {
+    "name": "Ruban LED WS2812B 5 V, 100 LED/m, 1 m, BTF-LIGHTING",
+    "price": "20,99 €",
+    "rating": "4,4 ★ · 1,8 k avis",
+    "img": "61wF7bGaFLL",
+    "alt": {
+      "name": "Version ECO, plus fine",
+      "url": "https://www.amazon.fr/dp/B088JZCBDR",
+      "price": "13,99 €",
+      "rating": "4,5 ★ · 45 avis"
+    }
+  },
+  "B0BYS9Y2B6": {
+    "name": "Alimentation secteur 5 V 3 A, jack 5,5 × 2,1 mm",
+    "price": "13,98 €",
+    "rating": "4,4 ★ · 228 avis",
+    "img": "71WHm2UVXEL"
+  },
+  "B0DKJ5HKPM": {
+    "name": "Connecteurs DC 5,5 × 2,1 mm à vis, lot de 4",
+    "price": "6,99 €",
+    "rating": "4,6 ★ · 120 avis",
+    "img": "61uJxwHxmWL"
+  },
+  "B09B3GRVTM": {
+    "name": "Kit fer à souder 80 W réglable avec étain",
+    "price": "23,98 €",
+    "rating": "4,3 ★ · 9,7 k avis",
+    "img": "71NLbwIiExL"
+  },
+  "B0DQXVS4FW": {
+    "name": "Inserts filetés en laiton et vis M2, assortiment",
+    "price": "15,99 €",
+    "rating": "4,6 ★ · 25 avis",
+    "img": "81r9CY9tF1L",
+    "note": "Pour fermer le boîtier. Peu d'avis. Tu peux aussi coller le boîtier, mais seulement une fois WLED testé."
+  },
+  "B0CD7B7ZKK": {
+    "name": "Filament PLA blanc 1,75 mm, 1 kg, ELEGOO",
+    "price": "15,19 €",
+    "rating": "4,6 ★ · 1,6 k avis",
+    "img": "71mr9+AlsUL"
+  },
+  "B0CNYWW81R": {
+    "name": "Ruban adhésif double face extra fort, 3 m",
+    "price": "3,99 €",
+    "rating": "4,3 ★ · 7,8 k avis",
+    "img": "61-ecLtpqNL",
+    "note": "Pour fixer le ruban et la carte. Le fil des vieux câbles USB suffit pour les soudures, comme dans la vidéo."
+  },
+  "B0D17TMWFB": {
+    "name": "Imprimante 3D Bambu Lab A1, volume 256 mm",
+    "price": "279,00 €",
+    "rating": "4,6 ★ · 703 avis",
+    "img": "71GDz14IZJL",
+    "alt": {
+      "name": "A1 mini, moins chère, volume 180 mm",
+      "url": "https://www.amazon.fr/dp/B0GQMJ8QQT",
+      "price": "219,00 €",
+      "rating": "4,5 ★ · 336 avis"
+    },
+    "note": "Pour imprimer les boîtiers et supports en PLA des projets qui en ont besoin. Elle règle presque tout toute seule, donc elle convient à un premier achat. Une seule suffit pour tous les projets. Inutile si tu as déjà une imprimante 3D."
+  },
+  "B0G7Z44DLB": {
+    "name": "Cartes ESP32-C3 Mini, lot de 4",
+    "price": "13,99 €",
+    "rating": "4,2 ★ · 48 avis",
+    "img": "81+zTbT9SpL",
+    "alt": {
+      "name": "Lot de 3, Super Mini",
+      "url": "https://www.amazon.fr/dp/B0FZV9N2RS",
+      "price": "16,98 €",
+      "rating": "4,3 ★ · 39 avis"
+    }
+  },
+  "B0GGBQ5BG9": {
+    "name": "Module capteur ENS160 + AHT21, qualité d'air et température",
+    "price": "12,99 €",
+    "rating": "pas encore d'avis",
+    "img": "61Gkfk1I4cL",
+    "alt": {
+      "name": "Hailege ENS160+AHT21",
+      "url": "https://www.amazon.fr/dp/B0CJY3TBNZ",
+      "price": "13,49 €",
+      "rating": "3,2 ★ · 20 avis"
+    },
+    "note": "Une seule carte avec les deux capteurs en I2C. Peu d'avis sur ce vendeur : l'autre modèle est noté 3,2 ★ sur 20 avis. À la réception, vérifie que la bibliothèque détecte les deux capteurs."
+  },
+  "B07FVR3TB8": {
+    "name": "Ventilateur 5 V 30 × 30 × 7 mm, GeeekPi",
+    "price": "6,99 €",
+    "rating": "4,5 ★ · 1,5 k avis",
+    "img": "61l-MOeCVyL",
+    "note": "Le même format que pour les Raspberry Pi, silencieux, deux fils."
+  },
+  "B07T2VBBLV": {
+    "name": "Assortiment de transistors dont BC337, 250 pièces",
+    "price": "9,99 €",
+    "rating": "4,6 ★ · 982 avis",
+    "img": "81vmFMTw01S",
+    "note": "Il te faut un seul BC337 : le lot sert pour tous tes projets suivants."
+  },
+  "B09Z2HFH66": {
+    "name": "Assortiment de diodes 1N4001 à 1N4148, 100 pièces",
+    "price": "5,99 €",
+    "rating": "4,8 ★ · 214 avis",
+    "img": "61a-UKC-ndL",
+    "note": "Une diode protège le GPIO contre les pics du ventilateur. Vérifie si ton kit n'en contient pas déjà."
+  },
+  "B0GXTPDCDB": {
+    "name": "Modules déclencheur USB-C PD, lot de 5",
+    "price": "8,99 €",
+    "rating": "4,3 ★ · 9 avis",
+    "img": "7135Vt-tCVL",
+    "note": "Alimentation USB-C de la vidéo : sans pont de configuration, le module donne 5 V. Peu d'avis. Tu peux aussi alimenter par l'USB-C de la carte, sans ventilateur au-dessus de 500 mA."
+  },
+  "B088BRY2SH": {
+    "name": "Ruban LED WS2812B 5 V, 60 LED/m, 1 m, BTF-LIGHTING",
+    "price": "10,99 €",
+    "rating": "4,4 ★ · 362 avis",
+    "img": "71InwcWTtFL"
+  },
+  "B08BCRZZS3": {
+    "name": "Inserts filetés M3 × 5,7 mm, 100 pièces, ruthex",
+    "price": "9,99 €",
+    "rating": "4,7 ★ · 1,5 k avis",
+    "img": "717sikDXLoL"
+  },
+  "B0F4BZ447N": {
+    "name": "Aimants néodyme 6 × 2 mm, 100 pièces",
+    "price": "7,99 €",
+    "rating": "4,6 ★ · 1,6 k avis",
+    "img": "61Tm83AnkRL"
+  },
+  "B0CHYHGYRH": {
+    "name": "Carte ESP32-S3 Mini (S3FH4R2), Waveshare",
+    "price": "11,90 €",
+    "rating": "4,5 ★ · 83 avis",
+    "img": "618P4dOyxyL",
+    "note": "Même famille que l'ESP32-S3 Zero de la vidéo : petite, avec USB-C. Vérifie le brochage dans la documentation du fabricant, les numéros GPIO de la vidéo valent pour l'ESP32-S3 Zero."
+  },
+  "B0CFFH65PC": {
+    "name": "Module horloge RTC DS3231, lot de 3",
+    "price": "11,99 €",
+    "rating": "4,6 ★ · 112 avis",
+    "img": "81WcnIVTZUL",
+    "note": "Garde l'heure même quand l'ESP32 dort. La vidéo utilise une version mini ; ce module est plus grand, mesure la place avant d'imprimer le châssis."
+  },
+  "B0HDTP4KLM": {
+    "name": "Driver moteur double MX1508",
+    "price": "4,74 €",
+    "rating": "pas d'avis",
+    "img": "51Gtj-A0tCL",
+    "alt": {
+      "name": "Lot de 5 MX1508",
+      "url": "https://www.amazon.fr/dp/B09VSF8XNW",
+      "price": "16,99 €",
+      "rating": "pas d'avis"
+    },
+    "note": "Les moteurs consomment trop pour les GPIO : le driver s'en charge. Pas d'avis sur cette annonce."
+  },
+  "B0CJY3MTY2": {
+    "name": "2 moteurs GA12-N20 avec réducteur, Hailege",
+    "price": "10,49 €",
+    "rating": "4,6 ★ · 20 avis",
+    "img": "51KCk8JoITL",
+    "note": "La vidéo prend des moteurs à angle droit, 190 à 762 tr/min. Vérifie que la variante est à angle droit avant de commander, sinon le châssis ne tient pas."
+  },
+  "B0CNGWHS5N": {
+    "name": "Modules de charge TP4056 USB-C, lot de 20",
+    "price": "6,99 €",
+    "rating": "4,2 ★ · 39 avis",
+    "img": "81ckFPsMrNL",
+    "note": "Charge la LiPo par USB-C. Un seul suffit, tu en as pour tout le reste de l'année."
+  },
+  "B08FD39Y5R": {
+    "name": "Batterie LiPo 3,7 V 1100 mAh, EEMB",
+    "price": "10,99 €",
+    "rating": "4,2 ★ · 1,4 k avis",
+    "img": "61JqOVFToxL"
+  },
+  "B0CNW51GCZ": {
+    "name": "Connecteurs JST 1,25 mm 2 broches avec câble, 10 paires",
+    "price": "6,99 €",
+    "rating": "4,6 ★ · 194 avis",
+    "img": "71X+PSMBzZL",
+    "note": "Pour débrancher la batterie quand tu reprogrammes la carte. Le pas varie (1,25 ou 2 mm) : il doit correspondre au connecteur de ta batterie."
+  },
+  "B07G4KWV6S": {
+    "name": "Modules élévateurs MT3608, lot de 5",
+    "price": "10,95 €",
+    "rating": "4,0 ★ · 108 avis",
+    "img": "71lEIrGtzXL",
+    "note": "Dans la liste de la vidéo, pour obtenir 5 V depuis la LiPo. Optionnel si tout marche sans."
+  },
+  "B0D2NKVB34": {
+    "name": "Seeed Studio XIAO ESP32-C6",
+    "price": "16,99 €",
+    "rating": "4,6 ★ · 167 avis",
+    "img": "61jbprRXYVL",
+    "note": "La carte exacte de la vidéo. Antenne Wi-Fi à fixer avant d'alimenter."
+  },
+  "B0G828G6S7": {
+    "name": "Capteurs DHT22 / AM2302, lot de 3",
+    "price": "9,99 €",
+    "rating": "3,9 ★ · 19 avis",
+    "img": "71BrSN7hQ4L",
+    "note": "Mesure température et humidité. Ton DHT11 du kit fait l'affaire pour tester avant d'acheter, il est juste moins précis."
+  },
+  "B0BN1NXG4D": {
+    "name": "Modules BMP280 (pression), 5 pièces, Hailege",
+    "price": "8,49 €",
+    "rating": "4,5 ★ · 100 avis",
+    "img": "618cxFoj++L",
+    "note": "Version 3,3 V, comme dans la vidéo. Adresse I2C 0x76 ou 0x77."
+  },
+  "B076CBJ48H": {
+    "name": "Module capteur de pluie FR-04",
+    "price": "13,99 €",
+    "rating": "4,2 ★ · 21 avis",
+    "img": "716yEcY+e4L",
+    "note": "Carte avec comparateur : la sortie numérique passe à 0 ou 1 selon le seuil réglé par la vis."
+  },
+  "B0DZXVDBYW": {
+    "name": "Gel de silice réutilisable, sac de 900 g",
+    "price": "14,99 €",
+    "rating": "4,6 ★ · 1,9 k avis",
+    "img": "81NaGt4COIL",
+    "note": "Une poignée suffit dans la réserve du boîtier pour absorber l'humidité. Le reste sert à d'autres projets."
+  },
+  "B0GTVT49XK": {
+    "name": "Câble USB-C 1 m, transfert de données",
+    "price": "6,99 €",
+    "rating": "4,6 ★ · 378 avis",
+    "img": "71hwspjKd1L",
+    "note": "La vidéo utilise un long câble pour alimenter dehors : prends-en un de la bonne longueur."
+  },
+  "B0FS1FN2H4": {
+    "name": "Convertisseurs DC-DC 12/24 V vers 5 V 3 A, lot de 2",
+    "price": "6,99 €",
+    "rating": "4,4 ★ · 29 avis",
+    "img": "71eGu2RtK+L",
+    "note": "Seulement si ton ruban est en 12 V : il alimente la carte en 5 V."
+  },
+  "B0D4ZB6D5D": {
+    "name": "Filament PLA mat noir 1,75 mm, 1 kg, ELEGOO",
+    "price": "16,99 €",
+    "rating": "4,7 ★ · 1,8 k avis",
+    "img": "71VojZP4zJL",
+    "note": "Pour le cadre des triangles, comme dans la vidéo."
+  },
+  "B0FDGNZRPR": {
+    "name": "Pistolet à colle chaude avec bâtons, RUNSAI",
+    "price": "11,99 €",
+    "rating": "4,5 ★ · 967 avis",
+    "img": "71SWFQmNlgL",
+    "note": "Pour coller le ruban et fixer les fils."
+  },
+  "B0D7Q6BGW8": {
+    "name": "Cartes Nano V3 ATmega328P pré-soudées, lot de 3, ELEGOO",
+    "price": "20,99 €",
+    "rating": "4,4 ★ · 127 avis",
+    "img": "71iMIWooF0L",
+    "alt": {
+      "name": "Lot de 3 avec USB-C",
+      "url": "https://www.amazon.fr/dp/B0H9LJ5XX5",
+      "price": "16,59 €",
+      "rating": "pas d'avis"
+    },
+    "note": "La vidéo préfère un Nano avec port USB-C, plus pratique. Cette version a un port micro-USB, mais elle est fiable et pré-soudée."
+  },
+  "B0DDPXD45M": {
+    "name": "Modules capteur de courant INA219 I2C, lot de 6",
+    "price": "11,49 €",
+    "rating": "4,5 ★ · 54 avis",
+    "img": "711m5xfOrdL"
+  },
+  "B0DRC9F4FS": {
+    "name": "Chargeur MagSafe 15 W Qi2, Anker Zolo",
+    "price": "16,99 €",
+    "rating": "4,4 ★ · 3,7 k avis",
+    "img": "51IW5FXIhYL",
+    "note": "Il faut couper son câble : ne le fais pas sur un chargeur que tu veux garder intact. La vidéo mesure environ 900 mA pendant la charge. Il te faut aussi un adaptateur secteur USB, que tu as sûrement déjà."
+  },
+  "B0B3MGZ7T2": {
+    "name": "Assortiment vis à six pans creux M3 en inox, 440 pièces",
+    "price": "10,88 €",
+    "rating": "4,6 ★ · 3 k avis",
+    "img": "81rn4GTDe9L",
+    "note": "4 vis M3 pour fermer le boîtier."
+  },
+  "B00E3VAO9Y": {
+    "name": "Aérosol peinture gris graphite 400 ml, NESPOLI",
+    "price": "7,19 €",
+    "rating": "4,4 ★ · 4,2 k avis",
+    "img": "61vQ823yQzL",
+    "note": "Pour le côté gris de la vidéo. Facultatif : le boîtier cache le téléphone même sans peinture."
+  },
+  "B073GWX6J4": {
+    "name": "Cellule de charge 5 kg + module HX711",
+    "price": "9,99 €",
+    "rating": "4,9 ★ · 14 avis",
+    "img": "61RsnpvOSrL",
+    "alt": {
+      "name": "DIYmalls, cellule 5 kg + HX711",
+      "url": "https://www.amazon.fr/dp/B0B9H3YMT2",
+      "price": "14,90 €",
+      "rating": "4,5 ★ · 65 avis"
+    },
+    "note": "Le kit contient la cellule en barre et le module HX711. Prévois deux plaques (bois, acrylique, carton épais) et des vis M4."
+  },
+  "B0H4434MG9": {
+    "name": "Module radar de présence LD2410C 24 GHz",
+    "price": "9,99 €",
+    "rating": "pas d'avis",
+    "img": "61dw5yjUZ8L",
+    "alt": {
+      "name": "LD2410 (HLK), 17,95 €",
+      "url": "https://www.amazon.fr/dp/B0BJ8CWWS9",
+      "price": "17,95 €",
+      "rating": "4,6 ★ · 10 avis"
+    },
+    "note": "Pas d'avis sur cette annonce : le prix est le plus bas trouvé pour ce module. Le même radar existe avec des avis, un peu plus cher."
+  },
+  "B0D8XL43HZ": {
+    "name": "Capteurs de distance laser VL53L0X, lot de 2",
+    "price": "10,99 €",
+    "rating": "4,1 ★ · 27 avis",
+    "img": "61Aeyx8sBOL",
+    "alt": {
+      "name": "Lot de 6 VL53L0X",
+      "url": "https://www.amazon.fr/dp/B0D3PRSV3B",
+      "price": "11,89 €",
+      "rating": "3,8 ★ · 39 avis"
+    },
+    "note": "Mesure jusqu'à environ 1,2 m en conditions normales. Deux suffisent : un à chaque position."
+  },
+  "B0CH2TYXCZ": {
+    "name": "Micros numériques INMP441 I2S, lot de 3",
+    "price": "8,59 €",
+    "rating": "4,3 ★ · 89 avis",
+    "img": "71lc4C7cWCL",
+    "alt": {
+      "name": "Lot de 3 INMP441, autre vendeur",
+      "url": "https://www.amazon.fr/dp/B0GYZVQSFT",
+      "price": "7,99 €",
+      "rating": "5,0 ★ · 2 avis"
+    },
+    "note": "Un micro suffit, les deux autres servent à rater un câblage sans conséquence. Les broches sont à souder si elles sont livrées séparées."
+  },
+  "B09RDVKPFJ": {
+    "name": "Connecteurs USB A mâle et femelle sur bornier",
+    "price": "6,98 €",
+    "rating": "4,5 ★ · 296 avis",
+    "img": "61WCqQ8syBL",
+    "note": "Pour couper le fil + d'un câble USB sans le découper. Sinon, dénude un vieux câble USB."
+  },
+  "B07Y2RK1FF": {
+    "name": "LED infrarouge 940 nm 5 mm, lot de 20, Hailege",
+    "price": "6,49 €",
+    "rating": "4,4 ★ · 164 avis",
+    "img": "51LPGnB96YL",
+    "note": "Le lot contient aussi des diodes réceptrices. 940 nm est la longueur d'onde que voient les récepteurs de télécommande."
+  },
+  "B0CPJ6HW9K": {
+    "name": "Modules transceiver CAN SN65HVD230, lot de 5, ARCELI",
+    "price": "11,99 €",
+    "rating": "4,3 ★ · 22 avis",
+    "img": "71sUkMILuXL",
+    "note": "Deux suffisent, un par nœud. Le lot laisse de la marge pour casser un module."
+  },
+  "B0CL6MMF9V": {
+    "name": "Résistances 120 Ω 1/4 W, lot de 100",
+    "price": "6,99 €",
+    "rating": "4,6 ★ · 80 avis",
+    "img": "61CE6aXlOJL",
+    "note": "Seulement si tes modules n'ont pas de résistance de terminaison. Il t'en faut deux."
+  },
+  "B088LR3488": {
+    "name": "Module GPS GY-NEO6MV2 avec antenne",
+    "price": "7,99 €",
+    "rating": "3,6 ★ · 438 avis",
+    "img": "512x4cPF9cL",
+    "alt": {
+      "name": "Lot de 3 GY-NEO6MV2",
+      "url": "https://www.amazon.fr/dp/B0D9K2ZKBS",
+      "price": "13,99 €",
+      "rating": "4,2 ★ · 47 avis"
+    },
+    "note": "Le plus économique des modules NEO-6M. Les notes sont moyennes : prends le lot de 3 si tu veux de la marge."
+  }
+}

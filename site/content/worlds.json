@@ -1,0 +1,14 @@
+[
+  {"id": 1, "title": "Premières lumières", "tagline": "Allumer, appuyer, faire varier.", "hue": 38, "chapters": [1, 2, 3, 4, 5, 6],
+   "boss": {"name": "Le Court-Circuit", "intro": "Un enchevêtrement de fils en colère. Il ne cède qu'à ceux qui savent limiter un courant et lire un bouton."}},
+  {"id": 2, "title": "Sons et mesures", "tagline": "Écouter la carte, lire le monde.", "hue": 190, "chapters": [7, 8, 9, 10, 11, 12],
+   "boss": {"name": "Le Rebond", "intro": "Il saute, il vibre, il répond deux fois. Seul un esprit calme distingue un vrai signal d'un parasite."}},
+  {"id": 3, "title": "Logique et mouvement", "tagline": "Puces, relais, moteurs.", "hue": 150, "chapters": [13, 14, 15, 16, 17, 18],
+   "boss": {"name": "Le Bug Fantôme", "intro": "Il apparaît, il disparaît, il se cache dans le code. On ne l'attrape qu'en comprenant ce qui se passe vraiment."}},
+  {"id": 4, "title": "Capteurs et écrans", "tagline": "Mesurer, afficher, commander.", "hue": 280, "chapters": [19, 20, 21, 22, 23, 24],
+   "boss": {"name": "Le Signal Perdu", "intro": "Un serpent d'onde qui se noie dans le bruit. Retrouve le fil du signal pour le faire taire."}},
+  {"id": 5, "title": "Sans fil et mémoire", "tagline": "Bluetooth, son, carte SD.", "hue": 320, "chapters": [25, 26, 27, 28, 29, 30],
+   "boss": {"name": "Le Brouilleur", "intro": "Une tour qui coupe toutes les ondes. Il ne craint que ceux qui savent comment l'ESP32 parle sans fil."}},
+  {"id": 6, "title": "Réseau et caméra", "tagline": "WiFi, vidéo, soudure.", "hue": 0, "chapters": [31, 32, 33, 34, 35, 36],
+   "boss": {"name": "Le Kernel Panic", "intro": "Le dernier gardien : un titan de silicium fissuré. Tout ce que tu as appris sert ici."}}
+]

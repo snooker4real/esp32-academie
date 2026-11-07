@@ -1,0 +1,611 @@
+{
+ "25": {
+  "parts": [
+   "Capteur de mouvement infrarouge (PIR)",
+   "LED",
+   "Résistance 220 Ω",
+   "Fils de connexion"
+  ],
+  "bonus": "Allume la LED pendant 5 secondes après le dernier mouvement détecté, sans utiliser delay() qui bloque tout le programme.",
+  "quiz": [
+   {
+    "q": "Que détecte un capteur PIR ?",
+    "choices": [
+     "La variation de rayonnement infrarouge d'un corps chaud qui bouge",
+     "La distance à un objet grâce à des ultrasons",
+     "La lumière visible ambiante"
+    ],
+    "answer": 0,
+    "why": "Le PIR réagit aux changements d'infrarouge : une personne immobile finit par ne plus être détectée."
+   },
+   {
+    "q": "Pourquoi le sketch 25.1 recopie-t-il simplement digitalRead(sensorPin) sur la LED ?",
+    "choices": [
+     "La sortie est analogique et varie de 0 à 4095",
+     "La sortie du capteur est numérique : HIGH quand il détecte un mouvement, LOW sinon",
+     "Le capteur envoie des impulsions PWM qu'il faut compter"
+    ],
+    "answer": 1,
+    "why": "Le module PIR traite le signal lui-même et ne fournit qu'un niveau logique à l'ESP32."
+   },
+   {
+    "q": "Un capteur PIR détecte-t-il une personne parfaitement immobile ?",
+    "choices": [
+     "Oui, toujours",
+     "Mal, car il réagit aux variations de rayonnement infrarouge",
+     "Seulement dans le noir"
+    ],
+    "answer": 1,
+    "why": "Un PIR compare deux zones : sans mouvement, rien ne varie et il ne détecte plus."
+   },
+   {
+    "q": "À quoi servent les petits réglages (potentiomètres) sur un module PIR ?",
+    "choices": [
+     "À changer la couleur de la LED",
+     "À régler la sensibilité ou la durée du signal selon le module",
+     "À choisir la tension d'alimentation"
+    ],
+    "answer": 1,
+    "why": "Ils règlent la distance de détection et le temps pendant lequel la sortie reste active."
+   }
+  ]
+ },
+ "26": {
+  "parts": [
+   "Module accéléromètre MPU6050",
+   "Fils de connexion"
+  ],
+  "bonus": "Calcule l'angle d'inclinaison de la carte et fais sonner le buzzer quand elle penche de plus de 30 degrés.",
+  "quiz": [
+   {
+    "q": "Quel bus relie le MPU6050 à l'ESP32 dans le sketch 26.1 ?",
+    "choices": [
+     "SPI, avec quatre fils MOSI, MISO, SCK et CS",
+     "Une liaison série UART à 9600 bauds",
+     "I2C, avec Wire.begin(SDA, SCL) sur les GPIO 13 et 14"
+    ],
+    "answer": 2,
+    "why": "Le sketch redéfinit SDA et SCL sur les GPIO 13 et 14, car le MPU6050 est un périphérique I2C."
+   },
+   {
+    "q": "Que mesure le MPU6050 ?",
+    "choices": [
+     "L'accélération sur 3 axes et la rotation sur 3 axes (gyroscope)",
+     "La température et l'humidité de l'air",
+     "Le champ magnétique et la pression atmosphérique"
+    ],
+    "answer": 0,
+    "why": "Le MPU6050 combine un accéléromètre et un gyroscope à trois axes chacun, soit six degrés de liberté."
+   },
+   {
+    "q": "Que mesure l'accéléromètre du MPU6050 posé à plat sur une table, sur l'axe vertical ?",
+    "choices": [
+     "Environ 1 g, la gravité",
+     "0 g",
+     "Environ 10 g"
+    ],
+    "answer": 0,
+    "why": "Même immobile, l'accéléromètre sent la gravité : environ 1 g sur l'axe vertical."
+   },
+   {
+    "q": "Pourquoi la valeur d'un gyroscope dérive-t-elle avec le temps quand on l'intègre ?",
+    "choices": [
+     "Parce que la carte chauffe",
+     "Parce que les petites erreurs de mesure s'additionnent",
+     "Parce que l'I2C est lent"
+    ],
+    "answer": 1,
+    "why": "Intégrer une vitesse angulaire cumule le moindre biais : l'angle estimé s'éloigne peu à peu de la réalité."
+   }
+  ]
+ },
+ "27": {
+  "parts": [
+   "Carte ESP32-WROVER seule (Bluetooth et LED GPIO 2 intégrés)",
+   "Téléphone avec une application de terminal Bluetooth (hors kit)"
+  ],
+  "bonus": "Pilote la LED RGB du kit depuis le téléphone en envoyant des commandes texte comme rouge, vert ou bleu.",
+  "quiz": [
+   {
+    "q": "Quelle est la différence entre BluetoothSerial (27.1) et le sketch BLE_USART (27.2) ?",
+    "choices": [
+     "BluetoothSerial est plus récent et remplace complètement le BLE",
+     "BluetoothSerial utilise le Bluetooth classique ; le sketch 27.2 utilise le BLE, plus économe en énergie",
+     "Les deux sont identiques, seul le nom du périphérique change"
+    ],
+    "answer": 1,
+    "why": "L'ESP32 gère le Bluetooth classique (port série SPP) et le BLE, avec des bibliothèques et des usages différents."
+   },
+   {
+    "q": "Dans le sketch 27.3, que se passe-t-il quand le téléphone envoie « led_on » ?",
+    "choices": [
+     "La carte redémarre et passe en mode BLE",
+     "Le téléphone reçoit la température de la carte",
+     "La LED de la carte sur GPIO 2 s'allume"
+    ],
+    "answer": 2,
+    "why": "Le sketch lit les caractères reçus par SerialBT et allume la LED connectée à GPIO 2 quand il reconnaît led_on."
+   },
+   {
+    "q": "Quel est l'avantage principal du Bluetooth Low Energy (BLE) ?",
+    "choices": [
+     "Il transmet plus de données",
+     "Sa consommation est bien plus faible",
+     "Il porte plus loin"
+    ],
+    "answer": 1,
+    "why": "BLE est conçu pour de petits échanges avec une consommation minimale."
+   },
+   {
+    "q": "Quelle bibliothèque fournit le Bluetooth classique en liaison série sur l'ESP32 ?",
+    "choices": [
+     "BluetoothSerial",
+     "WiFiClient",
+     "Wire"
+    ],
+    "answer": 0,
+    "why": "BluetoothSerial se comporte comme Serial, mais via le Bluetooth classique."
+   }
+  ]
+ },
+ "28": {
+  "parts": [
+   "Haut-parleur",
+   "Transistor NPN",
+   "Résistance 1 kΩ",
+   "Diode de redressement",
+   "Fils de connexion"
+  ],
+  "bonus": "Fais clignoter la LED de la carte tant qu'un téléphone est connecté en Bluetooth audio, et éteins-la à la déconnexion.",
+  "quiz": [
+   {
+    "q": "Combien de bits a le DAC intégré à l'ESP32 ?",
+    "choices": [
+     "8 bits, soit 256 niveaux de tension",
+     "12 bits, soit 4096 niveaux de tension",
+     "16 bits, soit 65536 niveaux de tension"
+    ],
+    "answer": 0,
+    "why": "Les deux DAC de l'ESP32 (GPIO 25 et 26) ont une résolution de 8 bits, contre 12 bits pour l'ADC."
+   },
+   {
+    "q": "Pourquoi le circuit du chapitre 28 place-t-il un transistor entre GPIO 25 et le haut-parleur ?",
+    "choices": [
+     "Pour convertir le signal numérique en signal analogique",
+     "Le signal du DAC est trop faible pour piloter un haut-parleur : le transistor l'amplifie",
+     "Pour protéger le GPIO contre une tension de 12 V"
+    ],
+    "answer": 1,
+    "why": "Un GPIO fournit très peu de courant ; le transistor commute le 5 V pour alimenter le haut-parleur au rythme du signal."
+   },
+   {
+    "q": "Pourquoi le DAC 8 bits de l'ESP32 donne-t-il un son de qualité modeste ?",
+    "choices": [
+     "Il n'a que 256 niveaux : le signal est grossier",
+     "Il ne fonctionne qu'en 5 V",
+     "Il est trop lent pour l'audio"
+    ],
+    "answer": 0,
+    "why": "Avec 256 niveaux seulement, l'onde est en escalier : le bruit de quantification est audible."
+   },
+   {
+    "q": "Quelle fonction envoie une valeur au DAC du GPIO 25 ?",
+    "choices": [
+     "analogWrite()",
+     "dacWrite()",
+     "ledcWrite()"
+    ],
+    "answer": 1,
+    "why": "dacWrite(25, valeur) règle la tension analogique de sortie sur le DAC1."
+   }
+  ]
+ },
+ "29": {
+  "parts": [
+   "Module convertisseur audio et amplificateur (PCM5102A)",
+   "Haut-parleur",
+   "Fils de connexion"
+  ],
+  "bonus": "Ajoute un bouton poussoir qui coupe le son (mute) et rallume-le à l'appui suivant.",
+  "quiz": [
+   {
+    "q": "Quel protocole transporte l'audio entre l'ESP32 et le PCM5102A ?",
+    "choices": [
+     "I2C, avec les signaux SDA et SCL",
+     "SPI, avec les signaux MOSI et SCK",
+     "I2S, avec les signaux BCK, LCK et DIN"
+    ],
+    "answer": 2,
+    "why": "I2S est le bus conçu pour l'audio numérique : horloge de bit, horloge de mot et données."
+   },
+   {
+    "q": "Quel profil Bluetooth permet de recevoir de la musique d'un téléphone ?",
+    "choices": [
+     "A2DP (Advanced Audio Distribution Profile)",
+     "SPP (Serial Port Profile)",
+     "HID (Human Interface Device)"
+    ],
+    "answer": 0,
+    "why": "A2DP transporte l'audio stéréo ; SPP sert à émuler un port série et HID à simuler clavier ou souris."
+   },
+   {
+    "q": "Quel avantage a un DAC externe I2S comme le PCM5102A sur le DAC interne ?",
+    "choices": [
+     "Il est moins cher",
+     "Une meilleure résolution et un son plus propre",
+     "Il n'a pas besoin d'alimentation"
+    ],
+    "answer": 1,
+    "why": "Le PCM5102A convertit des échantillons de 16 bits ou plus, contre 8 bits pour le DAC interne."
+   },
+   {
+    "q": "Que signifie I2S ?",
+    "choices": [
+     "Inter-IC Sound, un bus numérique dédié à l'audio",
+     "Internet Speed Standard",
+     "Input 2 Signals"
+    ],
+    "answer": 0,
+    "why": "I2S transporte des échantillons audio numériques entre puces avec une horloge dédiée."
+   }
+  ]
+ },
+ "30": {
+  "parts": [
+   "Carte ESP32-WROVER seule (lecteur microSD intégré)",
+   "Carte microSD",
+   "Lecteur de cartes USB"
+  ],
+  "bonus": "Écris dans un fichier de la carte SD la valeur de la thermistance toutes les 10 secondes, puis relis-le sur ton ordinateur.",
+  "quiz": [
+   {
+    "q": "Que signifie le paramètre true dans SD_MMC.begin(\"/sdcard\", true, ...) du sketch 30.1 ?",
+    "choices": [
+     "La carte est ouverte en lecture seule",
+     "Le mode 1 bit : une seule ligne de données (D0) est utilisée",
+     "La carte est formatée à chaque démarrage"
+    ],
+    "answer": 1,
+    "why": "En mode 1 bit, seuls CLK, CMD et D0 (GPIO 14, 15 et 2) servent, ce qui libère les autres broches."
+   },
+   {
+    "q": "Que renvoie cardType() si aucune carte n'est insérée ?",
+    "choices": [
+     "CARD_SD, avec une capacité de 0 octet",
+     "Rien : le programme plante immédiatement",
+     "CARD_NONE, et le sketch affiche « No SD_MMC card attached »"
+    ],
+    "answer": 2,
+    "why": "Le sketch teste le type retourné et signale l'absence de carte au lieu de continuer."
+   },
+   {
+    "q": "Quel système de fichiers faut-il généralement sur la carte microSD ?",
+    "choices": [
+     "NTFS",
+     "FAT32",
+     "APFS"
+    ],
+    "answer": 1,
+    "why": "La bibliothèque lit les cartes formatées en FAT (FAT32 pour les cartes courantes)."
+   },
+   {
+    "q": "Que donne SD_MMC.totalBytes() ?",
+    "choices": [
+     "L'espace libre",
+     "La capacité totale de la carte",
+     "La taille du dernier fichier"
+    ],
+    "answer": 1,
+    "why": "totalBytes renvoie la capacité totale ; usedBytes donne l'espace occupé."
+   }
+  ]
+ },
+ "31": {
+  "parts": [
+   "Carte microSD avec des fichiers MP3",
+   "Lecteur de cartes USB",
+   "Haut-parleur",
+   "Transistor NPN",
+   "Résistance 1 kΩ",
+   "Condensateur 10 µF",
+   "Diode de redressement",
+   "Fils de connexion"
+  ],
+  "bonus": "Passe à la piste suivante avec un bouton poussoir et affiche le titre du morceau dans le moniteur série.",
+  "quiz": [
+   {
+    "q": "Quel format audio lisent les sketches du chapitre 31 ?",
+    "choices": [
+     "Le MP3, décodé par le sketch lui-même (AudioGeneratorMP3)",
+     "Le WAV brut uniquement, sans décodage",
+     "Le MIDI, joué par synthèse sur le haut-parleur"
+    ],
+    "answer": 0,
+    "why": "Les sketches lisent les fichiers MP3 de la carte SD et les décodent sur l'ESP32."
+   },
+   {
+    "q": "Pourquoi le tutoriel demande-t-il d'insérer la carte SD avant de brancher l'USB ?",
+    "choices": [
+     "Le port USB fournit trop de courant et abîmerait une carte déjà insérée",
+     "La carte est montée dans setup() au démarrage : sans elle à ce moment, la lecture échoue",
+     "Les fichiers MP3 sont copiés automatiquement au branchement"
+    ],
+    "answer": 1,
+    "why": "SD_MMC.begin() n'est appelé qu'une fois au démarrage ; la carte doit donc déjà être en place."
+   },
+   {
+    "q": "Pourquoi lire la musique depuis la carte SD plutôt que depuis la flash ?",
+    "choices": [
+     "La flash est trop petite pour stocker des morceaux entiers",
+     "La SD est plus rapide",
+     "La flash ne peut pas stocker de MP3"
+    ],
+    "answer": 0,
+    "why": "La flash du module sert au programme ; la microSD offre des gigaoctets pour les fichiers."
+   },
+   {
+    "q": "Quel type de composant décode ici le MP3 ?",
+    "choices": [
+     "Un module externe",
+     "Le programme lui-même, via une bibliothèque audio",
+     "Le moniteur série"
+    ],
+    "answer": 1,
+    "why": "L'ESP32 décode le MP3 en logiciel puis envoie le son vers le DAC."
+   }
+  ]
+ },
+ "32": {
+  "parts": [
+   "Carte ESP32-WROVER seule",
+   "Routeur Wi-Fi 2,4 GHz avec son nom et son mot de passe (hors kit)"
+  ],
+  "bonus": "Affiche l'adresse IP obtenue sur l'écran LCD1602 dès que la connexion Wi-Fi est établie.",
+  "quiz": [
+   {
+    "q": "Quelle est la différence entre le mode station et le mode point d'accès ?",
+    "choices": [
+     "En station, l'ESP32 crée un réseau ; en point d'accès, il rejoint un routeur",
+     "Les deux modes sont identiques, seule la vitesse change",
+     "En station, l'ESP32 rejoint un routeur ; en point d'accès, il crée son propre réseau Wi-Fi"
+    ],
+    "answer": 2,
+    "why": "WiFi.begin() connecte l'ESP32 à un réseau existant, alors que WiFi.softAP() en crée un."
+   },
+   {
+    "q": "Quelle fonction donne l'adresse IP de l'ESP32 quand il est en point d'accès ?",
+    "choices": [
+     "WiFi.softAPIP()",
+     "WiFi.localIP()",
+     "WiFi.gatewayIP()"
+    ],
+    "answer": 0,
+    "why": "localIP() renvoie l'adresse obtenue comme station ; softAPIP() celle du réseau créé par l'ESP32."
+   },
+   {
+    "q": "Sur quelle bande de fréquences travaille le WiFi de l'ESP32 ?",
+    "choices": [
+     "2,4 GHz uniquement",
+     "5 GHz uniquement",
+     "60 GHz"
+    ],
+    "answer": 0,
+    "why": "L'ESP32 classique ne gère que le 2,4 GHz : un réseau 5 GHz seul reste invisible."
+   },
+   {
+    "q": "Que renvoie WiFi.status() quand la connexion est établie ?",
+    "choices": [
+     "WL_CONNECTED",
+     "WL_IDLE_STATUS",
+     "WL_NO_SSID_AVAIL"
+    ],
+    "answer": 0,
+    "why": "WL_CONNECTED : l'ESP32 a rejoint le réseau et possède une adresse IP."
+   }
+  ]
+ },
+ "33": {
+  "parts": [
+   "Carte ESP32-WROVER seule",
+   "Routeur Wi-Fi 2,4 GHz (hors kit)",
+   "Ordinateur sur le même réseau (hors kit)"
+  ],
+  "bonus": "Allume et éteins la LED de la carte depuis un navigateur en visitant les adresses /on et /off de ton serveur.",
+  "quiz": [
+   {
+    "q": "Dans le sketch 33.2 (WiFiServer), qui initie la connexion TCP ?",
+    "choices": [
+     "L'ESP32, qui appelle l'ordinateur toutes les secondes",
+     "Le client, par exemple l'ordinateur : l'ESP32 attend dans server.accept()",
+     "Le routeur, qui relie les deux appareils"
+    ],
+    "answer": 1,
+    "why": "Un serveur écoute sur un port ; c'est toujours le client qui ouvre la connexion."
+   },
+   {
+    "q": "De quoi l'ESP32 a-t-il besoin pour se connecter à un serveur dans le sketch 33.1 (WiFiClient) ?",
+    "choices": [
+     "Uniquement du nom du réseau Wi-Fi",
+     "De l'adresse MAC de l'ordinateur",
+     "De l'adresse IP et du port du serveur distant (REMOTE_PORT 8888)"
+    ],
+    "answer": 2,
+    "why": "Un client TCP doit connaître l'IP et le port où le serveur écoute avant d'ouvrir la connexion."
+   },
+   {
+    "q": "Qu'est-ce qu'un port TCP ?",
+    "choices": [
+     "Une prise physique sur la carte",
+     "Un numéro qui désigne un service sur une machine",
+     "Une vitesse de transmission"
+    ],
+    "answer": 1,
+    "why": "L'adresse IP désigne la machine, le port désigne le service (8888 dans nos sketches)."
+   },
+   {
+    "q": "Pourquoi l'ordinateur doit-il être sur le même réseau local que l'ESP32 ?",
+    "choices": [
+     "Pour atteindre son adresse IP privée",
+     "Pour le recharger",
+     "Pour qu'il soit en mode station"
+    ],
+    "answer": 0,
+    "why": "L'adresse locale (192.168…) n'est joignable que depuis le même réseau."
+   }
+  ]
+ },
+ "34": {
+  "parts": [
+   "Carte ESP32-WROVER avec sa caméra (module de caméra du kit)",
+   "Routeur Wi-Fi 2,4 GHz (hors kit)",
+   "Ordinateur ou téléphone avec un navigateur (hors kit)"
+  ],
+  "bonus": "Compare les résolutions QVGA, VGA et SVGA depuis la page web et note laquelle reste fluide sur ton réseau.",
+  "quiz": [
+   {
+    "q": "À quelle taille d'image correspond FRAMESIZE_QVGA, la valeur par défaut du sketch ?",
+    "choices": [
+     "320 × 240 pixels",
+     "640 × 480 pixels",
+     "1600 × 1200 pixels"
+    ],
+    "answer": 0,
+    "why": "QVGA signifie Quarter VGA : un quart de la résolution VGA, soit 320 × 240."
+   },
+   {
+    "q": "Quel format de pixel le sketch configure-t-il pour le streaming vidéo ?",
+    "choices": [
+     "PIXFORMAT_RGB565, des pixels bruts sur 16 bits",
+     "PIXFORMAT_JPEG, des images compressées",
+     "PIXFORMAT_GRAYSCALE, des images en noir et blanc"
+    ],
+    "answer": 1,
+    "why": "Le JPEG est compressé par la caméra, ce qui réduit le débit à envoyer par le Wi-Fi."
+   },
+   {
+    "q": "Pourquoi la caméra utilise-t-elle la PSRAM de la WROVER ?",
+    "choices": [
+     "Pour stocker les images, trop grandes pour la RAM interne",
+     "Pour allumer le flash de la caméra",
+     "Pour se connecter au WiFi"
+    ],
+    "answer": 0,
+    "why": "Une image JPEG ou brute occupe des dizaines de ko : la PSRAM de 4 Mo sert de zone tampon."
+   },
+   {
+    "q": "Comment le navigateur affiche-t-il le flux vidéo du sketch 34 ?",
+    "choices": [
+     "En recevant une suite d'images JPEG par HTTP",
+     "Par Bluetooth",
+     "Par un câble HDMI"
+    ],
+    "answer": 0,
+    "why": "Le serveur web envoie les images les unes après les autres : c'est un flux MJPEG."
+   }
+  ]
+ },
+ "35": {
+  "parts": [
+   "Carte ESP32-WROVER avec sa caméra (module de caméra du kit)",
+   "Routeur Wi-Fi 2,4 GHz (hors kit)",
+   "Ordinateur avec l'application cliente Freenove (hors kit)"
+  ],
+  "bonus": "N'envoie des images que lorsqu'un capteur PIR branché sur une broche libre (13 ou 14) détecte un mouvement.",
+  "quiz": [
+   {
+    "q": "Quel port TCP transporte le flux vidéo dans le sketch 35.1 ?",
+    "choices": [
+     "Le port 5000 (server_Cmd)",
+     "Le port 80, comme une page web",
+     "Le port 8000 (server_Camera)"
+    ],
+    "answer": 2,
+    "why": "Le sketch ouvre deux serveurs : 5000 pour les commandes et 8000 pour la caméra."
+   },
+   {
+    "q": "Pourquoi ce sketch utilise-t-il deux serveurs et deux ports ?",
+    "choices": [
+     "Pour séparer les commandes envoyées à la carte du flux d'images qu'elle renvoie",
+     "Parce que le Wi-Fi n'accepte qu'une seule connexion par port",
+     "Pour doubler la vitesse de téléchargement des images"
+    ],
+    "answer": 0,
+    "why": "Un port dédié aux commandes évite qu'elles soient mélangées au flux vidéo continu."
+   },
+   {
+    "q": "Quelle différence entre TCP et UDP ?",
+    "choices": [
+     "TCP garantit l'arrivée et l'ordre des données, UDP non",
+     "UDP est plus fiable",
+     "Il n'y en a pas"
+    ],
+    "answer": 0,
+    "why": "TCP vérifie et réémet les paquets perdus ; UDP les envoie sans garantie, mais plus vite."
+   },
+   {
+    "q": "Pourquoi envoyer des images JPEG plutôt que brutes sur le réseau ?",
+    "choices": [
+     "Elles sont bien plus petites",
+     "Elles sont en couleur",
+     "Elles se chiffrent toutes seules"
+    ],
+    "answer": 0,
+    "why": "La compression JPEG divise fortement la taille, donc le temps de transfert."
+   }
+  ]
+ },
+ "36": {
+  "parts": [
+   "Plaque de soudure (carte perforée)",
+   "LED",
+   "Résistance 220 Ω",
+   "Buzzer actif",
+   "Bouton poussoir",
+   "Fils",
+   "Fer à souder et étain (hors kit)"
+  ],
+  "bonus": "Alimente ton circuit soudé avec le porte-piles 2 × AA du kit et vérifie que la LED et le buzzer réagissent au bouton.",
+  "quiz": [
+   {
+    "q": "Comment réussit-on une bonne soudure ?",
+    "choices": [
+     "En déposant l'étain sur la panne du fer puis en le laissant couler sur la pièce",
+     "En chauffant ensemble la patte et la pastille, puis en amenant l'étain sur ce point chaud",
+     "En chauffant très peu pour ne pas abîmer le composant"
+    ],
+    "answer": 1,
+    "why": "L'étain doit fondre au contact de la pièce chauffée, pas sur le fer, pour bien mouiller la pastille."
+   },
+   {
+    "q": "Quel défaut caractérise une soudure froide ?",
+    "choices": [
+     "Un joint brillant en forme de cône",
+     "Un joint trop petit mais parfaitement conducteur",
+     "Un joint terne et granuleux qui assure un mauvais contact électrique"
+    ],
+    "answer": 2,
+    "why": "Une soudure insuffisamment chauffée ne s'accroche pas bien et provoque des pannes intermittentes."
+   },
+   {
+    "q": "Dans quelle plage règle-t-on environ la température d'un fer pour souder à l'étain ?",
+    "choices": [
+     "Entre 100 et 150 °C",
+     "Entre 300 et 380 °C",
+     "Au-dessus de 600 °C"
+    ],
+    "answer": 1,
+    "why": "L'étain fond vers 180-230 °C, mais la panne doit rester plus chaude pour chauffer vite la pastille."
+   },
+   {
+    "q": "Pourquoi étamer la panne du fer avant de souder ?",
+    "choices": [
+     "Pour la colorer",
+     "Pour améliorer le transfert de chaleur vers la pastille",
+     "Pour la refroidir"
+    ],
+    "answer": 1,
+    "why": "Un peu d'étain frais sur la panne conduit la chaleur bien mieux qu'une panne sèche et oxydée."
+   }
+  ]
+ }
+}

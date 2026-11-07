@@ -1,0 +1,610 @@
+{
+ "1": [
+  {
+   "gpio": 2,
+   "role": "LED intégrée"
+  }
+ ],
+ "2": [
+  {
+   "gpio": 2,
+   "role": "LED"
+  },
+  {
+   "gpio": 13,
+   "role": "bouton"
+  }
+ ],
+ "3": [
+  {
+   "gpio": 15,
+   "role": "LED 1 de la barre"
+  },
+  {
+   "gpio": 2,
+   "role": "LED 2"
+  },
+  {
+   "gpio": 0,
+   "role": "LED 3"
+  },
+  {
+   "gpio": 4,
+   "role": "LED 4"
+  },
+  {
+   "gpio": 5,
+   "role": "LED 5"
+  },
+  {
+   "gpio": 18,
+   "role": "LED 6"
+  },
+  {
+   "gpio": 19,
+   "role": "LED 7"
+  },
+  {
+   "gpio": 21,
+   "role": "LED 8"
+  },
+  {
+   "gpio": 22,
+   "role": "LED 9"
+  },
+  {
+   "gpio": 23,
+   "role": "LED 10"
+  }
+ ],
+ "4": [
+  {
+   "gpio": 15,
+   "role": "LED 1 de la barre (4.2)"
+  },
+  {
+   "gpio": 2,
+   "role": "LED intégrée en PWM (4.1) / LED 2 de la barre (4.2)"
+  },
+  {
+   "gpio": 0,
+   "role": "LED 3 de la barre (4.2)"
+  },
+  {
+   "gpio": 4,
+   "role": "LED 4 de la barre (4.2)"
+  },
+  {
+   "gpio": 5,
+   "role": "LED 5 de la barre (4.2)"
+  },
+  {
+   "gpio": 18,
+   "role": "LED 6 de la barre (4.2)"
+  },
+  {
+   "gpio": 19,
+   "role": "LED 7 de la barre (4.2)"
+  },
+  {
+   "gpio": 21,
+   "role": "LED 8 de la barre (4.2)"
+  },
+  {
+   "gpio": 22,
+   "role": "LED 9 de la barre (4.2)"
+  },
+  {
+   "gpio": 23,
+   "role": "LED 10 de la barre (4.2)"
+  }
+ ],
+ "5": [
+  {
+   "gpio": 4,
+   "role": "LED RGB : rouge"
+  },
+  {
+   "gpio": 2,
+   "role": "LED RGB : vert"
+  },
+  {
+   "gpio": 15,
+   "role": "LED RGB : bleu"
+  }
+ ],
+ "6": [
+  {
+   "gpio": 2,
+   "role": "données du ruban de 8 LED"
+  }
+ ],
+ "7": [
+  {
+   "gpio": 13,
+   "role": "buzzer"
+  },
+  {
+   "gpio": 4,
+   "role": "bouton"
+  }
+ ],
+ "8": [],
+ "9": [
+  {
+   "gpio": 4,
+   "role": "entrée analogique (potentiomètre)"
+  },
+  {
+   "gpio": 25,
+   "role": "sortie DAC1"
+  }
+ ],
+ "10": [
+  {
+   "gpio": 4,
+   "role": "capteur tactile T0"
+  },
+  {
+   "gpio": 2,
+   "role": "LED (10.2)"
+  }
+ ],
+ "11": [
+  {
+   "gpio": 2,
+   "role": "LED RGB, voie 2 (11.2) / données du ruban (11.3)"
+  },
+  {
+   "gpio": 4,
+   "role": "potentiomètre (11.1) / LED RGB, voie 3 (11.2)"
+  },
+  {
+   "gpio": 12,
+   "role": "potentiomètre 2 (11.2)"
+  },
+  {
+   "gpio": 13,
+   "role": "potentiomètre 1 (11.2) / potentiomètre (11.3)"
+  },
+  {
+   "gpio": 14,
+   "role": "potentiomètre 3 (11.2)"
+  },
+  {
+   "gpio": 15,
+   "role": "LED RGB, voie 1 (11.2)"
+  },
+  {
+   "gpio": 25,
+   "role": "LED en PWM (11.1)"
+  }
+ ],
+ "12": [
+  {
+   "gpio": 4,
+   "role": "photorésistance (entrée analogique)"
+  },
+  {
+   "gpio": 12,
+   "role": "LED"
+  }
+ ],
+ "13": [
+  {
+   "gpio": 4,
+   "role": "thermistance (entrée analogique)"
+  }
+ ],
+ "14": [
+  {
+   "gpio": 13,
+   "role": "joystick : axe X"
+  },
+  {
+   "gpio": 12,
+   "role": "joystick : axe Y"
+  },
+  {
+   "gpio": 14,
+   "role": "joystick : bouton Z"
+  }
+ ],
+ "15": [
+  {
+   "gpio": 12,
+   "role": "74HC595 : verrou (ST_CP)"
+  },
+  {
+   "gpio": 13,
+   "role": "74HC595 : horloge (SH_CP)"
+  },
+  {
+   "gpio": 14,
+   "role": "74HC595 : données (DS)"
+  }
+ ],
+ "16": [
+  {
+   "gpio": 15,
+   "role": "74HC595 : données (DS)"
+  },
+  {
+   "gpio": 2,
+   "role": "74HC595 : verrou (ST_CP)"
+  },
+  {
+   "gpio": 4,
+   "role": "74HC595 : horloge (SH_CP)"
+  },
+  {
+   "gpio": 25,
+   "role": "afficheur 4 chiffres : commun 1 (16.2)"
+  },
+  {
+   "gpio": 26,
+   "role": "afficheur 4 chiffres : commun 2 (16.2)"
+  },
+  {
+   "gpio": 27,
+   "role": "afficheur 4 chiffres : commun 3 (16.2)"
+  },
+  {
+   "gpio": 14,
+   "role": "afficheur 4 chiffres : commun 4 (16.2)"
+  }
+ ],
+ "17": [
+  {
+   "gpio": 13,
+   "role": "relais (17.1) / enable du L293D (17.2)"
+  },
+  {
+   "gpio": 15,
+   "role": "bouton (17.1)"
+  },
+  {
+   "gpio": 12,
+   "role": "L293D : IN1 (17.2)"
+  },
+  {
+   "gpio": 14,
+   "role": "L293D : IN2 (17.2)"
+  },
+  {
+   "gpio": 36,
+   "role": "potentiomètre (17.2, via A0 = GPIO 36, valeur par défaut du cœur ESP32)"
+  }
+ ],
+ "18": [
+  {
+   "gpio": 15,
+   "role": "servomoteur : signal"
+  },
+  {
+   "gpio": 34,
+   "role": "potentiomètre (18.2)"
+  }
+ ],
+ "19": [
+  {
+   "gpio": 14,
+   "role": "moteur pas à pas : bobine 1"
+  },
+  {
+   "gpio": 27,
+   "role": "moteur pas à pas : bobine 2"
+  },
+  {
+   "gpio": 26,
+   "role": "moteur pas à pas : bobine 3"
+  },
+  {
+   "gpio": 25,
+   "role": "moteur pas à pas : bobine 4"
+  }
+ ],
+ "20": [
+  {
+   "gpio": 13,
+   "role": "I2C : SDA (Wire.begin explicite)"
+  },
+  {
+   "gpio": 14,
+   "role": "I2C : SCL (Wire.begin explicite)"
+  }
+ ],
+ "21": [
+  {
+   "gpio": 13,
+   "role": "HC-SR04 : Trig"
+  },
+  {
+   "gpio": 14,
+   "role": "HC-SR04 : Echo"
+  }
+ ],
+ "22": [
+  {
+   "gpio": 14,
+   "role": "clavier : ligne 1"
+  },
+  {
+   "gpio": 27,
+   "role": "clavier : ligne 2"
+  },
+  {
+   "gpio": 26,
+   "role": "clavier : ligne 3"
+  },
+  {
+   "gpio": 25,
+   "role": "clavier : ligne 4"
+  },
+  {
+   "gpio": 13,
+   "role": "clavier : colonne 1"
+  },
+  {
+   "gpio": 21,
+   "role": "clavier : colonne 2"
+  },
+  {
+   "gpio": 22,
+   "role": "clavier : colonne 3"
+  },
+  {
+   "gpio": 23,
+   "role": "clavier : colonne 4"
+  },
+  {
+   "gpio": 19,
+   "role": "servomoteur (22.2)"
+  },
+  {
+   "gpio": 18,
+   "role": "buzzer (22.2)"
+  }
+ ],
+ "23": [
+  {
+   "gpio": 15,
+   "role": "récepteur infrarouge"
+  },
+  {
+   "gpio": 14,
+   "role": "LED (23.2)"
+  },
+  {
+   "gpio": 13,
+   "role": "buzzer (23.2)"
+  }
+ ],
+ "24": [
+  {
+   "gpio": 13,
+   "role": "DHT11 (24.1) / I2C SDA de l'écran LCD (24.2)"
+  },
+  {
+   "gpio": 14,
+   "role": "I2C SCL de l'écran LCD (24.2)"
+  },
+  {
+   "gpio": 18,
+   "role": "DHT11 (24.2)"
+  }
+ ],
+ "25": [
+  {
+   "gpio": 14,
+   "role": "capteur de mouvement PIR"
+  },
+  {
+   "gpio": 13,
+   "role": "LED"
+  }
+ ],
+ "26": [
+  {
+   "gpio": 13,
+   "role": "I2C : SDA (Wire.begin explicite)"
+  },
+  {
+   "gpio": 14,
+   "role": "I2C : SCL (Wire.begin explicite)"
+  }
+ ],
+ "27": [
+  {
+   "gpio": 2,
+   "role": "LED (27.3)"
+  }
+ ],
+ "28": [
+  {
+   "gpio": 25,
+   "role": "sortie audio du DAC interne : canal droit (réglage par défaut du pilote I2S)"
+  },
+  {
+   "gpio": 26,
+   "role": "sortie audio du DAC interne : canal gauche (réglage par défaut du pilote I2S)"
+  }
+ ],
+ "29": [
+  {
+   "gpio": 25,
+   "role": "PCM5102A : LRCK"
+  },
+  {
+   "gpio": 26,
+   "role": "PCM5102A : BCK"
+  },
+  {
+   "gpio": 22,
+   "role": "PCM5102A : DATA"
+  }
+ ],
+ "30": [
+  {
+   "gpio": 15,
+   "role": "carte SD : CMD"
+  },
+  {
+   "gpio": 14,
+   "role": "carte SD : CLK"
+  },
+  {
+   "gpio": 2,
+   "role": "carte SD : D0"
+  }
+ ],
+ "31": [
+  {
+   "gpio": 15,
+   "role": "carte SD : CMD"
+  },
+  {
+   "gpio": 14,
+   "role": "carte SD : CLK"
+  },
+  {
+   "gpio": 2,
+   "role": "carte SD : D0"
+  },
+  {
+   "gpio": 26,
+   "role": "I2S : BCLK"
+  },
+  {
+   "gpio": 22,
+   "role": "I2S : DOUT"
+  },
+  {
+   "gpio": 25,
+   "role": "I2S : LRC"
+  }
+ ],
+ "32": [],
+ "33": [],
+ "34": [
+  {
+   "gpio": 21,
+   "role": "caméra XCLK"
+  },
+  {
+   "gpio": 26,
+   "role": "caméra SIOD (SDA du bus SCCB)"
+  },
+  {
+   "gpio": 27,
+   "role": "caméra SIOC (SCL du bus SCCB)"
+  },
+  {
+   "gpio": 35,
+   "role": "caméra Y9 (D7)"
+  },
+  {
+   "gpio": 34,
+   "role": "caméra Y8 (D6)"
+  },
+  {
+   "gpio": 39,
+   "role": "caméra Y7 (D5)"
+  },
+  {
+   "gpio": 36,
+   "role": "caméra Y6 (D4)"
+  },
+  {
+   "gpio": 19,
+   "role": "caméra Y5 (D3)"
+  },
+  {
+   "gpio": 18,
+   "role": "caméra Y4 (D2)"
+  },
+  {
+   "gpio": 5,
+   "role": "caméra Y3 (D1)"
+  },
+  {
+   "gpio": 4,
+   "role": "caméra Y2 (D0)"
+  },
+  {
+   "gpio": 25,
+   "role": "caméra VSYNC"
+  },
+  {
+   "gpio": 23,
+   "role": "caméra HREF"
+  },
+  {
+   "gpio": 22,
+   "role": "caméra PCLK"
+  }
+ ],
+ "35": [
+  {
+   "gpio": 21,
+   "role": "caméra XCLK"
+  },
+  {
+   "gpio": 26,
+   "role": "caméra SIOD (SDA du bus SCCB)"
+  },
+  {
+   "gpio": 27,
+   "role": "caméra SIOC (SCL du bus SCCB)"
+  },
+  {
+   "gpio": 35,
+   "role": "caméra Y9 (D7)"
+  },
+  {
+   "gpio": 34,
+   "role": "caméra Y8 (D6)"
+  },
+  {
+   "gpio": 39,
+   "role": "caméra Y7 (D5)"
+  },
+  {
+   "gpio": 36,
+   "role": "caméra Y6 (D4)"
+  },
+  {
+   "gpio": 19,
+   "role": "caméra Y5 (D3)"
+  },
+  {
+   "gpio": 18,
+   "role": "caméra Y4 (D2)"
+  },
+  {
+   "gpio": 5,
+   "role": "caméra Y3 (D1)"
+  },
+  {
+   "gpio": 4,
+   "role": "caméra Y2 (D0)"
+  },
+  {
+   "gpio": 25,
+   "role": "caméra VSYNC"
+  },
+  {
+   "gpio": 23,
+   "role": "caméra HREF"
+  },
+  {
+   "gpio": 22,
+   "role": "caméra PCLK"
+  },
+  {
+   "gpio": 2,
+   "role": "LED intégrée"
+  }
+ ],
+ "36": []
+}

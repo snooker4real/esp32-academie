@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0f12">
+<title>ESP32 Caméra</title>
+<style>
+:root {
+  --bg: #0d0f12; --ink: #f3f1ee; --muted: #9a9ba1; --accent: #ff8a3d; --accent-ink: #1b0f06;
+  --card: rgba(255,255,255,.05); --rim: rgba(255,255,255,.1); --field: rgba(255,255,255,.08);
+  --glow: rgba(255,138,61,.16); --live: #ff5d4d; --ok: #4ad295;
+}
+@media (prefers-color-scheme: light) {
+  :root { --bg: #f4f1ec; --ink: #1d1b19; --muted: #6c6a66; --card: rgba(255,255,255,.7); --rim: rgba(0,0,0,.1); --field: rgba(0,0,0,.07); --glow: rgba(255,138,61,.22); }
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark light; }
+body {
+  margin: 0; min-height: 100dvh; color: var(--ink); background: var(--bg);
+  background-image: radial-gradient(900px 420px at 85% -10%, var(--glow), transparent 70%), radial-gradient(700px 400px at -10% 30%, var(--glow), transparent 70%);
+  font: 15px/1.5 ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+.app { max-width: 1120px; margin: 0 auto; display: grid; gap: 16px; }
+.icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.glass { background: var(--card); border: 1px solid var(--rim); border-radius: 22px; }
+@media (min-width: 761px) { .glass { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); } }
+
+.bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; }
+.logo { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: var(--accent); color: var(--accent-ink); }
+.bar h1 { margin: 0; font-size: 1.05rem; line-height: 1.2; }
+.bar small { display: block; color: var(--muted); font-size: .8rem; }
+.bar .pill { margin-left: auto; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; background: var(--field); font-size: .82rem; color: var(--muted); white-space: nowrap; }
+
+.screen {
+  position: relative; margin: 0; aspect-ratio: 4 / 3; max-height: 72dvh; width: 100%; overflow: hidden; border-radius: 28px;
+  background: #07080a; border: 1px solid var(--rim); display: grid; place-items: center; color: var(--muted);
+}
+.screen > .icon { width: 56px; height: 56px; opacity: .45; grid-area: 1 / 1; }
+.screen img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; display: block; }
+.screen img:not([src]) { visibility: hidden; }
+.screen::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(transparent, rgba(0,0,0,.55)); pointer-events: none; }
+.chips { position: absolute; z-index: 2; top: 14px; left: 14px; right: 14px; display: flex; justify-content: space-between; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; font-size: .82rem; color: #fff; background: rgba(15,16,19,.62); border: 1px solid rgba(255,255,255,.14); }
+@media (min-width: 761px) { .chip, .dock { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); } }
+.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+[data-s="on"] i { background: var(--live); animation: pulse 1.6s ease-in-out infinite; }
+[data-s="wait"] i { background: var(--accent); }
+[data-s="err"] i { background: var(--live); }
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(255,93,77,0); } 0% { box-shadow: 0 0 0 0 rgba(255,93,77,.6); } }
+@media (prefers-reduced-motion: reduce) { [data-s="on"] i { animation: none; } }
+
+.dock { position: absolute; z-index: 2; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px; border-radius: 99px; background: rgba(15,16,19,.62); border: 1px solid rgba(255,255,255,.14); max-width: calc(100% - 20px); }
+.dock button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 99px; background: transparent; color: #fff; }
+.dock button:hover { background: rgba(255,255,255,.12); }
+.dock .primary { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.dock .primary:hover { background: #ff9a58; }
+@media (max-width: 520px) { .dock button span { display: none; } .dock .primary span { display: inline; } .dock button { padding: 0 14px; } }
+
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.card { padding: 18px 18px 8px; }
+.card h2 { margin: 0 0 4px; font-size: 1rem; }
+.card > p { margin: 0 0 8px; color: var(--muted); font-size: .84rem; }
+.row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 12px; padding: 11px 0; border-top: 1px solid var(--rim); }
+.row[hidden] { display: none; }
+.row span { font-size: .92rem; }
+.row output { color: var(--muted); font-size: .84rem; min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
+.row input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); height: 28px; margin: 0; }
+.row select { min-height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--rim); background: var(--field); color: var(--ink); font: inherit; max-width: 100%; }
+.row input[type=checkbox] { appearance: none; width: 46px; height: 28px; border-radius: 99px; background: var(--field); border: 1px solid var(--rim); position: relative; cursor: pointer; margin: 0; transition: background .2s; }
+.row input[type=checkbox]::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--ink); transition: transform .2s; }
+.row input[type=checkbox]:checked { background: var(--accent); border-color: var(--accent); }
+.row input[type=checkbox]:checked::after { transform: translateX(18px); background: var(--accent-ink); }
+.row select { grid-column: 2; }
+.note { margin: 0; padding: 8px 4px 0; text-align: center; color: var(--muted); font-size: .82rem; }
+.toast { position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translate(-50%, 140%); padding: 10px 16px; border-radius: 14px; background: var(--ink); color: var(--bg); font-size: .88rem; transition: transform .25s; z-index: 5; }
+.toast.show { transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-shot" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5"/><path d="M5 20h14"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+</svg>
+
+<div class="app">
+  <header class="bar glass">
+    <span class="logo"><svg class="icon"><use href="#i-cam"/></svg></span>
+    <div><h1>ESP32 Caméra</h1><small>Carte WROVER, flux en direct</small></div>
+    <span class="pill" id="host"></span>
+  </header>
+
+  <figure class="screen" id="screen" aria-label="Image de la caméra ESP32">
+    <svg class="icon"><use href="#i-cam"/></svg>
+    <img id="cam" alt="">
+    <div class="chips">
+      <span class="chip" id="live" data-s="off"><i></i><b id="live-t">En pause</b></span>
+      <span class="chip" id="res">—</span>
+    </div>
+    <div class="dock">
+      <button class="primary" id="play" type="button"><svg class="icon"><use id="play-i" href="#i-pause"/></svg><span id="play-t">Pause</span></button>
+      <button id="shot" type="button" aria-label="Prendre une photo"><svg class="icon"><use href="#i-shot"/></svg><span>Photo</span></button>
+      <button id="full" type="button" aria-label="Plein écran"><svg class="icon"><use href="#i-full"/></svg><span>Plein écran</span></button>
+    </div>
+  </figure>
+
+  <div class="grid">
+    <section class="card glass">
+      <h2>Image</h2>
+      <p>Une petite taille donne plus d'images par seconde.</p>
+      <label class="row"><span>Résolution</span>
+        <select data-v="framesize">
+          <option value="13">1600×1200</option><option value="12">1280×1024</option><option value="10">1024×768</option>
+          <option value="9">800×600</option><option value="8">640×480</option><option value="6">400×296</option>
+          <option value="5">320×240</option><option value="3">240×176</option><option value="2">176×144</option><option value="1">160×120</option>
+        </select></label>
+      <label class="row"><span>Qualité</span><output></output><input type="range" data-v="quality" data-inv="67" min="4" max="63"></label>
+      <label class="row"><span>Luminosité</span><output></output><input type="range" data-v="brightness" min="-2" max="2"></label>
+      <label class="row"><span>Contraste</span><output></output><input type="range" data-v="contrast" min="-2" max="2"></label>
+      <label class="row"><span>Saturation</span><output></output><input type="range" data-v="saturation" min="-2" max="2"></label>
+    </section>
+
+    <section class="card glass">
+      <h2>Lumière</h2>
+      <p>Laisse l'automatique faire, sauf si l'image est trop sombre.</p>
+      <label class="row"><span>Exposition automatique</span><input type="checkbox" data-v="aec"></label>
+      <label class="row"><span>Correction d'exposition</span><output></output><input type="range" data-v="ae_level" min="-2" max="2"></label>
+      <label class="row"><span>Gain automatique</span><input type="checkbox" data-v="agc"></label>
+      <label class="row"><span>Gain maximum</span><output></output><input type="range" data-v="gainceiling" min="0" max="6"></label>
+      <label class="row"><span>Balance des blancs auto</span><input type="checkbox" data-v="awb"></label>
+      <label class="row"><span>Ambiance</span>
+        <select data-v="wb_mode"><option value="0">Auto</option><option value="1">Soleil</option><option value="2">Nuageux</option><option value="3">Bureau</option><option value="4">Maison</option></select></label>
+      <label class="row"><span>Flash LED</span><output></output><input type="range" data-v="led_intensity" min="0" max="255"></label>
+    </section>
+
+    <section class="card glass">
+      <h2>Orientation et effets</h2>
+      <p>Retourne l'image si la caméra est montée à l'envers.</p>
+      <label class="row"><span>Miroir</span><input type="checkbox" data-v="hmirror"></label>
+      <label class="row"><span>Retourner verticalement</span><input type="checkbox" data-v="vflip"></label>
+      <label class="row"><span>Effet</span>
+        <select data-v="special_effect"><option value="0">Aucun</option><option value="1">Négatif</option><option value="2">Noir et blanc</option><option value="3">Rouge</option><option value="4">Vert</option><option value="5">Bleu</option><option value="6">Sépia</option></select></label>
+      <label class="row"><span>Mire de couleurs</span><input type="checkbox" data-v="colorbar"></label>
+    </section>
+  </div>
+  <p class="note">La carte n'envoie le flux qu'à un seul écran à la fois : si l'image ne s'affiche pas, ferme l'autre onglet.</p>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const cam = $("#cam"), live = $("#live");
+const FMT = { quality: v => Math.round((v - 4) / .59) + " %", gainceiling: v => (2 << v) + "×", led_intensity: v => Math.round(v / 2.55) + " %" };
+const plain = v => (v > 0 ? "+" + v : String(v));
+let playing = false, resumeOnShow = false, toastTimer;
+
+$("#host").textContent = location.hostname;
+
+function say(msg) {
+  const t = $("#toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+function status(state, text) { live.dataset.s = state; $("#live-t").textContent = text; }
+function paintPlay() {
+  $("#play-i").setAttribute("href", playing ? "#i-pause" : "#i-play");
+  $("#play-t").textContent = playing ? "Pause" : "Lecture";
+}
+function start() {
+  playing = true; paintPlay(); status("wait", "Connexion…");
+  cam.src = `http://${location.hostname}:81/stream?t=${Date.now()}`;
+}
+function stop(text = "En pause") {
+  playing = false; paintPlay(); status("off", text);
+  cam.removeAttribute("src"); // ferme la connexion : la carte libère le flux
+}
+cam.onload = () => { if (playing) status("on", "En direct"); };
+cam.onerror = () => { if (playing) { stop("Flux interrompu"); say("Flux interrompu. Appuie sur Lecture pour reconnecter."); } };
+$("#play").onclick = () => (playing ? stop() : start());
+
+$("#shot").onclick = async () => {
+  const was = playing;
+  if (was) stop("Photo…"); // la carte ne gère pas photo et flux en même temps
+  try {
+    const blob = await (await fetch("/capture?t=" + Date.now())).blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `esp32-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-")}.jpg`;
+    a.click(); URL.revokeObjectURL(a.href);
+    say("Photo enregistrée.");
+  } catch { say("La photo a échoué."); }
+  if (was) start();
+};
+$("#full").onclick = () => $("#screen").requestFullscreen?.();
+
+// L'onglet caché libère le flux : la carte ne sert qu'un écran à la fois.
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) { resumeOnShow = playing; if (playing) stop(); }
+  else if (resumeOnShow) start();
+});
+
+function paint(el, v) {
+  if (el.type === "checkbox") el.checked = !!v;
+  else el.value = el.dataset.inv ? el.dataset.inv - v : v;
+  paintOut(el);
+}
+function paintOut(el) {
+  const out = el.parentElement.querySelector("output");
+  if (out) out.textContent = (FMT[el.dataset.v] || plain)(+el.value);
+}
+function paintRes(size) { $("#res").textContent = $(`[data-v=framesize] option[value="${size}"]`)?.textContent || "—"; }
+
+async function send(el) {
+  const v = el.type === "checkbox" ? +el.checked : el.dataset.inv ? el.dataset.inv - el.value : el.value;
+  try {
+    const r = await fetch(`/control?var=${el.dataset.v}&val=${v}`);
+    if (!r.ok) throw 0;
+    if (el.dataset.v === "framesize") paintRes(el.value);
+  } catch { say("Réglage refusé par la carte."); }
+}
+$$("[data-v]").forEach(el => {
+  el.addEventListener("input", () => paintOut(el));
+  el.addEventListener("change", () => send(el));
+});
+
+(async function init() {
+  try {
+    const s = await (await fetch("/status")).json();
+    $$("[data-v]").forEach(el => {
+      const v = s[el.dataset.v];
+      if (v == null || (el.dataset.v === "led_intensity" && v < 0)) el.closest(".row").hidden = true; // pas de flash sur cette carte
+      else paint(el, v);
+    });
+    paintRes(s.framesize);
+  } catch { say("La carte ne répond pas aux réglages."); }
+  start();
+})();
+</script>
+</body>
+</html>

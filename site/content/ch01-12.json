@@ -1,0 +1,640 @@
+{
+ "1": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "LED rouge",
+   "Résistance 220 Ω",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Fais clignoter la LED en SOS (trois courts, trois longs, trois courts) sans jamais bloquer loop() : utilise millis() à la place de delay().",
+  "quiz": [
+   {
+    "q": "Pourquoi place-t-on une résistance de 220 Ω en série avec la LED ?",
+    "choices": [
+     "Pour limiter le courant et ne griller ni la LED ni le GPIO",
+     "Pour que la LED clignote plus vite",
+     "Pour convertir le 3,3 V en 5 V"
+    ],
+    "answer": 0,
+    "why": "Une LED ne limite pas son courant : la résistance le fixe à quelques mA, sous le maximum du GPIO."
+   },
+   {
+    "q": "Que fait pinMode(2, OUTPUT) ?",
+    "choices": [
+     "Lit la tension présente sur la broche 2",
+     "Configure le GPIO 2 en sortie pour pouvoir lui imposer HIGH ou LOW",
+     "Allume la LED de la broche 2 en permanence"
+    ],
+    "answer": 1,
+    "why": "pinMode fixe le rôle de la broche : il faut une sortie pour que digitalWrite impose un niveau."
+   },
+   {
+    "q": "Quelle patte d'une LED standard est l'anode (le côté +) ?",
+    "choices": [
+     "La patte longue",
+     "La patte courte",
+     "Les deux sont identiques"
+    ],
+    "answer": 0,
+    "why": "La patte longue est l'anode : elle va vers le + (ici la sortie du GPIO via la résistance), la patte courte vers GND."
+   },
+   {
+    "q": "Que fait digitalWrite(2, HIGH) sur une broche configurée en sortie ?",
+    "choices": [
+     "Elle lit l'état de la broche",
+     "Elle met la broche à environ 3,3 V",
+     "Elle met la broche à 0 V"
+    ],
+    "answer": 1,
+    "why": "Sur l'ESP32, le niveau haut vaut environ 3,3 V (et non 5 V comme sur un Arduino Uno)."
+   }
+  ]
+ },
+ "2": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "LED rouge",
+   "Résistance 220 Ω",
+   "Résistance 10 kΩ",
+   "Bouton poussoir",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Compte les appuis avec détection de front et anti-rebond de 30 ms, puis allume la LED seulement après trois appuis consécutifs, sans utiliser delay().",
+  "quiz": [
+   {
+    "q": "Que se passe-t-il si l'entrée du bouton n'a aucune résistance de rappel (pull-up ou pull-down) ?",
+    "choices": [
+     "La LED grille",
+     "Le GPIO est détruit dès l'appui",
+     "La broche flotte et lit HIGH ou LOW au hasard quand le bouton est ouvert"
+    ],
+    "answer": 2,
+    "why": "Une entrée non reliée à un niveau défini capte le bruit ambiant et change d'état sans raison."
+   },
+   {
+    "q": "Qu'est-ce que le rebond d'un bouton ?",
+    "choices": [
+     "Une série de contacts parasites de quelques millisecondes, lue comme plusieurs appuis",
+     "Le temps que l'ESP32 met à redémarrer",
+     "Une chute de tension de 3,3 V à 0 V au relâchement"
+    ],
+    "answer": 0,
+    "why": "Les lames métalliques vibrent à l'appui : sans anti-rebond, un seul appui peut être compté plusieurs fois."
+   },
+   {
+    "q": "Avec INPUT_PULLUP et un bouton relié à GND, que lit-on quand le bouton est relâché ?",
+    "choices": [
+     "LOW",
+     "Une valeur au hasard",
+     "HIGH"
+    ],
+    "answer": 2,
+    "why": "La résistance de rappel interne tire la broche vers 3,3 V : HIGH au repos, LOW quand on appuie."
+   },
+   {
+    "q": "Un bouton relie la broche à 3,3 V et une résistance de 10 kΩ la relie à GND (pull-down). Que lit-on en appuyant ?",
+    "choices": [
+     "HIGH",
+     "LOW",
+     "Rien : la broche flotte"
+    ],
+    "answer": 0,
+    "why": "Appuyer connecte la broche à 3,3 V. La résistance de 10 kΩ la tient à LOW le reste du temps."
+   }
+  ]
+ },
+ "3": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Barre de LED (10 segments)",
+   "Résistances 220 Ω (x10)",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Fais aller et venir un point lumineux sur les 10 segments (effet Cylon) avec un tableau de broches et une seule boucle, en cadençant avec millis() plutôt qu'avec delay().",
+  "quiz": [
+   {
+    "q": "Pourquoi faut-il une résistance par segment de la barre de LED ?",
+    "choices": [
+     "Une seule suffit pour tout le groupe",
+     "Chaque LED limite son propre courant ; une résistance partagée donnerait des luminosités inégales",
+     "Pour que la barre fonctionne en 5 V"
+    ],
+    "answer": 1,
+    "why": "Avec une résistance commune, la luminosité de chaque segment dépendrait du nombre de LED allumées."
+   },
+   {
+    "q": "Parmi ces broches, laquelle est une broche de strapping lue au démarrage ?",
+    "choices": [
+     "GPIO 23",
+     "GPIO 22",
+     "GPIO 0"
+    ],
+    "answer": 2,
+    "why": "Le GPIO 0 à l'état bas au reset place la carte en mode téléchargement ; les GPIO 0, 2 et 15 notamment sont lus au boot."
+   },
+   {
+    "q": "Pourquoi range-t-on les broches de la barre de LED dans un tableau ?",
+    "choices": [
+     "Pour économiser de la mémoire",
+     "Pour pouvoir les parcourir avec une boucle for au lieu de répéter dix lignes",
+     "Parce que pinMode l'exige"
+    ],
+    "answer": 1,
+    "why": "Une boucle sur le tableau écrit le code une seule fois, quel que soit le nombre de segments."
+   },
+   {
+    "q": "Combien de segments compte la barre de LED du kit ?",
+    "choices": [
+     "8",
+     "12",
+     "10"
+    ],
+    "answer": 2,
+    "why": "La barre du kit a 10 LED indépendantes, donc 10 broches et 10 résistances."
+   }
+  ]
+ },
+ "4": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "LED rouge",
+   "Résistance 220 Ω",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Fais respirer la LED avec une correction gamma (rapport cyclique élevé au carré) et compare à une rampe linéaire : laquelle te paraît la plus régulière à l'œil ?",
+  "quiz": [
+   {
+    "q": "Avec une résolution PWM de 8 bits, quelle est la valeur maximale du rapport cyclique ?",
+    "choices": [
+     "255",
+     "256",
+     "1023"
+    ],
+    "answer": 0,
+    "why": "8 bits donnent 2^8 = 256 valeurs, de 0 à 255."
+   },
+   {
+    "q": "Comment le PWM fait-il varier la luminosité d'une LED ?",
+    "choices": [
+     "En baissant réellement la tension de sortie",
+     "En changeant la fréquence jusqu'à ce que la LED s'éteigne",
+     "En allumant et éteignant très vite la sortie ; le rapport cyclique règle la luminosité moyenne perçue"
+    ],
+    "answer": 2,
+    "why": "L'œil moyenne les impulsions : plus le temps à l'état haut est long, plus la LED paraît brillante."
+   },
+   {
+    "q": "Un rapport cyclique de 50 % sur une sortie 3,3 V donne une tension moyenne d'environ…",
+    "choices": [
+     "1,65 V",
+     "3,3 V",
+     "0 V"
+    ],
+    "answer": 0,
+    "why": "La sortie est à 3,3 V la moitié du temps et à 0 V l'autre moitié : la moyenne vaut la moitié."
+   },
+   {
+    "q": "Que règle la fréquence d'un signal PWM ?",
+    "choices": [
+     "La luminosité moyenne",
+     "Le nombre de périodes par seconde",
+     "La tension maximale"
+    ],
+    "answer": 1,
+    "why": "La fréquence compte les cycles par seconde ; le rapport cyclique règle la part de chaque cycle à l'état haut."
+   }
+  ]
+ },
+ "5": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "LED RVB (anode commune)",
+   "Résistances 220 Ω (x3)",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Associe quelques noms de couleurs (rouge, orange, jaune, violet…) à un tableau de valeurs RVB, affiche le nom dans le moniteur série et fais prendre cette teinte à la LED avec une transition douce de l'une à l'autre.",
+  "quiz": [
+   {
+    "q": "Avec la LED RVB à anode commune du kit, comment allume-t-on le rouge à fond ?",
+    "choices": [
+     "Rapport cyclique 255 sur la broche rouge, sans autre changement",
+     "Rapport cyclique 0 (niveau bas) sur la broche rouge, car l'anode est reliée au 3,3 V",
+     "Débrancher la broche rouge"
+    ],
+    "answer": 1,
+    "why": "Le courant va de l'anode vers la broche mise au niveau bas ; le sketch écrit donc 255 moins la valeur voulue."
+   },
+   {
+    "q": "Quel mélange de lumières donne du jaune ?",
+    "choices": [
+     "Rouge et vert",
+     "Rouge et bleu",
+     "Vert et bleu"
+    ],
+    "answer": 0,
+    "why": "En synthèse additive, rouge + vert = jaune, rouge + bleu = magenta, vert + bleu = cyan."
+   },
+   {
+    "q": "Que voit-on si le rouge, le vert et le bleu sont allumés à fond ensemble ?",
+    "choices": [
+     "Du noir",
+     "Du violet",
+     "Du blanc"
+    ],
+    "answer": 2,
+    "why": "La synthèse additive des trois couleurs primaires de lumière donne du blanc."
+   },
+   {
+    "q": "Pourquoi la LED RVB demande-t-elle une résistance par couleur ?",
+    "choices": [
+     "Chaque couleur est une LED distincte qui doit limiter son propre courant",
+     "Pour que le bleu soit plus lumineux",
+     "Parce qu'elle fonctionne en 12 V"
+    ],
+    "answer": 0,
+    "why": "Les trois LED internes n'ont pas la même tension directe : elles ont chacune leur résistance."
+   }
+  ]
+ },
+ "6": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Module 8 LED RVB Freenove",
+   "Câbles dupont"
+  ],
+  "bonus": "Fais courir un point lumineux avec une traînée qui s'estompe sur les 8 LED, en changeant sa couleur à chaque aller-retour.",
+  "quiz": [
+   {
+    "q": "Combien de broches de données faut-il pour piloter les 8 LED du module ?",
+    "choices": [
+     "Huit, une par LED",
+     "Trois, une par couleur",
+     "Une seule : les couleurs sont envoyées en série sur un fil"
+    ],
+    "answer": 2,
+    "why": "Chaque LED WS2812 contient son contrôleur et relaie les données à la suivante."
+   },
+   {
+    "q": "Combien de bits de couleur une LED du module reçoit-elle ?",
+    "choices": [
+     "8 : un niveau de luminosité",
+     "24 : 8 bits pour le rouge, le vert et le bleu",
+     "32 : RVB plus blanc"
+    ],
+    "answer": 1,
+    "why": "Une WS2812 attend 24 bits par LED, soit 8 bits par canal de couleur."
+   },
+   {
+    "q": "Quelle est la particularité d'une LED adressable comme celles du module LEDPixel ?",
+    "choices": [
+     "Elle change de couleur toute seule",
+     "Chaque LED contient un contrôleur et relaie les données à la suivante",
+     "Elle consomme moins qu'une LED normale"
+    ],
+    "answer": 1,
+    "why": "Les données traversent la chaîne : chaque LED garde sa couleur et transmet le reste à sa voisine."
+   },
+   {
+    "q": "Que faut-il appeler après avoir défini les couleurs pour qu'elles s'affichent ?",
+    "choices": [
+     "show()",
+     "begin()",
+     "delay()"
+    ],
+    "answer": 0,
+    "why": "Les couleurs sont d'abord écrites en mémoire ; show() les envoie réellement sur le fil de données."
+   }
+  ]
+ },
+ "7": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Buzzer actif",
+   "Buzzer passif",
+   "Transistor NPN",
+   "Résistance 1 kΩ",
+   "Résistance 10 kΩ",
+   "Bouton poussoir",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Joue les premières notes d'une mélodie que tu connais avec le buzzer passif (tableau de fréquences et de durées) et change de morceau à chaque appui sur le bouton, sans delay().",
+  "quiz": [
+   {
+    "q": "Quelle différence y a-t-il entre un buzzer actif et un buzzer passif ?",
+    "choices": [
+     "L'actif a un oscillateur interne et sonne dès qu'on l'alimente ; le passif demande un signal à la fréquence voulue",
+     "Le passif sonne plus fort que l'actif",
+     "L'actif ne fonctionne qu'en 5 V"
+    ],
+    "answer": 0,
+    "why": "Le passif se comporte comme un haut-parleur : c'est le signal PWM qui définit la note, ce que fait ledcWriteTone."
+   },
+   {
+    "q": "Pourquoi le chapitre place-t-il un transistor NPN entre le GPIO et le buzzer ?",
+    "choices": [
+     "Pour transformer le signal en PWM",
+     "Un GPIO ne délivre que quelques dizaines de mA au plus : le transistor commute le courant du buzzer",
+     "Pour protéger le buzzer du 3,3 V"
+    ],
+    "answer": 1,
+    "why": "Le transistor amplifie en courant : le GPIO ne pilote que sa base, et le buzzer est alimenté par le rail."
+   },
+   {
+    "q": "Comment faire sonner une note plus aiguë sur un buzzer passif ?",
+    "choices": [
+     "Augmenter la fréquence du signal",
+     "Augmenter la tension",
+     "Allumer une LED en même temps"
+    ],
+    "answer": 0,
+    "why": "La hauteur d'un son dépend de sa fréquence : plus elle monte, plus la note est aiguë."
+   },
+   {
+    "q": "Que fait digitalWrite(pin, HIGH) vers un buzzer actif (via son transistor) ?",
+    "choices": [
+     "Rien tant qu'il n'y a pas de PWM",
+     "Il joue une mélodie",
+     "Il le fait sonner d'un son fixe"
+    ],
+    "answer": 2,
+    "why": "Le buzzer actif a son propre oscillateur : alimenté, il émet toujours la même note."
+   }
+  ]
+ },
+ "8": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB"
+  ],
+  "bonus": "Écris un mini-interpréteur : tape on, off ou blink 500 dans le moniteur série pour piloter la LED intégrée (GPIO 2), sans bloquer loop() en attendant la saisie.",
+  "quiz": [
+   {
+    "q": "Quelle vitesse faut-il régler dans le moniteur série pour lire les sketches du kit ?",
+    "choices": [
+     "9600 bauds",
+     "1 000 000 bauds",
+     "115200 bauds, la valeur passée à Serial.begin()"
+    ],
+    "answer": 2,
+    "why": "Les deux côtés doivent utiliser le même débit, sinon le moniteur affiche des caractères illisibles."
+   },
+   {
+    "q": "Que renvoie Serial.available() ?",
+    "choices": [
+     "Le nombre d'octets reçus et en attente de lecture",
+     "Vrai si le câble USB est branché",
+     "La vitesse actuelle en bauds"
+    ],
+    "answer": 0,
+    "why": "On l'utilise pour savoir s'il y a quelque chose à lire avant d'appeler Serial.read()."
+   },
+   {
+    "q": "Quelle fonction affiche du texte puis passe à la ligne dans le moniteur série ?",
+    "choices": [
+     "Serial.begin()",
+     "Serial.println()",
+     "Serial.available()"
+    ],
+    "answer": 1,
+    "why": "println ajoute un retour à la ligne après le texte ; print n'en ajoute pas."
+   },
+   {
+    "q": "Pourquoi la vitesse du moniteur série doit-elle être celle de Serial.begin() ?",
+    "choices": [
+     "Pour économiser l'énergie",
+     "Pour que l'USB soit reconnu",
+     "Sinon les caractères arrivent déformés"
+    ],
+    "answer": 2,
+    "why": "Sans horloge partagée, les deux côtés doivent compter à la même vitesse (ici 115200 bauds)."
+   }
+  ]
+ },
+ "9": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Potentiomètre",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Convertis la lecture du potentiomètre en volts (3,3 V pleine échelle) avec deux décimales, puis compare l'affichage d'une lecture brute à celui d'une moyenne de 16 lectures : que devient le bruit ?",
+  "quiz": [
+   {
+    "q": "Quelle plage de valeurs renvoie analogRead() par défaut sur l'ESP32 ?",
+    "choices": [
+     "0 à 1023",
+     "0 à 4095 (12 bits)",
+     "0 à 255"
+    ],
+    "answer": 1,
+    "why": "L'ADC de l'ESP32 a une résolution de 12 bits, soit 4096 niveaux."
+   },
+   {
+    "q": "Sur quelles broches se trouvent les deux sorties DAC de l'ESP32 ?",
+    "choices": [
+     "GPIO 2 et 4",
+     "GPIO 32 et 33",
+     "GPIO 25 et 26"
+    ],
+    "answer": 2,
+    "why": "Les DAC 8 bits sont sur GPIO 25 (DAC1) et GPIO 26 (DAC2), avec une sortie de 0 à 3,3 V."
+   },
+   {
+    "q": "Quelle tension maximale une entrée analogique de l'ESP32 peut-elle mesurer ?",
+    "choices": [
+     "Environ 3,3 V",
+     "5 V",
+     "12 V"
+    ],
+    "answer": 0,
+    "why": "Les entrées de l'ESP32 vont jusqu'à 3,3 V ; au-delà on risque de les abîmer."
+   },
+   {
+    "q": "Que produit dacWrite(25, 128) sur le DAC 8 bits ?",
+    "choices": [
+     "0 V",
+     "Environ la moitié de la tension maximale",
+     "3,3 V"
+    ],
+    "answer": 1,
+    "why": "128 sur 255, c'est à peu près la moitié de 3,3 V, soit environ 1,65 V."
+   }
+  ]
+ },
+ "10": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Plaque d'essai",
+   "Câble dupont (sert de pastille tactile)"
+  ],
+  "bonus": "Calibre automatiquement les deux seuils au démarrage en mesurant la valeur à vide pendant une seconde, puis affiche dans le moniteur série un niveau de contact en pourcentage.",
+  "quiz": [
+   {
+    "q": "Que devient la valeur de touchRead() quand on touche la broche ?",
+    "choices": [
+     "Elle diminue",
+     "Elle augmente",
+     "Elle ne change pas"
+    ],
+    "answer": 0,
+    "why": "Le doigt ajoute de la capacité : la valeur lue baisse, d'où le test touchRead(T0) < seuil d'appui."
+   },
+   {
+    "q": "Pourquoi utiliser deux seuils (appui et relâchement) plutôt qu'un seul ?",
+    "choices": [
+     "Pour doubler la sensibilité",
+     "Pour créer une hystérésis et éviter que la LED ne bascule en boucle autour du seuil",
+     "Parce que la LED a deux couleurs"
+    ],
+    "answer": 1,
+    "why": "Un seul seuil ferait osciller l'état dès que la mesure fluctue autour de sa valeur."
+   },
+   {
+    "q": "Sur quoi repose la détection tactile de l'ESP32 ?",
+    "choices": [
+     "Sur une mesure de pression",
+     "Sur une mesure de température",
+     "Sur la variation de capacité de la broche quand un doigt s'approche"
+    ],
+    "answer": 2,
+    "why": "Le doigt ajoute une petite capacité à la broche, ce que le circuit tactile mesure."
+   },
+   {
+    "q": "Quelle fonction lit la valeur d'une broche tactile ?",
+    "choices": [
+     "touchRead()",
+     "analogRead()",
+     "digitalRead()"
+    ],
+    "answer": 0,
+    "why": "touchRead(pin) renvoie la valeur de capacité mesurée ; elle baisse quand on touche."
+   }
+  ]
+ },
+ "11": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Potentiomètres (jusqu'à 3)",
+   "LED rouge",
+   "LED RVB (anode commune)",
+   "Module 8 LED RVB Freenove",
+   "Résistances 220 Ω",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Utilise un potentiomètre comme sélecteur de mode : découpe sa course en trois zones pour choisir entre trois effets de couleur, avec une zone morte entre chaque pour éviter les sauts d'un mode à l'autre.",
+  "quiz": [
+   {
+    "q": "Dans SoftLight, l'ADC lit de 0 à 4095 et le PWM est réglé sur 12 bits : quelle conversion faut-il ?",
+    "choices": [
+     "Diviser la lecture par 16",
+     "Multiplier la lecture par 16",
+     "Aucune : les deux plages sont identiques, de 0 à 4095"
+    ],
+    "answer": 2,
+    "why": "12 bits des deux côtés : le sketch envoie la valeur lue directement au PWM."
+   },
+   {
+    "q": "Quelle fonction Arduino ramène une lecture ADC (0-4095) vers une couleur (0-255) ?",
+    "choices": [
+     "map(valeur, 0, 4095, 0, 255)",
+     "constrain(valeur, 0, 255)",
+     "random(0, 255)"
+    ],
+    "answer": 0,
+    "why": "map() convertit proportionnellement une valeur d'une plage vers une autre."
+   },
+   {
+    "q": "Un potentiomètre est branché entre 3,3 V et GND, curseur sur l'ADC. Que lit-on environ au milieu de la course ?",
+    "choices": [
+     "0",
+     "2048",
+     "4095"
+    ],
+    "answer": 1,
+    "why": "L'ADC 12 bits va de 0 à 4095 : le milieu de la course donne environ la moitié, soit 2048."
+   },
+   {
+    "q": "Que fait le curseur d'un potentiomètre ?",
+    "choices": [
+     "Il prélève une fraction réglable de la tension, comme un diviseur",
+     "Il amplifie le signal",
+     "Il stocke une valeur en mémoire"
+    ],
+    "answer": 0,
+    "why": "Selon sa position, le curseur donne n'importe quelle tension entre 0 et 3,3 V."
+   }
+  ]
+ },
+ "12": {
+  "parts": [
+   "Carte ESP32-WROVER",
+   "Câble USB",
+   "Photorésistance",
+   "Résistance 10 kΩ",
+   "LED rouge",
+   "Résistance 220 Ω",
+   "Plaque d'essai",
+   "Câbles dupont M-M"
+  ],
+  "bonus": "Ajoute un mode automatique avec hystérésis (la LED s'allume sous un seuil de lumière et ne s'éteint qu'au-dessus d'un seuil plus haut) et auto-calibre le minimum et le maximum de lumière pendant les 5 premières secondes.",
+  "quiz": [
+   {
+    "q": "Pourquoi associe-t-on la photorésistance à une résistance fixe ?",
+    "choices": [
+     "Pour la protéger de la lumière",
+     "Pour former un diviseur de tension : l'ADC mesure une tension, pas une résistance",
+     "Pour doubler sa sensibilité"
+    ],
+    "answer": 1,
+    "why": "La variation de résistance de la LDR se traduit en tension sur le point milieu du diviseur, que l'ADC sait lire."
+   },
+   {
+    "q": "Quand la lumière augmente, la résistance de la photorésistance...",
+    "choices": [
+     "augmente",
+     "reste constante",
+     "diminue"
+    ],
+    "answer": 2,
+    "why": "Une photorésistance devient moins résistive à la lumière."
+   },
+   {
+    "q": "Que signifie LDR ?",
+    "choices": [
+     "Low Digital Reader",
+     "Light Dependent Resistor, une résistance qui dépend de la lumière",
+     "Led Driver Relay"
+    ],
+    "answer": 1,
+    "why": "La résistance d'une LDR change avec l'éclairement : c'est un capteur de lumière très simple."
+   },
+   {
+    "q": "Comment allumer une LED seulement quand la pièce devient sombre ?",
+    "choices": [
+     "Comparer la valeur lue à un seuil avec un if",
+     "Brancher la LED en parallèle de la photorésistance",
+     "Utiliser delay()"
+    ],
+    "answer": 0,
+    "why": "On lit l'ADC, puis on allume ou non la LED selon que la valeur passe sous (ou au-dessus d') un seuil choisi."
+   }
+  ]
+ }
+}

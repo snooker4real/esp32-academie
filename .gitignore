@@ -1,0 +1,10 @@
+.DS_Store
+._*
+__pycache__/
+site/progress.json
+site/extra.json
+Code/**/build/
+*.bin
+*.elf
+Freenove_Ultimate_Starter_Kit_for_ESP32-master/
+.claude-crap/
