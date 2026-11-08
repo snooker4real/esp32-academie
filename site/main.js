@@ -110,7 +110,7 @@ function setupChrome() {
   setupScrollChrome();
   document.getElementById("brand").innerHTML = art("brand");
   document.getElementById("search-icon").innerHTML = icon("search", "icon--sm");
-  document.getElementById("btn-pdf").innerHTML = `${icon("book", "icon--sm")}Tutoriel PDF`;
+  document.getElementById("btn-pdf").innerHTML = `${art("tutoriel-pdf", "btn__art")}Tutoriel PDF`;
   document.getElementById("btn-pdf").onclick = () => LOCAL ? post("/api/open", { kind: "pdf" }) : window.open("/freenove/C/C_Tutorial.pdf", "_blank");
 
   const rail = document.getElementById("rail-items");

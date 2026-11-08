@@ -175,6 +175,7 @@ body {
   transition: transform .25s var(--ease), border-color .2s, background .2s;
 }
 .btn:hover { border-color: var(--accent); }
+.btn__art { width: 32px; height: 32px; margin-left: -10px; border-radius: 9px; }
 .btn:active { transform: scale(.97); }
 .btn--primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn--primary:hover { background: #f6c86b; }

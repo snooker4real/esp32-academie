@@ -1791,6 +1791,16 @@
     "solder": "non",
     "print3d": "non",
     "image": "projets/telecommande-ir-universelle.webp",
+    "real": "projets/telecommande-ir-universelle-reel.webp",
+    "video": {
+      "id": "zn6zNDTHUW8",
+      "title": "ESP32 & ESP8266 - IRRemote, how to read and send IR signal",
+      "channel": "Kind Spirit Technology",
+      "date": "25 juin 2024",
+      "duration": "10:28",
+      "views": "7,2 k vues"
+    },
+    "board": "ESP32 (la vidéo, en anglais, traite aussi l'ESP8266). Ton ESP32-WROVER du kit convient.",
     "requires": [
       17,
       23,
